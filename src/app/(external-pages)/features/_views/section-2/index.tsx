@@ -17,7 +17,7 @@ export const SectionTwo = () => {
           iconColor="text-blue-500"
           shouldShowButton
           buttonText={`Get Started`}
-          buttonClassName={`bg-mid-warning w-full`}
+          buttonClassName={`bg-mid-warning text-black w-full`}
         />
       }
       rightChild={

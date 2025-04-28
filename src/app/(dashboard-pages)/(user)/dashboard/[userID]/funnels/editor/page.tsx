@@ -67,7 +67,7 @@ export default function Funnel() {
   }, [editor, template]);
 
   return (
-    <TourWrapper steps={funnelSteps}>
+    <TourWrapper videoSrc={"/videos/funnel.mp4"} videoTitle={`Funnel Tutorial`} steps={funnelSteps}>
       <main className="flex h-screen flex-col justify-between gap-2">
         {editor && <FunnelControls editor={editor} template={template as template} />}
         <StudioWrapper onReady={onReady} />

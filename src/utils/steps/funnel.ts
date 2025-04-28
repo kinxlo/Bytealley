@@ -14,7 +14,7 @@ export const funnelSteps = [
       "PAGES: The funnel supports multipage functionality, making it easy to manage pages in your project. Check the documentation for detailed instructions.",
   },
   {
-    target: ".gs-cmp-tooltip-target .gs-utl-block",
+    target: ".gs-cmp-editor-topbar__wrp-left",
     content:
       "BLOCKS: Use the Block button to access a list of reusable components (tag, forms, images, etc...) or elements for your project. Customize blocks with individual components or complex layouts.",
   },

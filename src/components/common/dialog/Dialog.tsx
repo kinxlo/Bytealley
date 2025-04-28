@@ -41,7 +41,7 @@ export function ReusableDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       {/* Add backdrop filter to the portal container */}
-      <div className={cn("fixed inset-0 z-50", open ? "bg-black/50 backdrop-blur-sm" : "pointer-events-none")}>
+      <div className={cn("fixed inset-0 z-50", open ? "backdrop-blur-sm" : "pointer-events-none")}>
         <DialogContent className={cn("h-full items-center border-default sm:max-w-[425px] md:h-fit", className)}>
           <section>
             <DialogHeader className={cn("h-fit", wrapperClassName)}>

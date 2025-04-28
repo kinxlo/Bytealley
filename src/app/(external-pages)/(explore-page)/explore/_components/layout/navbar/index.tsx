@@ -83,7 +83,7 @@ const BaseExploreNavBar = ({ appService }: { appService: AppService }) => {
                 {user ? (
                   <Profile />
                 ) : (
-                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-white`}>
+                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-black`}>
                     Create Account
                   </CustomButton>
                 )}
@@ -156,7 +156,7 @@ const BaseExploreNavBar = ({ appService }: { appService: AppService }) => {
                 {user ? (
                   <Profile />
                 ) : (
-                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-white`}>
+                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-black`}>
                     Create Account
                   </CustomButton>
                 )}

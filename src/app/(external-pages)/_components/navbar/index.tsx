@@ -143,7 +143,7 @@ const BaseNavbar = ({ appService }: { appService: AppService }) => {
                   </CustomButton>
                 </Link>
                 <Link href="/auth/login">
-                  <CustomButton size={`xl`} className={`bg-mid-warning`} variant={`primary`}>
+                  <CustomButton size={`xl`} className={`bg-mid-warning text-black`} variant={`primary`}>
                     Get Started
                   </CustomButton>
                 </Link>
