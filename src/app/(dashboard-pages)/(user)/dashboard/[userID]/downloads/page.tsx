@@ -6,7 +6,7 @@ import { useEffect, useState, useTransition } from "react";
 import Loading from "~/app/Loading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WithDependency } from "~/HOC/withDependencies";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 import { AllDownloads } from "./_views/all-downloads";
 import { DigitalProducts } from "./_views/digital-products";

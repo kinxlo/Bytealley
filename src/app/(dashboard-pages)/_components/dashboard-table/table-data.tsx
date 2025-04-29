@@ -1,82 +1,93 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useQueryClient } from "@tanstack/react-query";
 import { Edit, Eye, MinusCircle, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { Badge } from "~/components/ui/badge";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
+import { useProductService } from "~/services/product/use-product-service";
 import { Toast } from "~/utils/notificationManager";
 import { cn, formatDate, formatTime } from "~/utils/utils";
 
-export const ProductRowActions: (product: IProduct, service: any) => IRowAction<IProduct>[] = (
-  product: IProduct,
-  productService: ProductService,
-) => {
+export const useProductRowActions = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
-  const actions: IRowAction<IProduct>[] = [];
+  const { useSoftDeleteProduct, usePublishProduct } = useProductService();
+  const softDeleteMutation = useSoftDeleteProduct();
+  const publishMutation = usePublishProduct();
 
-  switch (product.status) {
-    case "draft": {
-      actions.push(
-        {
-          label: "Edit",
-          onClick: () => {
-            router.push(`/dashboard/${product.user_id}/products/new?product_id=${product.id}`);
+  const getRowActions = (product: IProduct) => {
+    const actions: IRowAction<IProduct>[] = [];
+
+    switch (product.status) {
+      case "draft": {
+        actions.push(
+          {
+            label: "Edit",
+            onClick: () => {
+              router.push(`/dashboard/${product.user_id}/products/new?product_id=${product.id}`);
+            },
+            icon: <Edit className={`text-high-primary`} />,
           },
-          icon: <Edit className={`text-high-primary`} />,
-        },
-        {
-          label: "Delete",
-          onClick: async () => {
-            await productService.softDeleteProduct(product.id);
-            Toast.getInstance().showToast({
-              title: "Success",
-              description: `Product ${product.title} deleted successfully!`,
-              variant: "warning",
-            });
-            router.push(`/dashboard/${product.user_id}/products?tab=deleted`);
+          {
+            label: "Delete",
+            onClick: async () => {
+              await softDeleteMutation.mutateAsync(product.id);
+              queryClient.invalidateQueries({
+                queryKey: ["products", "list"],
+              });
+              Toast.getInstance().showToast({
+                title: "Success",
+                description: `Product ${product.title} deleted successfully!`,
+                variant: "warning",
+              });
+              router.push(`/dashboard/${product.user_id}/products?tab=deleted`);
+            },
+            icon: <Trash className={`text-high-danger`} />,
           },
-          icon: <Trash className={`text-high-danger`} />,
-        },
-        {
-          label: "Preview",
-          onClick: () => {
-            router.push(`/dashboard/${product.user_id}/products/new?product_id=${product.id}&tab=preview`);
+          {
+            label: "Preview",
+            onClick: () => {
+              router.push(`/dashboard/${product.user_id}/products/new?product_id=${product.id}&tab=preview`);
+            },
+            icon: <Eye className={`text-high-primary`} />,
           },
-          icon: <Eye className={`text-high-primary`} />,
-        },
-      );
-      break;
+        );
+        break;
+      }
+      case "published": {
+        actions.push(
+          {
+            label: "Preview",
+            onClick: () => {
+              router.push(
+                `/dashboard/${product.user_id}/products/new?product_id=${product.id}&tab=preview&status=published`,
+              );
+            },
+            icon: <Eye className={`text-high-primary`} />,
+          },
+          {
+            label: "Unpublish to draft",
+            onClick: async () => {
+              await publishMutation.mutateAsync(product.id);
+              Toast.getInstance().showToast({
+                title: "Success",
+                description: `Product ${product.title} status updated successfully!`,
+                variant: "success",
+              });
+              router.push(`/dashboard/${product.user_id}/products?tab=drafts`);
+            },
+            icon: <MinusCircle className={`text-high-warning`} />,
+          },
+        );
+        break;
+      }
     }
-    case "published": {
-      actions.push(
-        {
-          label: "Preview",
-          onClick: () => {
-            router.push(
-              `/dashboard/${product.user_id}/products/new?product_id=${product.id}&tab=preview&status=published`,
-            );
-          },
-          icon: <Eye className={`text-high-primary`} />,
-        },
-        {
-          label: "Unpublish to draft",
-          onClick: async () => {
-            await productService.publishProduct(product.id);
-            Toast.getInstance().showToast({
-              title: "Success",
-              description: `Product ${product.title} status updated successfully!`,
-              variant: "success",
-            });
-            router.push(`/dashboard/${product.user_id}/products?tab=drafts`);
-          },
-          icon: <MinusCircle className={`text-high-warning`} />,
-        },
-      );
-      break;
-    }
-  }
-  return actions;
+    return actions;
+  };
+
+  return { getRowActions };
 };
 
 export const productColumns: IColumnDefinition<IProduct>[] = [

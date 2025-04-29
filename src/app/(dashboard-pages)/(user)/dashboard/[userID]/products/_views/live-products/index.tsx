@@ -13,7 +13,7 @@ import { DateRangePicker } from "~/app/(dashboard-pages)/_components/date-range-
 import { EmptyState, FilteredEmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import Loading from "~/app/Loading";
 import { useSession } from "~/hooks/use-session";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 
 import "~/utils/constants";
 

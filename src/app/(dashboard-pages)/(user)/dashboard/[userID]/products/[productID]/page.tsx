@@ -13,7 +13,7 @@ import Loading from "~/app/Loading";
 import CustomButton from "~/components/common/common-button/common-button";
 import { ConfirmationDialog } from "~/components/common/dialog/confirmation-dialog";
 import { WithDependency } from "~/HOC/withDependencies";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 

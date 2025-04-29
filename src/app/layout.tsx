@@ -10,6 +10,7 @@ import { NetworkStatusModal } from "~/components/miscellaneous/network-error";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import { LoadingProvider } from "~/context/loading-provider";
 import { ProgressProviders } from "~/context/progress-provider";
+import { ReactQueryProvider } from "~/context/react-query-provider";
 import SessionProvider from "~/context/session-provider";
 import ToastProvider from "~/context/toast-provider";
 import NotificationProvider from "~/features/push-notification/context/notification-provider";
@@ -48,7 +49,7 @@ export default async function RootLayout({
                     <PageTransition>
                       <ProgressProviders>
                         <NetworkStatusModal />
-                        {children}
+                        <ReactQueryProvider>{children}</ReactQueryProvider>
                       </ProgressProviders>
                       <SpeedInsights />
                     </PageTransition>

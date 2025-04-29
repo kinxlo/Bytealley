@@ -19,7 +19,7 @@ import Loading from "~/app/Loading";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
 import { useSession } from "~/hooks/use-session";
 import { OrderService } from "~/services/orders.service";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 
 export const ActiveUser = ({
   productService,

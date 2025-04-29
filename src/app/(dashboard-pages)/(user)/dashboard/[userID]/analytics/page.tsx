@@ -22,7 +22,7 @@ import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
 import { OrderService } from "~/services/orders.service";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 
 const Analytics = ({

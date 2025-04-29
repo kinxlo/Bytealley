@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { getSession } from "~/lib/session/session";
 import { ForgotPasswordData, LoginFormData, RegisterFormData, ResetPasswordData } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { HttpAdapter } from "../adapters/http-adapter";
 import { AuthService } from "../services/auth.service";
 

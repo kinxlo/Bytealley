@@ -22,7 +22,7 @@ import { WithDependency } from "~/HOC/withDependencies";
 import { useNavbarVisibility } from "~/hooks/use-navbar-visibility";
 import { useProductCategories } from "~/hooks/use-product-categories";
 import { useSession } from "~/hooks/use-session";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { externalNavlinks } from "~/utils/constants";
 import { dependencies } from "~/utils/dependencies";
 import { cn } from "~/utils/utils";

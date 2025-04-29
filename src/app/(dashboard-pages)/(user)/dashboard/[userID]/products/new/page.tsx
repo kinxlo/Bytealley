@@ -10,7 +10,7 @@ import { ViewProductLayout } from "~/components/common/view-product-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WithDependency } from "~/HOC/withDependencies";
 import { ProductFormSchema } from "~/schemas";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 import { cn } from "~/utils/utils";

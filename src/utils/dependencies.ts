@@ -1,19 +1,22 @@
+import { QueryClient } from "@tanstack/react-query";
+
 import { FunnelService } from "~/features/funnel";
 import { PushService } from "~/features/push-notification/services/notification.service";
 import { CustomerService } from "~/services/customer.service";
 import { EarningService } from "~/services/earnings.service";
 import { PayoutService } from "~/services/payout.service";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { HttpAdapter } from "../adapters/http-adapter";
+import { AppService } from "../services/app/app.service";
 import { AuthService } from "../services/auth.service";
 import { AnalyticsService } from "./../services/analytics.service";
-import { AppService } from "./../services/app.service";
 import { DownloadService } from "./../services/download.service";
 import { HelpService } from "./../services/help.service";
 import { OrderService } from "./../services/orders.service";
 import { SettingsService } from "./../services/settings.service";
 
 const dependencies = {
+  QUERY_CLIENT: Symbol("QueryClient"),
   HTTP_ADAPTER: Symbol("httpAdapter"),
   AUTH_SERVICE: Symbol("AuthService"),
   PRODUCT_SERVICE: Symbol("ProductService"),
@@ -30,6 +33,7 @@ const dependencies = {
   FUNNEL_SERVICE: Symbol("FunnelService"),
 };
 
+const queryClient = new QueryClient();
 const httpAdapter = new HttpAdapter();
 const authService = new AuthService(httpAdapter);
 const productService = new ProductService(httpAdapter);
@@ -61,6 +65,7 @@ class DependencyContainer implements IDependencyContainer {
 
 const container = new DependencyContainer();
 
+container.add(dependencies.QUERY_CLIENT, queryClient);
 container.add(dependencies.HTTP_ADAPTER, httpAdapter);
 container.add(dependencies.AUTH_SERVICE, authService);
 container.add(dependencies.PRODUCT_SERVICE, productService);

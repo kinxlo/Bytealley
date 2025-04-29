@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WithDependency } from "~/HOC/withDependencies";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { Account } from "./_views/account";
 import { KYC } from "./_views/kyc";

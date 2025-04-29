@@ -12,7 +12,7 @@ import { template } from "~/features/funnel";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
 import { fetchAllTemplates } from "~/lib/funnel";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 import { TemplateCard } from "./template-card";
 

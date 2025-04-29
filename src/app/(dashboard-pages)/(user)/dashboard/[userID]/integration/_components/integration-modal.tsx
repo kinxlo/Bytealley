@@ -9,7 +9,7 @@ import { ReusableDialog } from "~/components/common/dialog/Dialog";
 import { FormField } from "~/components/common/FormFields";
 import { WithDependency } from "~/HOC/withDependencies";
 import { EmailIntegrationFormData, emailIntegrationSchema } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 

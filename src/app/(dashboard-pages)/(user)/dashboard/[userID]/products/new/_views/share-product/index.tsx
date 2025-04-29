@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { CopyAction } from "~/app/(dashboard-pages)/_components/copy-action";
 import Loading from "~/app/Loading";
 import { BlurImage } from "~/components/miscellaneous/blur-image";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { cn } from "~/utils/utils";
 
 type ShareProductViewProperties = {

@@ -11,7 +11,7 @@ import { FormField, ThumbNailUpload } from "~/components/common/FormFields";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
 import { KycFormData, kycSchema } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { SettingsService } from "~/services/settings.service";
 import { countries, documentType } from "~/utils/constants";
 import { dependencies } from "~/utils/dependencies";

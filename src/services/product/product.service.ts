@@ -63,18 +63,21 @@ export class ProductService {
     return response.data.data.id;
   }
 
-  async getAllProducts(filters: IFilters = Object.create({ page: 1 })) {
+  async getAllProducts(filters: IFilters = Object.create({ page: 1 })): Promise<IPaginatedResponse<IProduct>> {
     const queryParameters = this.buildQueryParameters(filters);
     const response = await this.http.get<IPaginatedResponse<IProduct>>(`/products/users?${queryParameters}`);
-    if (response?.status === 200) {
-      return response.data;
+
+    if (!response || response.status !== 200) {
+      throw new Error("Failed to fetch products");
     }
+
+    return response.data;
   }
 
   async getDashboardAnalytics() {
     const response = await this.http.get<{ data: IDashboardAnalytics }>("/products/analytics");
     if (response?.status === 200) {
-      return response.data;
+      return response.data.data;
     }
   }
 

@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 
 import { WithDependency } from "~/HOC/withDependencies";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import CustomButton from "../common-button/common-button";
 import { ReusableDialog } from "../dialog/Dialog";
