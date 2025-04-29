@@ -12,7 +12,6 @@ import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-heade
 import Loading from "~/app/Loading";
 import CustomButton from "~/components/common/common-button/common-button";
 import { ConfirmationDialog } from "~/components/common/dialog/confirmation-dialog";
-import { useOrderService } from "~/services/order/use-order.service";
 import { useProductService } from "~/services/product/use-product-service";
 import { Toast } from "~/utils/notificationManager";
 
@@ -21,18 +20,13 @@ const PreviewProductDetailsPage = ({ params }: { params: { productID: string } }
   const router = useRouter();
 
   // Product Service Hooks
-  const { useGetProductById, usePublishProduct, useSoftDeleteProduct } = useProductService();
+  const { useGetProductById, usePublishProduct, useSoftDeleteProduct, useGetProductOrders } = useProductService();
   const { data: productData, isLoading: isProductLoading } = useGetProductById(params.productID);
-
-  // Order Service Hooks
-  const { useGetAllOrders } = useOrderService();
-  const { data: ordersData, isLoading: isOrdersLoading } = useGetAllOrders({
-    product_id: params.productID,
-  });
 
   // Mutations
   const publishMutation = usePublishProduct();
   const deleteMutation = useSoftDeleteProduct();
+  const { data: ordersData, isLoading: isOrdersLoading } = useGetProductOrders(params.productID);
 
   // Handle publish/unpublish action
   const handlePublish = async () => {
@@ -137,7 +131,7 @@ const PreviewProductDetailsPage = ({ params }: { params: { productID: string } }
 
       {/* Orders Table Section */}
       <section>
-        <DashboardTable data={ordersData?.data || []} columns={singleProductOrderColumns} />
+        <DashboardTable data={ordersData ?? []} columns={singleProductOrderColumns} />
       </section>
     </section>
   );
