@@ -32,13 +32,6 @@ const PreviewProductDetailsPage = ({ params }: { params: { productID: string } }
   const handlePublish = async () => {
     try {
       await publishMutation.mutateAsync(params.productID);
-      // Invalidate multiple queries
-      await queryClient.invalidateQueries({
-        queryKey: ["products", "list"],
-      });
-      await queryClient.invalidateQueries({
-        queryKey: ["products", "detail"],
-      });
       Toast.getInstance().showToast({
         title: "Success",
         description: `Product status updated successfully!`,

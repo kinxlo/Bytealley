@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { createServiceHooks } from "~/hooks/use-service-query";
-import { dependencies } from "~/utils/dependencies";
+import { container, dependencies } from "~/utils/dependencies";
 import type { ProductService } from "./product.service";
 
 export const useProductService = () => {
+  const queryClient = useQueryClient();
   const { useServiceQuery, useServiceMutation } = createServiceHooks<ProductService>(dependencies.PRODUCT_SERVICE);
 
   // Queries
@@ -43,19 +46,57 @@ export const useProductService = () => {
       service.updateProduct(data, productId),
     );
 
-  const useSoftDeleteProduct = () =>
-    useServiceMutation((service, productId: string) => service.softDeleteProduct(productId));
+  const useSoftDeleteProduct = () => {
+    return useMutation({
+      mutationFn: (data: string) => {
+        const service = container.get<ProductService>(dependencies.PRODUCT_SERVICE);
+        return service.softDeleteProduct(data);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products", "list"] });
+      },
+    });
+  };
 
-  const useRestoreDeleteProduct = () =>
-    useServiceMutation((service, productId: string) => service.restoreDeleteProduct(productId));
+  const useRestoreDeleteProduct = () => {
+    return useMutation({
+      mutationFn: (data: string) => {
+        const service = container.get<ProductService>(dependencies.PRODUCT_SERVICE);
+        return service.restoreDeleteProduct(data);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products", "list"] });
+      },
+    });
+  };
 
-  const useDeleteProductPermanently = () =>
-    useServiceMutation((service, productId: string) => service.deleteProductPermanently(productId));
+  const useDeleteProductPermanently = () => {
+    return useMutation({
+      mutationFn: (data: string) => {
+        const service = container.get<ProductService>(dependencies.PRODUCT_SERVICE);
+        return service.deleteProductPermanently(data);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products", "list"] });
+      },
+    });
+  };
 
-  const usePublishProduct = () => useServiceMutation((service, productId: string) => service.publishProduct(productId));
+  const usePublishProduct = () => {
+    return useMutation({
+      mutationFn: (data: string) => {
+        const service = container.get<ProductService>(dependencies.PRODUCT_SERVICE);
+        return service.publishProduct(data);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products", "list"] });
+        queryClient.invalidateQueries({ queryKey: ["products", "detail"] });
+      },
+    });
+  };
 
   return {
-    // Queries
+    // Querie
     useGetAllProducts,
     useGetDashboardAnalytics,
     useGetPurchasedProducts,

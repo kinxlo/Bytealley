@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { Edit, Eye, MinusCircle, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,7 +8,6 @@ import { Toast } from "~/utils/notificationManager";
 import { cn, formatDate, formatTime } from "~/utils/utils";
 
 export const useProductRowActions = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { useSoftDeleteProduct, usePublishProduct } = useProductService();
   const softDeleteMutation = useSoftDeleteProduct();
@@ -32,9 +30,6 @@ export const useProductRowActions = () => {
             label: "Delete",
             onClick: async () => {
               await softDeleteMutation.mutateAsync(product.id);
-              queryClient.invalidateQueries({
-                queryKey: ["products", "list"],
-              });
               Toast.getInstance().showToast({
                 title: "Success",
                 description: `Product ${product.title} deleted successfully!`,
@@ -69,9 +64,6 @@ export const useProductRowActions = () => {
             label: "Unpublish to draft",
             onClick: async () => {
               await publishMutation.mutateAsync(product.id);
-              queryClient.invalidateQueries({
-                queryKey: ["products", "list"],
-              });
               Toast.getInstance().showToast({
                 title: "Success",
                 description: `Product ${product.title} status updated successfully!`,
@@ -460,7 +452,6 @@ export const deletedProductColumns: IColumnDefinition<IProduct>[] = [
 ];
 
 export const useDeletedProductRowActions = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { useDeleteProductPermanently, useRestoreDeleteProduct } = useProductService();
 
@@ -474,9 +465,6 @@ export const useDeletedProductRowActions = () => {
         onClick: async () => {
           try {
             await restoreMutation.mutateAsync(product.id);
-            queryClient.invalidateQueries({
-              queryKey: ["products", "list"],
-            });
             Toast.getInstance().showToast({
               title: "Success",
               description: `Product ${product.title} restored to draft successfully!`,
@@ -498,9 +486,6 @@ export const useDeletedProductRowActions = () => {
         onClick: async () => {
           try {
             await permanentDeleteMutation.mutateAsync(product.id);
-            queryClient.invalidateQueries({
-              queryKey: ["products", "list"],
-            });
             Toast.getInstance().showToast({
               title: "Success",
               description: `Product ${product.title} deleted permanently!`,

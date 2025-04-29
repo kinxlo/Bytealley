@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WithDependency } from "~/HOC/withDependencies";
 import { ProductFormSchema } from "~/schemas";
 import { ProductService } from "~/services/product/product.service";
+import { useProductService } from "~/services/product/use-product-service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 import { cn } from "~/utils/utils";
@@ -21,6 +22,7 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
   const router = useRouter();
   const searchParameters = useSearchParams();
   const [isPublishing, startTransition] = useTransition();
+  const { useCreateProduct, useUpdateProduct, usePublishProduct } = useProductService();
 
   const currentTab = searchParameters.get("tab") || "product-details";
   const productID = searchParameters.get("product_id") || "";
@@ -50,7 +52,13 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
     formState: { isSubmitting, isValid },
   } = methods;
 
-  const onSubmit = async (data: IProduct) => {
+  const { mutate: createProduct } = useCreateProduct();
+
+  const { mutate: updateProduct } = useUpdateProduct();
+
+  const publishMutation = usePublishProduct();
+
+  const onSubmit = (data: IProduct) => {
     const filterFiles = (items: (string | File | { extension?: string; size?: string })[]): File[] => {
       return items.filter((item) => item instanceof File) as File[];
     };
@@ -78,66 +86,28 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
 
     const productData = { ...commonFields, ...productSpecificFields };
 
-    const productId = await productService.createProduct(productData);
-
-    Toast.getInstance().showToast({
-      title: "Success",
-      description: `Product "${data.title}" created successfully! You can now preview and publish it.`,
-      variant: "success",
-    });
-    router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productId}`);
+    if (productID) {
+      updateProduct({ data: productData, productId: productID });
+      Toast.getInstance().showToast({
+        title: "Success",
+        description: `Product updated successfully! You can now preview and publish it.`,
+        variant: "success",
+      });
+      router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productID}`);
+    } else {
+      createProduct(productData);
+      Toast.getInstance().showToast({
+        title: "Success",
+        description: `Product created successfully! You can now preview and publish it.`,
+        variant: "success",
+      });
+      router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productID}`);
+    }
   };
-
-  const updateProduct = async (data: IProduct) => {
-    const filterFiles = (items: (string | File | { extension?: string; size?: string })[]): File[] => {
-      return items.filter((item) => item instanceof File) as File[];
-    };
-
-    const commonFields = {
-      product_type: data.product_type,
-      title: data.title,
-      category: data.category,
-      price: data.price,
-      discount_price: data.discount_price,
-      description: data.description,
-      highlights: data.highlights,
-      tags: data.tags,
-      ...(data.thumbnail instanceof File ? { thumbnail: data.thumbnail } : {}),
-      ...(data.cover_photos && data.cover_photos.length > 0 ? { cover_photos: filterFiles(data.cover_photos) } : {}),
-    };
-
-    const productSpecificFields =
-      data.product_type === "digital_product"
-        ? {
-            ...(data.assets && data.assets.length > 0 ? { assets: filterFiles(data.assets) } : {}),
-          }
-        : {
-            resource_link: data.resource_link,
-            portfolio_link: data.portfolio_link,
-          };
-
-    const productData = { ...commonFields, ...productSpecificFields };
-
-    const productId = await productService.updateProduct(productData, productID);
-
-    Toast.getInstance().showToast({
-      title: "Success",
-      description: `Product "${data.title}" updated successfully! You can now preview and publish it.`,
-      variant: "success",
-    });
-
-    router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productId}`);
-  };
-
-  // const onTabChange = (value: string) => {
-  //   const parameters = new URLSearchParams(searchParameters);
-  //   parameters.set("tab", value);
-  //   router.replace(`${pathname}?${parameters.toString()}`, { scroll: false });
-  // };
 
   const handlePublish = () => {
     startTransition(async () => {
-      const product = await productService.publishProduct(productID);
+      const product = await publishMutation.mutateAsync(productID);
       Toast.getInstance().showToast({
         title: "Success",
         description: `Product "${product?.title}" published successfully!`,
@@ -151,13 +121,15 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
 
   const handleUnpublish = () => {
     startTransition(async () => {
-      const product = await productService.publishProduct(productID);
+      const product = await publishMutation.mutateAsync(productID);
       Toast.getInstance().showToast({
         title: "Success",
         description: `Product "${product?.title}" unpublished successfully!`,
         variant: "success",
       });
-      router.push(`/dashboard/${params.userID}/products?tab=all-products`);
+      router.push(
+        `/dashboard/${params.userID}/products/new?tab=share&product_id=${product?.id}&status=${product?.status}`,
+      );
     });
   };
 
@@ -217,7 +189,7 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
                       variant="primary"
                       size="xl"
                       className="w-full sm:w-auto"
-                      onClick={handleSubmit(updateProduct)}
+                      onClick={handleSubmit(onSubmit)}
                       isDisabled={isSubmitting}
                       isLoading={isSubmitting}
                     >
