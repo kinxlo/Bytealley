@@ -1,25 +1,25 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
 
 import Loading from "~/app/Loading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WithDependency } from "~/HOC/withDependencies";
-import { ProductService } from "~/services/product/product.service";
-import { dependencies } from "~/utils/dependencies";
+import { useProductService } from "~/services/product/use-product-service";
 import { AllDownloads } from "./_views/all-downloads";
-import { DigitalProducts } from "./_views/digital-products";
-import { SkillSelling } from "./_views/skill-selling";
 
-const Page = ({ productService }: { productService: ProductService }) => {
+// import { DigitalProducts } from "./_views/digital-products";
+// import { SkillSelling } from "./_views/skill-selling";
+
+const DownloadPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParameters = useSearchParams();
-  const [isPending, startTransition] = useTransition();
-  const [productTypes, setProductTypes] = useState<ICategory[]>([]);
+  const { useGetProductTypesAndCategories } = useProductService();
 
   const currentTab = searchParameters.get("tab") || "all-downloads";
+
+  const { data: productTypesData, isLoading } = useGetProductTypesAndCategories();
+  const productTypes = productTypesData?.data || [];
 
   const onTabChange = (value: string) => {
     const parameters = new URLSearchParams(searchParameters);
@@ -27,14 +27,7 @@ const Page = ({ productService }: { productService: ProductService }) => {
     router.replace(`${pathname}?${parameters.toString()}`, { scroll: false });
   };
 
-  useEffect(() => {
-    startTransition(async () => {
-      const productTypes = await productService.getProductTypesAndCategories();
-      setProductTypes(productTypes?.data || []);
-    });
-  }, [productService]);
-
-  if (isPending) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -70,20 +63,16 @@ const Page = ({ productService }: { productService: ProductService }) => {
 
       {/* tab content */}
       <TabsContent value="all-downloads">
-        <AllDownloads service={productService} />
+        <AllDownloads />
       </TabsContent>
       {productTypes.map((productType) => (
         <TabsContent key={productType.name} value={productType.name}>
-          {productType.name === "digital_product" && <DigitalProducts service={productService} />}
-          {productType.name === "skill_selling" && <SkillSelling service={productService} />}
+          {/* {productType.name === "digital_product" && <DigitalProducts />} */}
+          {/* {productType.name === "skill_selling" && <SkillSelling />} */}
         </TabsContent>
       ))}
     </Tabs>
   );
 };
-
-const DownloadPage = WithDependency(Page, {
-  productService: dependencies.PRODUCT_SERVICE,
-});
 
 export default DownloadPage;

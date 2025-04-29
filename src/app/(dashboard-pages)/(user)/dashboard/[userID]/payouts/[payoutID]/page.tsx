@@ -1,41 +1,21 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-
 import { BackNavigator } from "~/app/(dashboard-pages)/_components/back-navigator";
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-header-info";
 import Loading from "~/app/Loading";
-import { WithDependency } from "~/HOC/withDependencies";
-import { PayoutService } from "~/services/payout.service";
-import { dependencies } from "~/utils/dependencies";
+import { usePayoutService } from "~/services/payout/use-payout.service";
 
-const BasePayoutDetailPage = ({
-  params,
-  payoutService,
-}: {
-  params: { payoutID: string };
-  payoutService: PayoutService;
-}) => {
-  const [isPending, startTransition] = useTransition();
-  const [payout, setPayout] = useState<IPayout | null>(null);
+const PayoutDetailsPage = ({ params }: { params: { payoutID: string } }) => {
+  const { useGetPayoutById } = usePayoutService();
 
-  useEffect(() => {
-    const fetchProductData = async () => {
-      startTransition(async () => {
-        const payout = await payoutService.getPayoutById(params.payoutID);
-        setPayout(payout || null);
-      });
-    };
+  const { data: payout, isLoading, isError } = useGetPayoutById(params.payoutID);
 
-    fetchProductData();
-  }, [params.payoutID, payoutService]);
-
-  if (isPending) {
-    return <Loading text={`Loading order details...`} className={`w-fill h-fit p-20`} />;
+  if (isLoading) {
+    return <Loading text="Loading payout details..." className="w-fill h-fit p-20" />;
   }
 
-  if (!payout) {
+  if (isError || !payout) {
     return (
       <EmptyState
         title="Payout details Not Found"
@@ -61,10 +41,5 @@ const BasePayoutDetailPage = ({
     </section>
   );
 };
-
-// Wrap the component with dependencies
-const PayoutDetailsPage = WithDependency(BasePayoutDetailPage, {
-  payoutService: dependencies.PAYOUT_SERVICE,
-});
 
 export default PayoutDetailsPage;

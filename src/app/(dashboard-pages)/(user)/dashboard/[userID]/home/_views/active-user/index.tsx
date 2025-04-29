@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import debounce from "lodash.debounce";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useRef, useState } from "react";
 import { DateRange } from "react-day-picker";
 
 import { AnalyticsCard } from "~/app/(dashboard-pages)/_components/analytics-card/index";
@@ -18,26 +18,37 @@ import ExportAction from "~/app/(dashboard-pages)/_components/export-action";
 import Loading from "~/app/Loading";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
 import { useSession } from "~/hooks/use-session";
-import { OrderService } from "~/services/order/orders.service";
-import { ProductService } from "~/services/product/product.service";
+import { useOrderService } from "~/services/order/use-order.service";
+import { useProductService } from "~/services/product/use-product-service";
 
-export const ActiveUser = ({
-  productService,
-  orderService,
-}: {
-  productService: ProductService;
-  orderService: OrderService;
-}) => {
-  const [isPendingAnalytics, startTransitionAnalytics] = useTransition();
-  const [analytics, setAnalytics] = useState<IDashboardAnalytics | null>(null);
-  const [isPendingOrders, startTransitionOrders] = useTransition();
-  const [orders, setOrders] = useState<IOrder[]>([]);
+export const ActiveUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta | null>(null);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const router = useRouter();
   const { user } = useSession();
 
+  // Initialize service hooks
+  const { useGetAllOrders, useDownloadOrders } = useOrderService();
+  const { useGetDashboardAnalytics } = useProductService();
+  const { refetch: downloadProducts } = useDownloadOrders({}, { enabled: false });
+
+  // Create query parameters
+  const filters = {
+    page: currentPage,
+    ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
+    ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
+  };
+
+  // Fetch data
+  const { data: ordersData, isLoading: isLoadingOrders } = useGetAllOrders(filters);
+  const { data: analyticsData, isLoading: isLoadingAnalytics } = useGetDashboardAnalytics();
+
+  // Process data
+  const orders = ordersData?.data.slice(0, 5) || [];
+  const paginationMeta = ordersData?.meta || null;
+  const analytics = analyticsData || null;
+
+  // Handlers
   const debounceDateRangeReference = useRef(
     debounce((value: DateRange) => {
       setDateRange(value);
@@ -49,89 +60,70 @@ export const ActiveUser = ({
     setCurrentPage(1);
   }, []);
 
-  useEffect(() => {
-    const parameters: IFilters = {
-      page: currentPage,
-      ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
-      ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
-    };
-
-    startTransitionOrders(async () => {
-      const ordersData = await orderService.getAllOrders(parameters);
-      setOrders(ordersData?.data.slice(0, 5) || []);
-      setPaginationMeta(ordersData?.meta || null);
-    });
-  }, [orderService, currentPage, dateRange?.from, dateRange?.to]);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  useEffect(() => {
-    startTransitionAnalytics(async () => {
-      const analyticsData = await productService.getDashboardAnalytics();
-      setAnalytics(analyticsData?.data ?? null);
-    });
-  }, [productService]);
-
   return (
     <>
-      <section className={`space-y-4`}>
+      <section className="space-y-4">
         <section className="flex w-full flex-col gap-4 sm:items-center md:flex-row md:justify-between">
           <div className="flex w-full flex-col gap-2 sm:flex-row md:w-auto">
             <DateRangePicker onDateChange={handleDateRangeChange} />
-            {/* <SelectDropdown options={[]} /> */}
           </div>
           <div className="flex w-full flex-row gap-2 sm:w-auto sm:justify-start">
             <ExportAction
-              serviceMethod={(filters) => orderService.downloadOrdersAsCSV(filters)}
+              downloadMutation={async (filters) => {
+                const { data } = await downloadProducts(filters);
+                return data as Blob;
+              }}
               currentPage={1}
               dateRange={dateRange}
               buttonText="Export Sales"
               fileName="orders"
-              size={`xl`}
+              size="xl"
             />
           </div>
         </section>
 
-        <section className={`grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12`}>
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
           <AnalyticsCard
             title="Total Sales"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.total_sales?.toLocaleString()}
+            value={isLoadingAnalytics ? <LoadingSpinner /> : analytics?.total_sales?.toLocaleString()}
             icon={<Image src={nairaIcon} alt="naira" width={40} height={40} />}
-            backgroundImage={"/images/naira.svg"}
-            className={`col-span-1 sm:col-span-2 lg:col-span-6`}
+            backgroundImage="/images/naira.svg"
+            className="col-span-1 sm:col-span-2 lg:col-span-6"
           />
           <AnalyticsCard
             title="Total Revenue"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.total_revenues?.toLocaleString()}
-            valuePrefix={`₦`}
+            value={isLoadingAnalytics ? <LoadingSpinner /> : analytics?.total_revenues?.toLocaleString()}
+            valuePrefix="₦"
             icon={<Image src={nairaIcon} alt="naira" width={40} height={40} />}
-            backgroundImage={"/images/hook.svg"}
-            className={`col-span-1 text-mid-success sm:col-span-2 lg:col-span-6`}
+            backgroundImage="/images/hook.svg"
+            className="col-span-1 text-mid-success sm:col-span-2 lg:col-span-6"
           />
           <AnalyticsCard
             title="New Orders"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.new_orders?.toLocaleString()}
-            className={`col-span-1 lg:col-span-4`}
+            value={isLoadingAnalytics ? <LoadingSpinner /> : analytics?.new_orders?.toLocaleString()}
+            className="col-span-1 lg:col-span-4"
           />
           <AnalyticsCard
             title="New Orders Revenue"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.new_orders_revenue?.toLocaleString()}
-            className={`col-span-1 lg:col-span-4`}
+            value={isLoadingAnalytics ? <LoadingSpinner /> : analytics?.new_orders_revenue?.toLocaleString()}
+            className="col-span-1 lg:col-span-4"
           />
           <AnalyticsCard
             title="Total Products"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.total_products?.toLocaleString()}
-            className={`col-span-1 lg:col-span-4`}
+            value={isLoadingAnalytics ? <LoadingSpinner /> : analytics?.total_products?.toLocaleString()}
+            className="col-span-1 lg:col-span-4"
           />
         </section>
       </section>
-      <section className={`mt-10 space-y-4`}>
+      <section className="mt-10 space-y-4">
         <h4 className="text-h4">Sales</h4>
         <section>
-          {isPendingOrders ? (
-            <Loading text={`Loading sales table...`} className={`w-fill h-fit p-20`} />
+          {isLoadingOrders ? (
+            <Loading text="Loading sales table..." className="w-fill h-fit p-20" />
           ) : (
             <>
               {orders.length > 0 ? (

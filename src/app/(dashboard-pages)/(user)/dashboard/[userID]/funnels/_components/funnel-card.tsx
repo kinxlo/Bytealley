@@ -3,7 +3,6 @@
 import { Eye, MinusCircleIcon, MoreVertical, Pencil, Settings, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 
 import { BlurImage } from "~/components/miscellaneous/blur-image";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
@@ -16,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { FunnelService } from "~/features/funnel";
+import { useFunnelService } from "~/features/funnel/services/use-funnel-service";
 import { useSession } from "~/hooks/use-session";
 import { useAppDispatch } from "~/store";
 import { setTemplate } from "~/store/features/template/template-slice";
@@ -25,30 +24,29 @@ import { cn, formatDate, formatTime } from "~/utils/utils";
 
 interface FunnelCardProperties {
   template: IFunnel;
-  service: FunnelService;
 }
 
-export const FunnelCard = ({ template, service }: FunnelCardProperties) => {
-  const [isDeletePending, startDeleteTransition] = useTransition();
-  const [isDraftPending, startDraftTransition] = useTransition();
-  // const [isPending, startTransition] = useTransition();
+export const FunnelCard = ({ template }: FunnelCardProperties) => {
   const router = useRouter();
   const { user } = useSession();
   const dispatch = useAppDispatch();
+  const { useDeleteFunnel, useUpdateFunnel } = useFunnelService();
 
   const { title, thumbnail, created_at, status, url, id } = template;
 
+  const { mutate: deleteFunnel, isPending: isDeletePending } = useDeleteFunnel();
+  const { mutate: updateFunnel, isPending: isDraftPending } = useUpdateFunnel();
+
   const handleDelete = () => {
-    startDeleteTransition(async () => {
-      const response = await service.deleteFunnel(id);
-      if (response) {
+    deleteFunnel(id, {
+      onSuccess: (response) => {
         Toast.getInstance().showToast({
           title: `Funnel Status`,
-          description: `Funnel ${response.data.title} has been deleted successfully!`,
+          description: `Funnel ${response?.data.title} has been deleted successfully!`,
           variant: "warning",
         });
         router.push(`/dashboard/${user?.id}/funnels?tab=deleted`);
-      }
+      },
     });
   };
 
@@ -62,17 +60,19 @@ export const FunnelCard = ({ template, service }: FunnelCardProperties) => {
   };
 
   const handleReturnToDraft = () => {
-    startDraftTransition(async () => {
-      const response = await service.updateFunnel({ ...template, status: `draft` });
-      if (response) {
-        Toast.getInstance().showToast({
-          title: `Funnel Status`,
-          description: `Funnel ${response.data.title} has been moved to draft successfully!`,
-          variant: "default",
-        });
-        router.push(`/dashboard/${user?.id}/funnels?tab=drafts`);
-      }
-    });
+    updateFunnel(
+      { ...template, status: `draft` },
+      {
+        onSuccess: (response) => {
+          Toast.getInstance().showToast({
+            title: `Funnel Status`,
+            description: `Funnel ${response?.data.title} has been moved to draft successfully!`,
+            variant: "default",
+          });
+          router.push(`/dashboard/${user?.id}/funnels?tab=drafts`);
+        },
+      },
+    );
   };
 
   return (

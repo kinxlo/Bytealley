@@ -3,16 +3,13 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { FunnelService } from "~/features/funnel";
-import { WithDependency } from "~/HOC/withDependencies";
-import { dependencies } from "~/utils/dependencies";
 import { SelectFunnelModal } from "./_components/select-funnel-modal";
 import { AllFunnels } from "./_views/all-funnels";
 import { DeletedFunnels } from "./_views/deleted-funnels";
 import { DraftFunnels } from "./_views/draft-funnels";
 import { LiveFunnels } from "./_views/live-funnels";
 
-const Page = ({ funnelService }: { funnelService: FunnelService }) => {
+const FunnelPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParameters = useSearchParams();
@@ -77,23 +74,19 @@ const Page = ({ funnelService }: { funnelService: FunnelService }) => {
 
       {/* tab content */}
       <TabsContent value="all-funnels">
-        <AllFunnels service={funnelService} />
+        <AllFunnels />
       </TabsContent>
       <TabsContent value="live">
-        <LiveFunnels service={funnelService} />
+        <LiveFunnels />
       </TabsContent>
       <TabsContent value="drafts">
-        <DraftFunnels service={funnelService} />
+        <DraftFunnels />
       </TabsContent>
       <TabsContent value="deleted">
-        <DeletedFunnels service={funnelService} />
+        <DeletedFunnels />
       </TabsContent>
     </Tabs>
   );
 };
-
-const FunnelPage = WithDependency(Page, {
-  funnelService: dependencies.FUNNEL_SERVICE,
-});
 
 export default FunnelPage;

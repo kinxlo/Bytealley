@@ -14,9 +14,7 @@ import { NewUser } from "./_views/new-user";
 import { Onboarding } from "./_views/onboarding";
 
 const UserHomePage = ({
-  productService,
   authService,
-  orderService,
   params,
 }: {
   productService: ProductService;
@@ -92,17 +90,15 @@ const UserHomePage = ({
 
   // Exactly 4 steps completed -> NewUser
   if (completedSteps >= 4 && completedSteps < ONBOARDING_STEPS.length) {
-    return <NewUser steps={ONBOARDING_STEPS} completedSteps={completedSteps} orderService={orderService} />;
+    return <NewUser steps={ONBOARDING_STEPS} completedSteps={completedSteps} />;
   }
 
   // All 5 steps completed -> ActiveUser
-  return <ActiveUser productService={productService} orderService={orderService} />;
+  return <ActiveUser />;
 };
 
 const HomePage = WithDependency(UserHomePage, {
   authService: dependencies.AUTH_SERVICE,
-  productService: dependencies.PRODUCT_SERVICE,
-  orderService: dependencies.ORDER_SERVICE,
 });
 
 export default HomePage;

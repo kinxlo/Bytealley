@@ -8,7 +8,7 @@ import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { Account } from "./_views/account";
 import { KYC } from "./_views/kyc";
-import { Payment } from "./_views/payment";
+import Payment from "./_views/payment";
 import { Plans } from "./_views/plans";
 import Billing from "./_views/plans/billing";
 

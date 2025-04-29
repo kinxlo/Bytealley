@@ -7,7 +7,7 @@ import { ReusableDialog } from "~/components/common/dialog/Dialog";
 import { FormField, StarRatingField } from "~/components/common/FormFields";
 import { WithDependency } from "~/HOC/withDependencies";
 import { ReviewFormData, reviewSchema } from "~/schemas";
-import { DownloadService } from "~/services/download.service";
+import { DownloadService } from "~/services/download/download.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 

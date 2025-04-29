@@ -2,13 +2,13 @@
 
 import emptyCart from "@/images/empty-cart.svg";
 import onboardingImage from "@/images/home_banner_illustration.svg";
-import { useEffect, useState, useTransition } from "react";
+import { useState } from "react";
 
 import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-table";
 import { orderColumns } from "~/app/(dashboard-pages)/_components/dashboard-table/table-data";
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import Loading from "~/app/Loading";
-import { OrderService } from "~/services/order/orders.service";
+import { useOrderService } from "~/services/order/use-order.service";
 import { ActionBanner } from "../../_components/action-banner";
 import { DashboardBanner } from "../../_components/home-banner";
 import { OnboardingHeader } from "../onboarding/onboarding-header";
@@ -16,28 +16,16 @@ import { OnboardingHeader } from "../onboarding/onboarding-header";
 interface NewUserProperties {
   steps: OnboardingStep[];
   completedSteps: number;
-  orderService: OrderService;
 }
 
-export const NewUser = ({ steps, completedSteps, orderService }: NewUserProperties) => {
-  // Find the first incomplete step
+export const NewUser = ({ steps, completedSteps }: NewUserProperties) => {
   const nextStep = steps.find((step) => !step.isCompleted);
-  const [isPendingOrders, startTransitionOrders] = useTransition();
-  // const [isPendingRefresh, startTransitionRefresh] = useTransition();
-  const [orders, setOrders] = useState<IOrder[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta | null>(null);
+  const { useGetAllOrders } = useOrderService();
 
-  useEffect(() => {
-    const parameters: IFilters = {
-      page: currentPage,
-    };
-    startTransitionOrders(async () => {
-      const ordersData = await orderService.getAllOrders(parameters);
-      setOrders(ordersData?.data.slice(0, 5) || []);
-      setPaginationMeta(ordersData?.meta || null);
-    });
-  }, [orderService, currentPage]);
+  const { data: ordersData, isLoading } = useGetAllOrders({ page: currentPage });
+  const orders = ordersData?.data.slice(0, 5) || [];
+  const paginationMeta = ordersData?.meta || null;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -70,8 +58,8 @@ export const NewUser = ({ steps, completedSteps, orderService }: NewUserProperti
       <div className="step-2 space-y-4">
         <h4 className="text-h4">Sales</h4>
         <section>
-          {isPendingOrders ? (
-            <Loading text={`Loading sales table...`} className={`w-fill h-fit p-20`} />
+          {isLoading ? (
+            <Loading text="Loading sales table..." className="w-fill h-fit p-20" />
           ) : (
             <>
               {orders.length > 0 ? (

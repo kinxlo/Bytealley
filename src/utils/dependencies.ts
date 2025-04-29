@@ -2,16 +2,16 @@ import { QueryClient } from "@tanstack/react-query";
 
 import { FunnelService } from "~/features/funnel";
 import { PushService } from "~/features/push-notification/services/notification.service";
-import { CustomerService } from "~/services/customer.service";
-import { EarningService } from "~/services/earnings.service";
-import { PayoutService } from "~/services/payout.service";
+import { CustomerService } from "~/services/customer/customer.service";
+import { EarningService } from "~/services/earnings/earnings.service";
+import { PayoutService } from "~/services/payout/payout.service";
 import { ProductService } from "~/services/product/product.service";
 import { HttpAdapter } from "../adapters/http-adapter";
+import { AnalyticsService } from "../services/analytics/analytics.service";
 import { AppService } from "../services/app/app.service";
 import { AuthService } from "../services/auth.service";
+import { DownloadService } from "../services/download/download.service";
 import { OrderService } from "../services/order/orders.service";
-import { AnalyticsService } from "./../services/analytics.service";
-import { DownloadService } from "./../services/download.service";
 import { HelpService } from "./../services/help.service";
 import { SettingsService } from "./../services/settings.service";
 
