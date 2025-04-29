@@ -18,7 +18,7 @@ import ExportAction from "~/app/(dashboard-pages)/_components/export-action";
 import Loading from "~/app/Loading";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
 import { useSession } from "~/hooks/use-session";
-import { OrderService } from "~/services/orders.service";
+import { OrderService } from "~/services/order/orders.service";
 import { ProductService } from "~/services/product/product.service";
 
 export const ActiveUser = ({

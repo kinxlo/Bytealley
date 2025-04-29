@@ -190,6 +190,7 @@ declare global {
     status?: string;
     start_date?: string;
     end_date?: string;
+    product_id?: string;
   }
 
   interface IColumnDefinition<T extends DataItem> {

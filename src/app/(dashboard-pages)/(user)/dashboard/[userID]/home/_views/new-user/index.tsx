@@ -8,7 +8,7 @@ import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-ta
 import { orderColumns } from "~/app/(dashboard-pages)/_components/dashboard-table/table-data";
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import Loading from "~/app/Loading";
-import { OrderService } from "~/services/orders.service";
+import { OrderService } from "~/services/order/orders.service";
 import { ActionBanner } from "../../_components/action-banner";
 import { DashboardBanner } from "../../_components/home-banner";
 import { OnboardingHeader } from "../onboarding/onboarding-header";

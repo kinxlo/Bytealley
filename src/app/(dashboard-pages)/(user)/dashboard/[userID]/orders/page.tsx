@@ -18,7 +18,7 @@ import Loading from "~/app/Loading";
 // import CustomButton from "~/components/common/common-button/common-button";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
-import { OrderService } from "~/services/orders.service";
+import { OrderService } from "~/services/order/orders.service";
 import { dependencies } from "~/utils/dependencies";
 
 const BaseOrderPage = ({ orderService }: { orderService: OrderService }) => {

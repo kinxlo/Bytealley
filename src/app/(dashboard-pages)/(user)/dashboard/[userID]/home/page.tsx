@@ -6,7 +6,7 @@ import { Wrapper } from "~/components/layout/wrapper";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
 import { AuthService } from "~/services/auth.service";
-import { OrderService } from "~/services/orders.service";
+import { OrderService } from "~/services/order/orders.service";
 import { ProductService } from "~/services/product/product.service";
 import { dependencies } from "~/utils/dependencies";
 import { ActiveUser } from "./_views/active-user";

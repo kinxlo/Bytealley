@@ -9,10 +9,10 @@ import { ProductService } from "~/services/product/product.service";
 import { HttpAdapter } from "../adapters/http-adapter";
 import { AppService } from "../services/app/app.service";
 import { AuthService } from "../services/auth.service";
+import { OrderService } from "../services/order/orders.service";
 import { AnalyticsService } from "./../services/analytics.service";
 import { DownloadService } from "./../services/download.service";
 import { HelpService } from "./../services/help.service";
-import { OrderService } from "./../services/orders.service";
 import { SettingsService } from "./../services/settings.service";
 
 const dependencies = {

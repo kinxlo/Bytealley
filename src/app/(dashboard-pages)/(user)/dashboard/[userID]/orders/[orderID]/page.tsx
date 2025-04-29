@@ -8,7 +8,7 @@ import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-header-info";
 import Loading from "~/app/Loading";
 import { WithDependency } from "~/HOC/withDependencies";
-import { OrderService } from "~/services/orders.service";
+import { OrderService } from "~/services/order/orders.service";
 import { dependencies } from "~/utils/dependencies";
 
 const BaseOrderDetailsPage = ({
