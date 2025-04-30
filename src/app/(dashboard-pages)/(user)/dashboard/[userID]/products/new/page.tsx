@@ -52,13 +52,13 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
     formState: { isSubmitting, isValid },
   } = methods;
 
-  const { mutate: createProduct } = useCreateProduct();
+  const createMutation = useCreateProduct();
 
-  const { mutate: updateProduct } = useUpdateProduct();
+  const updateMutation = useUpdateProduct();
 
   const publishMutation = usePublishProduct();
 
-  const onSubmit = (data: IProduct) => {
+  const onSubmit = async (data: IProduct) => {
     const filterFiles = (items: (string | File | { extension?: string; size?: string })[]): File[] => {
       return items.filter((item) => item instanceof File) as File[];
     };
@@ -87,21 +87,25 @@ const Page = ({ params, productService }: { params: { userID: string }; productS
     const productData = { ...commonFields, ...productSpecificFields };
 
     if (productID) {
-      updateProduct({ data: productData, productId: productID });
-      Toast.getInstance().showToast({
-        title: "Success",
-        description: `Product updated successfully! You can now preview and publish it.`,
-        variant: "success",
-      });
-      router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productID}`);
+      const product = await updateMutation.mutateAsync({ data: productData, productId: productID });
+      if (product) {
+        Toast.getInstance().showToast({
+          title: "Success",
+          description: `Product updated successfully! You can now preview and publish it.`,
+          variant: "success",
+        });
+        router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${product}`);
+      }
     } else {
-      createProduct(productData);
-      Toast.getInstance().showToast({
-        title: "Success",
-        description: `Product created successfully! You can now preview and publish it.`,
-        variant: "success",
-      });
-      router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${productID}`);
+      const product = await createMutation.mutateAsync(productData);
+      if (product) {
+        Toast.getInstance().showToast({
+          title: "Success",
+          description: `Product created successfully! You can now preview and publish it.`,
+          variant: "success",
+        });
+        router.push(`/dashboard/${params.userID}/products/new?tab=preview&product_id=${product}`);
+      }
     }
   };
 
