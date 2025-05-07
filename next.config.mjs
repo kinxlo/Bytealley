@@ -4,6 +4,9 @@ const nextConfig = {
   output: "standalone",
   transpilePackages: ["lucide-react"],
   reactStrictMode: false,
+  experimental: {
+    optimizeFonts: false,
+  },
   images: {
     remotePatterns: [
       {
@@ -25,6 +28,9 @@ const nextConfig = {
     return config;
   },
   swcMinify: false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

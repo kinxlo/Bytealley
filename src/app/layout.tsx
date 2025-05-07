@@ -18,8 +18,8 @@ import { PageTransition } from "~/lib/animations";
 import { ReduxProvider } from "~/store/provider";
 
 // Configure fonts
-const montserrat = Montserrat({ subsets: ["latin"] });
-const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader" });
+const montserrat = Montserrat({ subsets: ["latin"], display: "swap" });
+const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap" });
 
 export const metadata: Metadata = {
   title: "bytealley",
