@@ -313,6 +313,15 @@
     border-radius: 10px; /* Rounded corners of the track */
   }
 
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   /* For Firefox */
   .html {
     @apply bg-primary;

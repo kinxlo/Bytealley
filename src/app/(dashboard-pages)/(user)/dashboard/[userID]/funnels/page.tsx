@@ -3,13 +3,16 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { FunnelService } from "~/features/funnel";
+import { WithDependency } from "~/HOC/withDependencies";
+import { dependencies } from "~/utils/dependencies";
 import { SelectFunnelModal } from "./_components/select-funnel-modal";
 import { AllFunnels } from "./_views/all-funnels";
 import { DeletedFunnels } from "./_views/deleted-funnels";
 import { DraftFunnels } from "./_views/draft-funnels";
 import { LiveFunnels } from "./_views/live-funnels";
 
-const FunnelPage = () => {
+const Page = ({ funnelService }: { funnelService: FunnelService }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParameters = useSearchParams();
@@ -24,7 +27,7 @@ const FunnelPage = () => {
 
   return (
     <Tabs value={currentTab} onValueChange={onTabChange} className="w-full">
-      <TabsList className="border-bottom mb-8 flex h-fit w-full flex-col-reverse gap-4 rounded-none bg-transparent p-0 sm:h-[58px] sm:flex-row sm:items-center sm:justify-between lg:h-[58px]">
+      <TabsList className="mb-8 flex h-fit w-full flex-col-reverse gap-4 rounded-none border-b bg-transparent p-0 sm:h-[58px] sm:flex-row sm:items-center sm:justify-between lg:h-[58px]">
         <section className="flex h-full w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap sm:gap-0">
           <TabsTrigger
             value="all-funnels"
@@ -74,19 +77,23 @@ const FunnelPage = () => {
 
       {/* tab content */}
       <TabsContent value="all-funnels">
-        <AllFunnels />
+        <AllFunnels service={funnelService} />
       </TabsContent>
       <TabsContent value="live">
-        <LiveFunnels />
+        <LiveFunnels service={funnelService} />
       </TabsContent>
       <TabsContent value="drafts">
-        <DraftFunnels />
+        <DraftFunnels service={funnelService} />
       </TabsContent>
       <TabsContent value="deleted">
-        <DeletedFunnels />
+        <DeletedFunnels service={funnelService} />
       </TabsContent>
     </Tabs>
   );
 };
+
+const FunnelPage = WithDependency(Page, {
+  funnelService: dependencies.FUNNEL_SERVICE,
+});
 
 export default FunnelPage;

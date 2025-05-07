@@ -1,83 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// ~/hooks/services/use-funnel-service.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { createServiceHooks } from "~/hooks/use-service-query";
 import { FunnelFormData } from "~/schemas";
 import { container, dependencies } from "~/utils/dependencies";
-import { FunnelService } from "./funnel.service";
+import type { FunnelService } from "./funnel.service";
 
 export const useFunnelService = () => {
-  const { useServiceQuery } = createServiceHooks<FunnelService>(dependencies.FUNNEL_SERVICE);
   const queryClient = useQueryClient();
+  const { useServiceQuery, useServiceMutation } = createServiceHooks<FunnelService>(dependencies.FUNNEL_SERVICE);
 
   // Queries
-  const useGetAllFunnels = (filters: IFilters, options?: any) =>
-    useServiceQuery<IPaginatedResponse<IFunnel>>(
-      ["funnels", "list", filters],
-      async (service) => {
-        const result = await service.getAllFunnels(filters);
-        if (!result) {
-          throw new Error("Failed to fetch funnels");
-        }
-        return result;
-      },
-      {
-        keepPreviousData: true,
-        ...options,
-      },
-    );
+  const useGetAllFunnels = (filters: IFilters = Object.create({ page: 1 }), options?: any) =>
+    useServiceQuery(["funnels", "list", filters], (service) => service.getAllFunnels(filters), options);
 
   const useGetFunnelById = (funnelId: string, options?: any) =>
-    useServiceQuery<{ data: IFunnel }>(
-      ["funnels", "detail", funnelId],
-      async (service) => {
-        const result = await service.getFunnelByID(funnelId);
-        if (!result) {
-          throw new Error("Funnel not found");
-        }
-        return result;
-      },
-      options,
-    );
+    useServiceQuery(["funnels", "detail", funnelId], (service) => service.getFunnelByID(funnelId), options);
 
   // Mutations
-  const useSaveFunnelToDraft = () => {
-    return useMutation({
-      mutationFn: (data: FunnelFormData & { funnel: string }) => {
-        const service = container.get<FunnelService>(dependencies.FUNNEL_SERVICE);
-        return service.saveFunnelToDraft(data);
-      },
+  const useSaveFunnelToDraft = () =>
+    useServiceMutation((service, data: FunnelFormData & { funnel: string }) => service.saveFunnelToDraft(data), {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["funnels", "list"] });
       },
     });
-  };
 
-  const usePublishFunnel = () => {
-    return useMutation({
-      mutationFn: (data: FunnelFormData & { funnel: string }) => {
-        const service = container.get<FunnelService>(dependencies.FUNNEL_SERVICE);
-        return service.publishFunnel(data);
-      },
+  const usePublishFunnel = () =>
+    useServiceMutation((service, data: FunnelFormData & { funnel: string }) => service.publishFunnel(data), {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["funnels", "list"] });
       },
     });
-  };
 
-  const useUpdateFunnel = () => {
-    return useMutation({
-      mutationFn: (data: IFunnel) => {
-        const service = container.get<FunnelService>(dependencies.FUNNEL_SERVICE);
-        return service.updateFunnel(data);
-      },
+  const useUpdateFunnel = () =>
+    useServiceMutation((service, data: IFunnel) => service.updateFunnel(data), {
       onSuccess: (_, variables) => {
-        queryClient.invalidateQueries({ queryKey: ["funnels", "list"] });
+        queryClient.invalidateQueries({ queryKey: ["funnels", "list", { page: 1 }] });
         queryClient.invalidateQueries({ queryKey: ["funnels", "detail", variables.id] });
       },
     });
-  };
 
   const useDeleteFunnel = () => {
     return useMutation({

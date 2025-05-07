@@ -3,6 +3,7 @@
 import { Eye, MinusCircleIcon, MoreVertical, Pencil, Settings, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 import { BlurImage } from "~/components/miscellaneous/blur-image";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
@@ -15,7 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { useFunnelService } from "~/features/funnel/services/use-funnel-service";
+import { FunnelService } from "~/features/funnel";
 import { useSession } from "~/hooks/use-session";
 import { useAppDispatch } from "~/store";
 import { setTemplate } from "~/store/features/template/template-slice";
@@ -24,29 +25,30 @@ import { cn, formatDate, formatTime } from "~/utils/utils";
 
 interface FunnelCardProperties {
   template: IFunnel;
+  service: FunnelService;
 }
 
-export const FunnelCard = ({ template }: FunnelCardProperties) => {
+export const FunnelCard = ({ template, service }: FunnelCardProperties) => {
+  const [isDeletePending, startDeleteTransition] = useTransition();
+  const [isDraftPending, startDraftTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { user } = useSession();
   const dispatch = useAppDispatch();
-  const { useDeleteFunnel, useUpdateFunnel } = useFunnelService();
 
   const { title, thumbnail, created_at, status, url, id } = template;
 
-  const { mutate: deleteFunnel, isPending: isDeletePending } = useDeleteFunnel();
-  const { mutate: updateFunnel, isPending: isDraftPending } = useUpdateFunnel();
-
   const handleDelete = () => {
-    deleteFunnel(id, {
-      onSuccess: (response) => {
+    startDeleteTransition(async () => {
+      const response = await service.deleteFunnel(id);
+      if (response) {
         Toast.getInstance().showToast({
           title: `Funnel Status`,
-          description: `Funnel ${response?.data.title} has been deleted successfully!`,
+          description: `Funnel ${response.data.title} has been deleted successfully!`,
           variant: "warning",
         });
         router.push(`/dashboard/${user?.id}/funnels?tab=deleted`);
-      },
+      }
     });
   };
 
@@ -60,24 +62,22 @@ export const FunnelCard = ({ template }: FunnelCardProperties) => {
   };
 
   const handleReturnToDraft = () => {
-    updateFunnel(
-      { ...template, status: `draft` },
-      {
-        onSuccess: (response) => {
-          Toast.getInstance().showToast({
-            title: `Funnel Status`,
-            description: `Funnel ${response?.data.title} has been moved to draft successfully!`,
-            variant: "default",
-          });
-          router.push(`/dashboard/${user?.id}/funnels?tab=drafts`);
-        },
-      },
-    );
+    startDraftTransition(async () => {
+      const response = await service.updateFunnel({ ...template, status: `draft` });
+      if (response) {
+        Toast.getInstance().showToast({
+          title: `Funnel Status`,
+          description: `Funnel ${response.data.title} has been moved to draft successfully!`,
+          variant: "default",
+        });
+        router.push(`/dashboard/${user?.id}/funnels?tab=drafts`);
+      }
+    });
   };
 
   return (
-    <div className="max-w-[450px] rounded-lg border-default p-4">
-      <Card className="h-[150px] overflow-hidden rounded-md border-default bg-low-purple">
+    <div className="max-w-[450px] rounded-lg border border-gray-200 p-6">
+      <Card className="h-[150px] overflow-hidden rounded-md bg-purple-200">
         <BlurImage
           src={typeof thumbnail === "string" ? thumbnail : `/images/question_mark.png`}
           alt="template"
@@ -89,7 +89,7 @@ export const FunnelCard = ({ template }: FunnelCardProperties) => {
       <div className="my-3 flex items-center justify-between font-bold">
         <div>
           <p className="text-lg">{title}</p>
-          <div className="flex items-center text-xs font-normal text-mid-grey-II md:text-sm">
+          <div className="flex items-center text-sm text-gray-400">
             <span>{formatDate(created_at)}</span>
             <span className="mx-1">•</span>
             <span>{formatTime(created_at)}</span>
@@ -153,7 +153,7 @@ const DropdownActionDraft = ({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className={`border-default`}>
+      <DropdownMenuContent>
         {status === `draft` && (
           <>
             <DropdownMenuItem onClick={onEdit}>
