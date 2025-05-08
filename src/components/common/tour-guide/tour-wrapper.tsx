@@ -86,28 +86,20 @@ export const TourWrapper = ({ steps, children, videoSrc, videoTitle }: TourWrapp
 
       {/* Video Modal */}
       <ReusableDialog
-        trigger={null}
+        trigger={""}
         open={isVideoModalOpen}
         onOpenChange={setIsVideoModalOpen}
         title={videoTitle || "Tutorial Video"}
         description="Watch this video to learn how to use this page."
+        size="xl" // or "xl" depending on your needs
+        className="[&_.video-container]:p-0" // Additional styling if needed
       >
-        <div className="aspect-video w-full overflow-hidden rounded-lg">
+        <div className="video-container aspect-video w-full">
           {videoSrc && (
             <video controls className="h-full w-full" src={videoSrc}>
               Your browser does not support the video tag.
             </video>
           )}
-          {/* {videoSrc ? (
-            <iframe
-              src={videoSrc}
-              className="h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <p className="text-center text-muted-foreground">No video available.</p>
-          )} */}
         </div>
       </ReusableDialog>
       {children}
