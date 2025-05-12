@@ -1,6 +1,6 @@
-# Contributing to Techstudio Academy Webapp
+# Contributing to Bytealley App
 
-![Techstudio Academy Logo](/public/images/logo.svg)
+![bytealley Logo](/public/images/logo.svg)
 
 Thank you for considering contributing to Bytealley We welcome all kinds of contributions, including bug reports, feature requests, and code improvements.
 
@@ -60,7 +60,7 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
    ```
    ##### Branch Naming Rules
    - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. Each of the type of update should be used as a prefix your branch name as `feat/`, `refactor/`, `fix/`, `chore/`, or `docs/`
-   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. techstudio-academy-123 or issue number should also be included in your branch name
+   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. bytealley--123 or issue number should also be included in your branch name
    - Finally, a short description for your update should follow suit. This is often taken from the ticket title
      <!-- - All of this (except the ticket number acronym, `bytealley`) should be written in lowercase -->
      > Thus, a typical branch should look like `feat/bytealley-1234-create-login-page` or like `chore/remove-unused-variables` if your update has no corresponding ticket or issue (unlikely)

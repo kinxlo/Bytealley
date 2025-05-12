@@ -1,10 +1,10 @@
-# Techstudio Academy
+# Bytealley
 
-![Techstudio Academy Logo](/public/images/logo.svg)
+![Bytealley](/public/images/logo.svg)
 
 ## Overview
 
-This repository contains the **[Techstudio Academy](https://techstudioacademy.com)** official webapp, designed as a foundational framework for the organization’s educational programs.
+This repository contains the **[Bytealley ](https://trybytealley.com)** official webapp, designed as a foundational framework for the organization’s educational programs.
 
 ## Technology Stack
 
