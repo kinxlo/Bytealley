@@ -5,7 +5,7 @@ import { createContext, useCallback, useEffect, useState, useTransition } from "
 
 import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 

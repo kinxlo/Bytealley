@@ -1,6 +1,6 @@
 "use client";
 
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { ChangeEmailForm } from "./_components/change-email-form";
 import { ChangePasswordForm } from "./_components/change-password-form";
 import { DeleteAccount } from "./_components/delete-account";

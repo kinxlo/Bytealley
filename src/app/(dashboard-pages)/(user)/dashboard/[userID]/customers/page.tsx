@@ -1,11 +1,10 @@
 "use client";
 
-// import refreshIcon from "@/icons/Property_2_Update_ojnsf7.svg";
 import emptyCart from "@/images/empty-cart.svg";
 import { format } from "date-fns";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useRef, useState } from "react";
 import { DateRange } from "react-day-picker";
 
 import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-table";
@@ -14,19 +13,18 @@ import { DateRangePicker } from "~/app/(dashboard-pages)/_components/date-range-
 import { EmptyState, FilteredEmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import ExportAction from "~/app/(dashboard-pages)/_components/export-action";
 import Loading from "~/app/Loading";
-import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
-import { CustomerService } from "~/services/customer.service";
-import { dependencies } from "~/utils/dependencies";
+import { useCustomerService } from "~/services/customer/use-customer.service";
 
-const BaseCustomerPage = ({ customerService }: { customerService: CustomerService }) => {
-  const [isPendingCustomers, startTransitionCustomers] = useTransition();
-  const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta | null>(null);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const { user } = useSession();
+const CustomerPage = () => {
   const router = useRouter();
+  const { user } = useSession();
+  const { useGetAllCustomers, useDownloadCustomers } = useCustomerService();
+  const { refetch: downloadCustomers } = useDownloadCustomers({}, { enabled: false });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+
   const debounceDateRangeReference = useRef(
     debounce((value: DateRange) => {
       setDateRange(value);
@@ -38,56 +36,69 @@ const BaseCustomerPage = ({ customerService }: { customerService: CustomerServic
     setCurrentPage(1);
   }, []);
 
-  useEffect(() => {
-    const parameters: IFilters = {
-      page: currentPage,
-      ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
-      ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
-    };
-
-    startTransitionCustomers(async () => {
-      const customersData = await customerService.getAllCustomers(parameters);
-      setCustomers(customersData?.data || []);
-      setPaginationMeta(customersData?.meta || null);
-    });
-  }, [customerService, currentPage, dateRange?.from, dateRange?.to]);
+  // Customers query
+  const {
+    data: customersData,
+    isLoading: isCustomersLoading,
+    isRefetching: isCustomersRefetching,
+    isError: isCustomersError,
+  } = useGetAllCustomers({
+    page: currentPage,
+    ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
+    ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
+  });
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  if (isCustomersError) {
+    return (
+      <EmptyState
+        images={[{ src: emptyCart, alt: "Error", width: 100, height: 100 }]}
+        title="Error loading customers"
+        description="Failed to fetch customer data. Please try again later."
+      />
+    );
+  }
+
   return (
-    <section className={`space-y-10`}>
-      <p className={`text-2xl font-medium`}>{customers?.length} Customers</p>
+    <section className="space-y-10">
+      <p className="text-2xl font-medium">{customersData?.data?.length || 0} Customers</p>
+
       <section className="flex w-full flex-col-reverse gap-4 sm:items-center md:flex-row md:justify-between">
         <div className="flex w-full flex-col gap-2 sm:flex-row md:w-auto">
           <DateRangePicker onDateChange={handleDateRangeChange} />
         </div>
         <div className="flex w-full flex-row gap-2 sm:w-auto sm:justify-start">
           <ExportAction
-            serviceMethod={(filters) => customerService.downloadCustomersAsCSV(filters)}
+            downloadMutation={async (filters) => {
+              const { data } = await downloadCustomers(filters);
+              return data as Blob;
+            }}
             currentPage={1}
             dateRange={dateRange}
             buttonText="Export Customers"
             fileName="customer"
-            size={`xl`}
+            size="xl"
           />
         </div>
       </section>
+
       <section>
-        {isPendingCustomers ? (
-          <Loading text={`Loading customer table...`} className={`w-fill h-fit p-20`} />
+        {isCustomersLoading || isCustomersRefetching ? (
+          <Loading text="Loading customer table..." className="w-fill h-fit p-20" />
         ) : (
           <>
-            {customers.length > 0 ? (
+            {customersData?.data?.length ? (
               <DashboardTable
-                data={customers}
+                data={customersData.data}
                 columns={customerColumns}
                 showPagination
                 onPageChange={handlePageChange}
-                currentPage={paginationMeta?.current_page}
-                totalPages={paginationMeta?.last_page}
-                itemsPerPage={paginationMeta?.per_page}
+                currentPage={customersData.meta?.current_page}
+                totalPages={customersData.meta?.last_page}
+                itemsPerPage={customersData.meta?.per_page}
                 onRowClick={(customer) => {
                   router.push(`/dashboard/${user?.id}/customers/${customer.id}`);
                 }}
@@ -113,9 +124,7 @@ const BaseCustomerPage = ({ customerService }: { customerService: CustomerServic
                 description="You do not have any active customers yet."
                 button={{
                   text: "Create Your First Product",
-                  onClick: () => {
-                    router.push(`/dashboard/${user?.id}/products/new`);
-                  },
+                  onClick: () => router.push(`/dashboard/${user?.id}/products/new`),
                 }}
               />
             )}
@@ -125,9 +134,5 @@ const BaseCustomerPage = ({ customerService }: { customerService: CustomerServic
     </section>
   );
 };
-
-const CustomerPage = WithDependency(BaseCustomerPage, {
-  customerService: dependencies.CUSTOMER_SERVICE,
-});
 
 export default CustomerPage;

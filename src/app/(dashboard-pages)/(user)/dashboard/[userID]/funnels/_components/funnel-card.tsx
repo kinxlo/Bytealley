@@ -76,8 +76,8 @@ export const FunnelCard = ({ template, service }: FunnelCardProperties) => {
   };
 
   return (
-    <div className="max-w-[450px] rounded-lg border-default p-4">
-      <Card className="h-[150px] overflow-hidden rounded-md border-default bg-low-purple">
+    <div className="max-w-[450px] rounded-lg border border-gray-200 p-6">
+      <Card className="h-[150px] overflow-hidden rounded-md bg-purple-200">
         <BlurImage
           src={typeof thumbnail === "string" ? thumbnail : `/images/question_mark.png`}
           alt="template"
@@ -89,7 +89,7 @@ export const FunnelCard = ({ template, service }: FunnelCardProperties) => {
       <div className="my-3 flex items-center justify-between font-bold">
         <div>
           <p className="text-lg">{title}</p>
-          <div className="flex items-center text-xs font-normal text-mid-grey-II md:text-sm">
+          <div className="flex items-center text-sm text-gray-400">
             <span>{formatDate(created_at)}</span>
             <span className="mx-1">•</span>
             <span>{formatTime(created_at)}</span>
@@ -153,7 +153,7 @@ const DropdownActionDraft = ({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className={`border-default`}>
+      <DropdownMenuContent>
         {status === `draft` && (
           <>
             <DropdownMenuItem onClick={onEdit}>

@@ -25,7 +25,7 @@ import { useCart } from "~/hooks/use-cart";
 import { useNavbarVisibility } from "~/hooks/use-navbar-visibility";
 import { useProductCategories } from "~/hooks/use-product-categories";
 import { useSession } from "~/hooks/use-session";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { externalNavlinks } from "~/utils/constants";
 import { dependencies } from "~/utils/dependencies";
 import { cn } from "~/utils/utils";
@@ -83,7 +83,7 @@ const BaseExploreNavBar = ({ appService }: { appService: AppService }) => {
                 {user ? (
                   <Profile />
                 ) : (
-                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-white`}>
+                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-black`}>
                     Create Account
                   </CustomButton>
                 )}
@@ -156,7 +156,7 @@ const BaseExploreNavBar = ({ appService }: { appService: AppService }) => {
                 {user ? (
                   <Profile />
                 ) : (
-                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-white`}>
+                  <CustomButton href={`/auth/login`} size={`xl`} className={`bg-mid-warning text-black`}>
                     Create Account
                   </CustomButton>
                 )}

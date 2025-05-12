@@ -11,7 +11,7 @@ import { PDBanner } from "~/app/(dashboard-pages)/_components/banner/pd-banner";
 import { EmptyState, FilteredEmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import Loading from "~/app/Loading";
 import { useSession } from "~/hooks/use-session";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 import { DownloadCard } from "../../_components/download-card";
 
 export const SkillSelling = ({ service }: { service: ProductService }) => {

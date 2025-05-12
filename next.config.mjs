@@ -25,6 +25,9 @@ const nextConfig = {
     return config;
   },
   swcMinify: false,
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
 };
 
 export default nextConfig;

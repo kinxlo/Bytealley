@@ -5,15 +5,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import CustomButton from "~/components/common/common-button/common-button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WithDependency } from "~/HOC/withDependencies";
-import { ProductService } from "~/services/product.service";
-import { dependencies } from "~/utils/dependencies";
 import { AllProducts } from "./_views/all-products";
 import { DeletedProducts } from "./_views/deleted-products";
 import { DraftProducts } from "./_views/draft-products";
 import { LiveProducts } from "./_views/live-products";
 
-const Page = ({ productService, params }: { productService: ProductService; params: { userID: string } }) => {
+const ProductPage = ({ params }: { params: { userID: string } }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParameters = useSearchParams();
@@ -87,23 +84,19 @@ const Page = ({ productService, params }: { productService: ProductService; para
 
       {/* tab content */}
       <TabsContent value="all-products">
-        <AllProducts productService={productService} />
+        <AllProducts />
       </TabsContent>
       <TabsContent value="live">
-        <LiveProducts productService={productService} />
+        <LiveProducts />
       </TabsContent>
       <TabsContent value="drafts">
-        <DraftProducts productService={productService} />
+        <DraftProducts />
       </TabsContent>
       <TabsContent value="deleted">
-        <DeletedProducts productService={productService} />
+        <DeletedProducts />
       </TabsContent>
     </Tabs>
   );
 };
 
-const ProductsPage = WithDependency(Page, {
-  productService: dependencies.PRODUCT_SERVICE,
-});
-
-export default ProductsPage;
+export default ProductPage;

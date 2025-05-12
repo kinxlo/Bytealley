@@ -84,7 +84,7 @@ export const CardComponent: React.FC<CardProperties> = ({
               ) : null}
             </div>
             {discountPercentage && (
-              <Badge className="rounded bg-low-warning px-2 py-1 text-[10px] text-high-warning lg:text-xs">
+              <Badge className="rounded bg-low-warning px-2 py-1 text-[10px] text-black lg:text-xs">
                 {-discountPercentage}%
               </Badge>
             )}

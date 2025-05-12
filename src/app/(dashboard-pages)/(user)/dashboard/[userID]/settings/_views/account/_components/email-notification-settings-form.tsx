@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { SwitchField } from "~/components/common/FormFields";
 import { useSession } from "~/hooks/use-session";
 import { EmailNotificationSettingFormData, emailNotificationSettingSchema } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 
 export const EmailNotificationSettingsForm = ({ service }: { service: AppService }) => {
   const { user } = useSession();

@@ -5,7 +5,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart";
 import { WithDependency } from "~/HOC/withDependencies";
-import { AnalyticsService } from "~/services/analytics.service";
+import { AnalyticsService } from "~/services/analytics/analytics.service";
 import { months } from "~/utils/constants";
 import { dependencies } from "~/utils/dependencies";
 import { SelectDropdown } from "../select-dropdown";

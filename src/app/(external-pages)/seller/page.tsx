@@ -1,3 +1,5 @@
+"use client";
+
 import { SharedSection } from "../_components/shared-section";
 import { HomeHero } from "./_views/hero";
 import { SectionOne } from "./_views/section-1";

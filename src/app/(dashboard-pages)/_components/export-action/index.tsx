@@ -11,7 +11,7 @@ import CustomButton from "~/components/common/common-button/common-button";
 import { cn } from "~/utils/utils";
 
 interface ExportActionProperties<T> extends HtmlHTMLAttributes<HTMLButtonElement> {
-  serviceMethod: (parameters: T) => any;
+  downloadMutation: (parameters: T) => Promise<Blob | File>;
   currentPage?: number;
   dateRange?: { from?: Date; to?: Date };
   status?: string;
@@ -23,7 +23,7 @@ interface ExportActionProperties<T> extends HtmlHTMLAttributes<HTMLButtonElement
 }
 
 const ExportAction = <T extends object>({
-  serviceMethod,
+  downloadMutation,
   currentPage = 1,
   dateRange,
   status,
@@ -46,7 +46,7 @@ const ExportAction = <T extends object>({
         ...additionalParameters,
       };
 
-      const file = await serviceMethod(parameters);
+      const file = await downloadMutation(parameters);
       const blob = new Blob([file], { type: "text/csv" });
       saveAs(blob, `${fileName}.csv`);
 

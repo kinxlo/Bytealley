@@ -1,8 +1,8 @@
 "use client";
 
 import empty1 from "@/images/alert.png";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
 
 import { BackNavigator } from "~/app/(dashboard-pages)/_components/back-navigator";
 import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-table";
@@ -12,81 +12,66 @@ import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-heade
 import Loading from "~/app/Loading";
 import CustomButton from "~/components/common/common-button/common-button";
 import { ConfirmationDialog } from "~/components/common/dialog/confirmation-dialog";
-import { WithDependency } from "~/HOC/withDependencies";
-import { ProductService } from "~/services/product.service";
-import { dependencies } from "~/utils/dependencies";
+import { useProductService } from "~/services/product/use-product-service";
 import { Toast } from "~/utils/notificationManager";
 
-const BasePreviewProductDetailsPage = ({
-  params,
-  productService,
-}: {
-  params: { productID: string };
-  productService: ProductService;
-}) => {
-  const [isPending, startTransition] = useTransition();
-  const [isPublishPending, startPublishTransition] = useTransition();
-  const [isDeletePending, startDeleteTransition] = useTransition();
-  const [product, setProduct] = useState<IProduct | null>(null);
-  const [productOrders, setProductOrders] = useState<IOrder[]>([]);
+const PreviewProductDetailsPage = ({ params }: { params: { productID: string } }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
-  // Fetch product and orders data
-  useEffect(() => {
-    const fetchProductData = async () => {
-      startTransition(async () => {
-        const [product, orders] = await Promise.all([
-          productService.getProductById(params.productID),
-          productService.getProductOrderByProductId(params.productID),
-        ]);
+  // Product Service Hooks
+  const { useGetProductById, usePublishProduct, useSoftDeleteProduct, useGetProductOrders } = useProductService();
+  const { data: productData, isLoading: isProductLoading } = useGetProductById(params.productID);
 
-        if (product && orders) {
-          setProduct(product);
-          setProductOrders(orders);
-        }
-      });
-    };
-
-    fetchProductData();
-  }, [params.productID, productService]);
+  // Mutations
+  const publishMutation = usePublishProduct();
+  const deleteMutation = useSoftDeleteProduct();
+  const { data: ordersData, isLoading: isOrdersLoading } = useGetProductOrders(params.productID);
 
   // Handle publish/unpublish action
   const handlePublish = async () => {
-    startPublishTransition(async () => {
-      await productService.publishProduct(params.productID);
-
-      // Show success toast
+    try {
+      await publishMutation.mutateAsync(params.productID);
       Toast.getInstance().showToast({
         title: "Success",
         description: `Product status updated successfully!`,
         variant: "success",
       });
-
-      // Re-fetch product data to update the UI
-      const updatedProduct = await productService.getProductById(params.productID);
-      if (updatedProduct) {
-        setProduct(updatedProduct);
-      }
-    });
+    } catch {
+      Toast.getInstance().showToast({
+        title: "Error",
+        description: "Failed to update product status",
+        variant: "error",
+      });
+    }
   };
 
-  const handleDelete = () => {
-    startDeleteTransition(async () => {
-      await productService.softDeleteProduct(params.productID);
+  const handleDelete = async () => {
+    try {
+      await deleteMutation.mutateAsync(params.productID);
+      queryClient.invalidateQueries({
+        queryKey: ["products", "list", "detail"],
+      });
       Toast.getInstance().showToast({
         title: "Product Deleted",
-        description: `Product ${product?.title} deleted successfully!`,
+        description: `Product ${productData?.title} deleted successfully!`,
         variant: "warning",
       });
-      router.push(`/dashboard/${product?.user_id}/products?tab=deleted`);
-    });
+      router.push(`/dashboard/${productData?.user_id}/products?tab=deleted`);
+    } catch {
+      Toast.getInstance().showToast({
+        title: "Error",
+        description: "Failed to delete product",
+        variant: "error",
+      });
+    }
   };
 
-  if (isPending) {
+  if (isProductLoading || isOrdersLoading) {
     return <Loading />;
   }
 
-  if (!product) {
+  if (!productData) {
     return (
       <EmptyState
         title="Product Not Found"
@@ -105,8 +90,7 @@ const BasePreviewProductDetailsPage = ({
         <div className="flex items-center space-x-4">
           <ConfirmationDialog
             action={{
-              pending: isDeletePending,
-              onOpenChange: () => {},
+              pending: deleteMutation.isPending,
               title: "Delete Product",
               description: "Are you sure you want to delete this product?",
               onConfirm: handleDelete,
@@ -118,49 +102,32 @@ const BasePreviewProductDetailsPage = ({
               Delete
             </CustomButton>
           </ConfirmationDialog>
-          {product.status === "published" ? (
-            <CustomButton
-              isDisabled={isPublishPending}
-              isLoading={isPublishPending}
-              onClick={handlePublish}
-              variant="primary"
-              size="lg"
-              className="w-full lg:w-auto"
-            >
-              Unpublish to Draft
-            </CustomButton>
-          ) : (
-            <CustomButton
-              isDisabled={isPublishPending}
-              isLoading={isPublishPending}
-              onClick={handlePublish}
-              variant="primary"
-              size="lg"
-              className="w-full lg:w-auto"
-            >
-              Publish
-            </CustomButton>
-          )}
+
+          <CustomButton
+            isDisabled={publishMutation.isPending}
+            isLoading={publishMutation.isPending}
+            onClick={handlePublish}
+            variant="primary"
+            size="lg"
+            className="w-full lg:w-auto"
+          >
+            {productData.status === "published" ? "Unpublish to Draft" : "Publish"}
+          </CustomButton>
         </div>
       </section>
 
       {/* Product Details Section */}
       <section>
-        <p className="border-bottom pb-4 text-lg font-semibold">{product?.title}</p>
-        <TableHeaderInfo headers={["Publish Date", "Price", "Product Link", "Status"]} product={product} />
+        <p className="border-bottom pb-4 text-lg font-semibold">{productData.title}</p>
+        <TableHeaderInfo headers={["Publish Date", "Price", "Product Link", "Status"]} product={productData} />
       </section>
 
       {/* Orders Table Section */}
       <section>
-        <DashboardTable data={productOrders} columns={singleProductOrderColumns} />
+        <DashboardTable data={ordersData ?? []} columns={singleProductOrderColumns} />
       </section>
     </section>
   );
 };
 
-// Wrap the component with dependencies
-const ProductDetailsPage = WithDependency(BasePreviewProductDetailsPage, {
-  productService: dependencies.PRODUCT_SERVICE,
-});
-
-export default ProductDetailsPage;
+export default PreviewProductDetailsPage;

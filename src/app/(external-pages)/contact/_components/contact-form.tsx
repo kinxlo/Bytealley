@@ -7,7 +7,7 @@ import CustomButton from "~/components/common/common-button/common-button";
 import { FormField } from "~/components/common/FormFields";
 import { WithDependency } from "~/HOC/withDependencies";
 import { ExternalContactFormData, externalContactSchema } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { Toast } from "~/utils/notificationManager";
 

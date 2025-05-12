@@ -1,23 +1,27 @@
 "use client";
 
+import { Video } from "lucide-react";
 import { useEffect, useState } from "react";
 import Joyride, { CallBackProps, Step } from "react-joyride";
 import { toast } from "sonner";
 
 import CustomButton from "../common-button/common-button";
+import { ReusableDialog } from "../dialog/Dialog";
 
 interface TourWrapperProperties {
   steps: Step[];
   children: React.ReactNode;
+  videoSrc?: string; // Add video source prop
+  videoTitle?: string; // Optional video title
 }
 
-export const TourWrapper = ({ steps, children }: TourWrapperProperties) => {
+export const TourWrapper = ({ steps, children, videoSrc, videoTitle }: TourWrapperProperties) => {
   const [isTourRunning, setIsTourRunning] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const handleTourStart = () => {
     setIsTourRunning(true);
     toast.dismiss();
-    // Set a flag in sessionStorage to indicate the tour has been shown
     sessionStorage.setItem("tourShown", "true");
   };
 
@@ -28,23 +32,26 @@ export const TourWrapper = ({ steps, children }: TourWrapperProperties) => {
     }
   };
 
-  const dismiss = () => {
-    setIsTourRunning(false);
+  // const dismiss = () => {
+  //   setIsTourRunning(false);
+  //   toast.dismiss();
+  //   sessionStorage.setItem("tourShown", "true");
+  // };
+
+  const openVideoModal = () => {
+    setIsVideoModalOpen(true);
     toast.dismiss();
-    sessionStorage.setItem("tourShown", "true");
   };
 
   useEffect(() => {
-    // Check if the tour has already been shown in this session
     const tourShown = sessionStorage.getItem("tourShown");
-
     if (!tourShown) {
       toast(
         <div className="flex flex-col gap-2">
-          <p>Would you like to take a guided tour of this page?</p>
+          <p>Would you like to watch a video on how to use our Funnel or take a tour ?</p>
           <div className="flex justify-end gap-2">
-            <CustomButton variant="outline" onClick={dismiss}>
-              Not Now
+            <CustomButton isLeftIconVisible icon={<Video />} variant="outline" onClick={openVideoModal}>
+              Watch Tutorial
             </CustomButton>
             <CustomButton variant="primary" onClick={handleTourStart}>
               Start Tour
@@ -77,6 +84,24 @@ export const TourWrapper = ({ steps, children }: TourWrapperProperties) => {
         }}
       />
 
+      {/* Video Modal */}
+      <ReusableDialog
+        trigger={""}
+        open={isVideoModalOpen}
+        onOpenChange={setIsVideoModalOpen}
+        title={videoTitle || "Tutorial Video"}
+        description="Watch this video to learn how to use this page."
+        size="xl" // or "xl" depending on your needs
+        className="[&_.video-container]:p-0" // Additional styling if needed
+      >
+        <div className="video-container aspect-video w-full">
+          {videoSrc && (
+            <video controls className="h-full w-full" src={videoSrc}>
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+      </ReusableDialog>
       {children}
     </>
   );

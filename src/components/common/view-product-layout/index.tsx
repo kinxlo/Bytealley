@@ -210,22 +210,11 @@ export function ViewProductLayout({ productService }: { productService: any }) {
             <p className="text-sm font-semibold text-mid-grey-II">10 reviews</p>
           </div>
           <div className="space-y-4">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="">
-                <p className="text-sm">Lorem ipsum dolor sit amet consectetur. Telius anest nulla nam elit vivem.</p>
-                <div className="mt-2 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-4 w-4">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <p className="text-[10px] font-semibold">Tomlade Openly</p>
-                  </div>
-                  <StarRating size={`text-xs`} rating={4} />
-                  <p className="text-[10px]">2 months ago</p>
-                </div>
-              </div>
-            ))}
+            <EmptyState
+              title="No Comments yet."
+              description="There are no reviews available for this product."
+              images={[{ src: empty1.src, alt: "Empty product", width: 50, height: 50 }]}
+            />
           </div>
         </section>
       </aside>

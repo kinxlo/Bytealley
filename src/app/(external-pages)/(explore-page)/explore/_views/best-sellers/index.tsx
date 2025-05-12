@@ -1,39 +1,27 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-
-import "swiper/css";
-import "swiper/css/pagination";
-
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import Loading from "~/app/Loading";
 import { UniversalSwiper } from "~/components/common/carousel";
 import { Wrapper } from "~/components/layout/wrapper";
-import { AppService } from "~/services/app.service";
+import { useAppService } from "~/services/app/use-app-service";
 import { CardComponent } from "../../_components/product-card";
 
-export const BestSellingProduct = ({ appService }: { appService: AppService }) => {
-  const [isPending, startTransition] = useTransition();
-  const [products, setProducts] = useState<IProduct[]>([]);
+export const BestSellingProduct = () => {
+  const { useGetAllProducts } = useAppService();
+  const { data: paginatedResponse, isLoading, isError } = useGetAllProducts();
 
-  useEffect(() => {
-    startTransition(async () => {
-      const productsData = await appService.getAllProducts();
-      if (productsData) {
-        setProducts(productsData?.data);
-      }
-    });
-  }, [appService]);
+  const products: IProduct[] = paginatedResponse?.data || [];
 
-  if (isPending) {
+  if (isLoading) {
     return <Loading text="Loading trending products..." className="h-fit w-full p-20" />;
   }
 
-  if (products.length === 0) {
+  if (isError || products.length === 0) {
     return (
       <EmptyState
         title="No trending products at the moment."
-        description="There are no best sellign product yet."
+        description="There are no best selling products yet."
         images={[]}
       />
     );
@@ -48,7 +36,7 @@ export const BestSellingProduct = ({ appService }: { appService: AppService }) =
       <UniversalSwiper
         className={`mb-20`}
         items={products}
-        renderItem={(product) => (
+        renderItem={(product: IProduct) => (
           <CardComponent
             productID={product.slug}
             image={typeof product.thumbnail === "string" ? product.thumbnail : ""}

@@ -10,7 +10,7 @@ import { VideoPlayerWithCustomControls } from "~/components/common/video-player"
 import { BlurImage } from "~/components/miscellaneous/blur-image";
 import { PDFViewer } from "~/features/PDFviewer";
 import { WithDependency } from "~/HOC/withDependencies";
-import { DownloadService } from "~/services/download.service";
+import { DownloadService } from "~/services/download/download.service";
 import { dependencies } from "~/utils/dependencies";
 import { ReviewModal } from "../_components/review-modal";
 

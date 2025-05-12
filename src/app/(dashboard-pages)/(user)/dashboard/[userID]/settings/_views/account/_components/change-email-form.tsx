@@ -8,7 +8,7 @@ import { FormField } from "~/components/common/FormFields";
 import { Checkbox } from "~/components/ui/checkbox";
 import { useSession } from "~/hooks/use-session";
 import { ChangeEmailFormData, changeEmailSchema } from "~/schemas";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { Toast } from "~/utils/notificationManager";
 import { cn } from "~/utils/utils";
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useState } from "react";
 
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 
 export const useProductCategories = (appService: AppService) => {
   const [categories, setCategories] = useState<any[]>([]);

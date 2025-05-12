@@ -58,7 +58,6 @@
     --border: 214 32% 91%;
     --input: 214 32% 91%;
     --ring: 250, 53%, 60%;
-    /* --ring: 222.2 84% 4.9%; */
 
     --radius: 0.5rem;
 
@@ -312,6 +311,15 @@
   ::-webkit-scrollbar-track {
     background: hsla(0, 0%, 0%, 0.06); /* Color of the track */
     border-radius: 10px; /* Rounded corners of the track */
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 
   /* For Firefox */

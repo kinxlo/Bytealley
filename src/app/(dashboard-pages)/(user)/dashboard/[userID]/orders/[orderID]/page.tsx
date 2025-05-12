@@ -1,42 +1,21 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-
 import { AnalyticsCard } from "~/app/(dashboard-pages)/_components/analytics-card";
 import { BackNavigator } from "~/app/(dashboard-pages)/_components/back-navigator";
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-header-info";
 import Loading from "~/app/Loading";
-import { WithDependency } from "~/HOC/withDependencies";
-import { OrderService } from "~/services/orders.service";
-import { dependencies } from "~/utils/dependencies";
+import { useOrderService } from "~/services/order/use-order.service";
 
-const BaseOrderDetailsPage = ({
-  params,
-  orderService,
-}: {
-  params: { orderID: string };
-  orderService: OrderService;
-}) => {
-  const [isPending, startTransition] = useTransition();
-  const [order, setOrder] = useState<IOrder | null>(null);
+const OrderDetailsPage = ({ params }: { params: { orderID: string } }) => {
+  const { useGetOrderById } = useOrderService();
+  const { data: order, isLoading, isError } = useGetOrderById(params.orderID);
 
-  useEffect(() => {
-    const fetchProductData = async () => {
-      startTransition(async () => {
-        const order = await orderService.getOrderById(params.orderID);
-        setOrder(order?.data || null);
-      });
-    };
-
-    fetchProductData();
-  }, [params.orderID, orderService]);
-
-  if (isPending) {
-    return <Loading text={`Loading order details...`} className={`w-fill h-fit p-20`} />;
+  if (isLoading) {
+    return <Loading text="Loading order details..." className="w-fill h-fit p-20" />;
   }
 
-  if (!order) {
+  if (isError || !order?.data) {
     return (
       <EmptyState
         title="Order Not Found"
@@ -47,6 +26,8 @@ const BaseOrderDetailsPage = ({
     );
   }
 
+  const orderData = order.data;
+
   return (
     <section className="space-y-6">
       <section className="flex flex-col justify-between space-y-4 md:flex-row md:space-y-0 lg:items-center">
@@ -54,28 +35,24 @@ const BaseOrderDetailsPage = ({
       </section>
 
       <section>
-        <p className="mb-4 text-lg font-semibold">{order?.product?.title}</p>
+        <p className="mb-4 text-lg font-semibold">{orderData?.product?.title}</p>
         <TableHeaderInfo
           headers={["Publish Date", "Price", "Product Link"]}
-          product={{ ...order?.product, updated_at: order?.created_at }}
+          product={{ ...orderData?.product, updated_at: orderData?.created_at }}
         />
       </section>
 
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <AnalyticsCard title="Total Orders" value={order?.quantity} />
-        <AnalyticsCard title="Total Sales" value={order?.product?.total_sales} />
+        <AnalyticsCard title="Total Orders" value={orderData?.quantity} />
+        <AnalyticsCard title="Total Sales" value={orderData?.product?.total_sales} />
         <AnalyticsCard
-          className={`text-mid-success`}
+          className="text-mid-success"
           title="Total Value"
-          value={`₦${order?.total_amount?.toLocaleString()}`}
+          value={`₦${orderData?.total_amount?.toLocaleString()}`}
         />
       </section>
     </section>
   );
 };
-
-const OrderDetailsPage = WithDependency(BaseOrderDetailsPage, {
-  orderService: dependencies.ORDER_SERVICE,
-});
 
 export default OrderDetailsPage;

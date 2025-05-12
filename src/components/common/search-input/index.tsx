@@ -6,7 +6,7 @@ import { LuSearch } from "react-icons/lu";
 import Loading from "~/app/Loading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WithDependency } from "~/HOC/withDependencies";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
 import { dependencies } from "~/utils/dependencies";
 import { cn } from "~/utils/utils";
 import { ReusableDialog } from "../dialog/Dialog";

@@ -77,7 +77,7 @@ export const LiveFunnels = ({ service }: { service: FunnelService }) => {
           ) : (
             <section>
               {funnels.length > 0 ? (
-                <section className={`grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3`}>
+                <section className={`grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3`}>
                   {funnels.map((funnel) => {
                     return (
                       <FunnelCard

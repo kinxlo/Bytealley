@@ -15,7 +15,7 @@ import {
   RichTextEditor,
   ThumbNailUpload,
 } from "~/components/common/FormFields";
-import { ProductService } from "~/services/product.service";
+import { ProductService } from "~/services/product/product.service";
 
 export const ProductForm = ({ methods, service }: { methods: UseFormReturn<IProduct>; service: ProductService }) => {
   const searchParameters = useSearchParams();

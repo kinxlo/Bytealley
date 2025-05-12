@@ -10,7 +10,7 @@ export const ConfirmationDialog = ({
   children: React.ReactNode;
   action: {
     pending: boolean;
-    onOpenChange: (open: boolean) => void;
+    onOpenChange?: (open: boolean) => void;
     title: string;
     description: string;
     onConfirm: () => void;
@@ -41,7 +41,7 @@ export const ConfirmationDialog = ({
           onClick={() => {
             action.onConfirm();
             setIsDialogOpen(false);
-            action.onOpenChange(false);
+            action.onOpenChange?.(false);
           }}
         >
           {action.buttonName}

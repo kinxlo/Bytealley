@@ -1,13 +1,10 @@
 "use client";
 
-// import refreshIcon from "@/icons/Property_2_Update_ojnsf7.svg";
-// import uploadIcon from "@/icons/Property_2_Upload_cm42yb.svg";
 import productImage from "@/images/empty_product.svg";
 import { format } from "date-fns";
 import debounce from "lodash.debounce";
-// import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useRef, useState } from "react";
 import { DateRange } from "react-day-picker";
 
 import { AnalyticsCard } from "~/app/(dashboard-pages)/_components/analytics-card/index";
@@ -16,37 +13,20 @@ import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-ta
 import { orderColumns } from "~/app/(dashboard-pages)/_components/dashboard-table/table-data";
 import { DateRangePicker } from "~/app/(dashboard-pages)/_components/date-range-picker";
 import { EmptyState, FilteredEmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
-// import { SelectDropdown } from "~/app/(dashboard-pages)/_components/select-dropdown";
-// import CustomButton from "~/components/common/common-button/common-button";
+import Loading from "~/app/Loading";
 import { LoadingSpinner } from "~/components/miscellaneous/loading-spinner";
-import { WithDependency } from "~/HOC/withDependencies";
 import { useSession } from "~/hooks/use-session";
-import { OrderService } from "~/services/orders.service";
-import { ProductService } from "~/services/product.service";
-import { dependencies } from "~/utils/dependencies";
+import { useOrderService } from "~/services/order/use-order.service";
+import { useProductService } from "~/services/product/use-product-service";
 
-const Analytics = ({
-  productService,
-  orderService,
-}: {
-  productService: ProductService;
-  orderService: OrderService;
-}) => {
-  const [isPendingAnalytics, startTransitionAnalytics] = useTransition();
-  const [analytics, setAnalytics] = useState<IDashboardAnalytics | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta | null>(null);
-  // const [status, setStatus] = useState<string>("all");
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [topProducts, setTopProducts] = useState<IOrder[]>([]);
+const Analytics = () => {
   const router = useRouter();
   const { user } = useSession();
+  const { useGetAllOrders } = useOrderService();
+  const { useGetDashboardAnalytics } = useProductService();
 
-  // const debouncedStatusReference = useRef(
-  //   debounce((value: string) => {
-  //     setStatus(value);
-  //   }, 300),
-  // );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   const debounceDateRangeReference = useRef(
     debounce((value: DateRange) => {
@@ -54,109 +34,102 @@ const Analytics = ({
     }, 300),
   );
 
-  // const handleStatusChange = useCallback((value: string) => {
-  //   debouncedStatusReference.current(value);
-  //   setCurrentPage(1);
-  // }, []);
-
   const handleDateRangeChange = useCallback((value: DateRange) => {
     debounceDateRangeReference.current(value);
     setCurrentPage(1);
   }, []);
 
-  useEffect(() => {
-    const parameters: IFilters = {
-      page: currentPage,
-      ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
-      ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
-    };
-    startTransitionAnalytics(async () => {
-      const [analyticsData, ordersData] = await Promise.all([
-        productService.getDashboardAnalytics(),
-        orderService.getAllOrders(parameters),
-      ]);
+  // Analytics data query
+  const { data: analyticsData, isLoading: isAnalyticsLoading, isError: isAnalyticsError } = useGetDashboardAnalytics();
 
-      setAnalytics(analyticsData?.data ?? null);
-      setTopProducts(ordersData?.data || []);
-      setPaginationMeta(ordersData?.meta || null);
-    });
-  }, [currentPage, dateRange?.from, dateRange?.to, orderService, productService]);
+  // Orders data query
+  const {
+    data: ordersData,
+    isLoading: isOrdersLoading,
+    isError: isOrdersError,
+    isRefetching: isOrdersRefetching,
+  } = useGetAllOrders({
+    page: currentPage,
+    ...(dateRange?.from && { start_date: format(dateRange.from, "yyyy-MM-dd") }),
+    ...(dateRange?.to && { end_date: format(dateRange.to, "yyyy-MM-dd") }),
+  });
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  // Error state
+  if (isAnalyticsError || isOrdersError) {
+    return (
+      <EmptyState
+        images={[{ src: productImage.src, alt: "Error", width: 102, height: 60 }]}
+        title="Error loading data"
+        description="Failed to fetch analytics data. Please try again later."
+        className="min-h-[236px] rounded-md bg-low-grey-III p-6 text-black"
+      />
+    );
+  }
+
   return (
     <>
-      <section className={`space-y-4`}>
+      <section className="space-y-4">
         <section className="flex w-full flex-col gap-4 sm:items-center md:flex-row md:justify-between">
           <div className="flex w-full flex-col gap-2 sm:flex-row md:w-auto">
             <DateRangePicker onDateChange={handleDateRangeChange} />
-            {/* <SelectDropdown
-              options={statusOptions}
-              value={status}
-              onValueChange={handleStatusChange}
-              placeholder="Filter by status"
-            /> */}
           </div>
-          {/* <div className="flex w-full flex-row gap-2 sm:w-auto sm:justify-start">
-            <CustomButton
-              className="w-full border-primary text-[16px] text-primary sm:w-auto"
-              variant="outline"
-              size="xl"
-              isLeftIconVisible
-              icon={<Image src={refreshIcon} width={16} height={16} alt="export" />}
-            >
-              Refresh
-            </CustomButton>
-            <CustomButton
-              className="w-full border-primary text-[16px] text-primary sm:w-auto"
-              variant="outline"
-              size="xl"
-              isLeftIconVisible
-              icon={<Image src={uploadIcon} width={16} height={16} alt="export" />}
-            >
-              Export
-            </CustomButton>
-          </div> */}
         </section>
 
-        <section className={`grid grid-cols-2 gap-4 lg:grid-cols-3`}>
-          <AnalyticsCard title="Total Orders" value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.new_orders} />
-          <AnalyticsCard title="Views" value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.views} />
+        <section className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+          <AnalyticsCard
+            title="Total Orders"
+            value={isOrdersRefetching || isAnalyticsLoading ? <LoadingSpinner /> : analyticsData?.new_orders}
+          />
+          <AnalyticsCard title="Views" value={isOrdersRefetching ? <LoadingSpinner /> : analyticsData?.views} />
           <AnalyticsCard
             title="Total Products"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.total_products}
+            value={isOrdersRefetching || isAnalyticsLoading ? <LoadingSpinner /> : analyticsData?.total_products}
           />
-          <AnalyticsCard title="New Orders" value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.new_orders} />
+          <AnalyticsCard
+            title="New Orders"
+            value={isOrdersRefetching || isAnalyticsLoading ? <LoadingSpinner /> : analyticsData?.new_orders}
+          />
           <AnalyticsCard
             title="Customers"
-            value={isPendingAnalytics ? <LoadingSpinner /> : analytics?.total_customers}
+            value={isOrdersRefetching || isAnalyticsLoading ? <LoadingSpinner /> : analyticsData?.total_customers}
           />
           <AnalyticsCard
             title="Revenue"
-            value={isPendingAnalytics ? <LoadingSpinner /> : `₦${analytics?.total_revenues?.toLocaleString()}`}
-            className={`text-mid-success`}
+            value={
+              isOrdersRefetching || isAnalyticsLoading ? (
+                <LoadingSpinner />
+              ) : (
+                `₦${analyticsData?.total_revenues?.toLocaleString()}`
+              )
+            }
+            className="text-mid-success"
           />
         </section>
       </section>
-      <section className={`my-6`}>
+
+      <section className="my-6">
         <Bar_Chart />
       </section>
-      <section className={`mt-10`}>
-        {topProducts.length > 0 ? (
+
+      <section className="mt-10">
+        {isOrdersLoading ? (
+          <Loading text="Loading top products..." className="w-fill h-fit p-20" />
+        ) : ordersData?.data?.length ? (
           <>
             <h5 className="mb-4 text-h5 font-semibold">Top Products</h5>
             <DashboardTable
-              data={topProducts}
+              data={ordersData.data}
               columns={orderColumns}
               showPagination
               onPageChange={handlePageChange}
-              currentPage={paginationMeta?.current_page}
-              totalPages={paginationMeta?.last_page}
-              itemsPerPage={paginationMeta?.per_page}
-              // eslint-disable-next-line no-console
-              onRowClick={(row) => console.log("Row clicked:", row)}
+              currentPage={ordersData.meta?.current_page}
+              totalPages={ordersData.meta?.last_page}
+              itemsPerPage={ordersData.meta?.per_page}
+              onRowClick={(row) => router.push(`/dashboard/${user?.id}/orders/${row.id}`)}
             />
           </>
         ) : dateRange?.from || dateRange?.to ? (
@@ -172,11 +145,9 @@ const Analytics = ({
             description="You do not have any sales activities yet."
             button={{
               text: "Create your first product",
-              onClick: () => {
-                router.push(`/dashboard/${user?.id}/products/new`);
-              },
+              onClick: () => router.push(`/dashboard/${user?.id}/products/new`),
             }}
-            className={"min-h-[236px] rounded-md bg-low-grey-III p-6 text-black"}
+            className="min-h-[236px] rounded-md bg-low-grey-III p-6 text-black"
           />
         )}
       </section>
@@ -184,9 +155,4 @@ const Analytics = ({
   );
 };
 
-const AnalyticsPage = WithDependency(Analytics, {
-  productService: dependencies.PRODUCT_SERVICE,
-  orderService: dependencies.ORDER_SERVICE,
-});
-
-export default AnalyticsPage;
+export default Analytics;

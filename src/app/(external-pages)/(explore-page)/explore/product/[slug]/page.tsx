@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import empty1 from "@/images/bad.svg";
+import empty1 from "@/images/alert.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useState } from "react";
 
 import { BackNavigator } from "~/app/(dashboard-pages)/_components/back-navigator";
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
@@ -18,40 +17,35 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { WithDependency } from "~/HOC/withDependencies";
 import { useCart } from "~/hooks/use-cart";
 import { useSession } from "~/hooks/use-session";
-import { AppService } from "~/services/app.service";
+import { AppService } from "~/services/app/app.service";
+import { useAppService } from "~/services/app/use-app-service";
 import { dependencies } from "~/utils/dependencies";
 import { cn } from "~/utils/utils";
 
-const ProductPreview = ({ appService, params }: { appService: AppService; params: { slug: string } }) => {
+const ProductPreview = ({ params }: { appService: AppService; params: { slug: string } }) => {
   const slug = params.slug;
-  const [isdataPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [product, setProduct] = useState<IProduct | null>(null);
-  const [productReview, setProductReview] = useState<any[]>([]);
   const { user } = useSession();
   const { addToCart, isAddToCartPending, isAddToCartWithRoutePending, addToCartWithRoute } = useCart();
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      startTransition(async () => {
-        const [productData, reviewData] = await Promise.all([
-          appService.getProductBySlug(slug),
-          appService.getProductReviews(slug),
-        ]);
-        if (productData) {
-          setProduct(productData);
-        }
-        setProductReview(reviewData);
-      });
-    };
+  const { useGetProductBySlug, useGetProductReviews } = useAppService();
 
-    if (slug) {
-      fetchData();
-    }
-  }, [appService, slug]);
+  // Fetch product data
+  const { data: product, isLoading: isProductLoading } = useGetProductBySlug(slug, {
+    staleTime: 1000 * 60 * 5, // 5 minutes cache
+    enabled: !!slug, // Only fetch if slug exists
+  });
 
-  if (isdataPending) {
+  // Fetch reviews
+  const { data: productReview = [], isLoading: isReviewsLoading } = useGetProductReviews(slug, {
+    staleTime: 1000 * 60 * 30, // 30 minutes cache for reviews
+    enabled: !!slug,
+  });
+
+  const isLoading = isProductLoading || isReviewsLoading;
+
+  if (isLoading) {
     return <Loading text={`Loading ${slug} details...`} className="h-screen w-full p-20" />;
   }
 
@@ -239,7 +233,8 @@ const ProductPreview = ({ appService, params }: { appService: AppService; params
             </div>
             <div className="space-y-4">
               {productReview?.length > 0 ? (
-                productReview.map((review, index) => (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                productReview.map((review: any, index: number) => (
                   <div key={index}>
                     <p className="text-sm">{review.comment}</p>
                     <div className="mt-2 flex items-center justify-between">

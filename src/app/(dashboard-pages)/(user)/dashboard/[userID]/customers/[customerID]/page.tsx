@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-
 import { AnalyticsCard } from "~/app/(dashboard-pages)/_components/analytics-card";
 import { BackNavigator } from "~/app/(dashboard-pages)/_components/back-navigator";
 import { DashboardTable } from "~/app/(dashboard-pages)/_components/dashboard-table";
@@ -9,39 +7,26 @@ import { latestPurchaseColumns } from "~/app/(dashboard-pages)/_components/dashb
 import { EmptyState } from "~/app/(dashboard-pages)/_components/empty-state";
 import { TableHeaderInfo } from "~/app/(dashboard-pages)/_components/table-header-info";
 import Loading from "~/app/Loading";
-import { WithDependency } from "~/HOC/withDependencies";
-import { CustomerService } from "~/services/customer.service";
-import { dependencies } from "~/utils/dependencies";
+import { useCustomerService } from "~/services/customer/use-customer.service";
 
-const BaseCustomerDetailsPage = ({
-  params,
-  customerService,
-}: {
-  params: { customerID: string };
-  customerService: CustomerService;
-}) => {
-  const [isPending, startTransition] = useTransition();
-  const [customer, setCustomer] = useState<ICustomer | null>(null);
-  const [customerOrders, setCustomerOrders] = useState<IOrder[]>([]);
+const CustomerDetailsPage = ({ params }: { params: { customerID: string } }) => {
+  const { useGetCustomerById, useGetOrdersByCustomerId } = useCustomerService();
 
-  useEffect(() => {
-    const fetchProductData = async () => {
-      startTransition(async () => {
-        const customer = await customerService.getCustomerById(params.customerID);
-        const customerOrders = await customerService.getOrdersByCustomerId(params.customerID);
-        setCustomer(customer?.data || null);
-        setCustomerOrders(customerOrders?.data || []);
-      });
-    };
+  // Fetch customer data
+  const {
+    data: customerData,
+    isLoading: isLoadingCustomer,
+    isError: isCustomerError,
+  } = useGetCustomerById(params.customerID);
 
-    fetchProductData();
-  }, [customerService, params.customerID]);
+  // Fetch customer orders
+  const { data: ordersData, isLoading: isLoadingOrders } = useGetOrdersByCustomerId(params.customerID);
 
-  if (isPending) {
-    return <Loading text={`Loading customer details...`} className={`w-fill h-fit p-20`} />;
+  if (isLoadingCustomer || isLoadingOrders) {
+    return <Loading text="Loading customer details..." className="w-fill h-fit p-20" />;
   }
 
-  if (!customer) {
+  if (isCustomerError || !customerData?.data) {
     return (
       <EmptyState
         title="Customer Not Found"
@@ -52,13 +37,14 @@ const BaseCustomerDetailsPage = ({
     );
   }
 
+  const customer = customerData.data;
+  const customerOrders = ordersData?.data || [];
+
   return (
     <section className="space-y-6">
       <section className="flex flex-col justify-between space-y-4 md:flex-row md:space-y-0 lg:items-center">
         <BackNavigator text="Customer Details" />
       </section>
-
-      <section></section>
 
       <p className="text-lg font-semibold">{customer.name}</p>
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -73,8 +59,6 @@ const BaseCustomerDetailsPage = ({
           <section className="mt-2 grid h-fit grid-cols-1 gap-4 lg:grid-cols-2">
             <AnalyticsCard title="Total Orders" value={customer?.total_order} />
             <AnalyticsCard title="Total Transactions" value={`₦${customer?.total_transactions.toLocaleString()}`} />
-            {/* <AnalyticsCard title="Total Sales" value={customer?.free_products} />
-            <AnalyticsCard title="Total Value" value={`₦${customer?.sale_products.toLocaleString()}`} /> */}
           </section>
         </section>
         <DashboardTable data={customerOrders} columns={latestPurchaseColumns} />
@@ -82,10 +66,5 @@ const BaseCustomerDetailsPage = ({
     </section>
   );
 };
-
-// Wrap the component with dependencies
-const CustomerDetailsPage = WithDependency(BaseCustomerDetailsPage, {
-  customerService: dependencies.CUSTOMER_SERVICE,
-});
 
 export default CustomerDetailsPage;

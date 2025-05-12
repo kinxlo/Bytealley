@@ -27,7 +27,7 @@ export const Logo = ({ width, height, className, link = "/seller" }: LogoPropert
             isDashboard ? `text-mid-success` : `text-white invert filter`,
           )}
         >
-          beta-1.0.0
+          beta
         </span>
       </div>
       <Image
