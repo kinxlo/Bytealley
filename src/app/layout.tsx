@@ -22,8 +22,9 @@ const montserrat = Montserrat({ subsets: ["latin"], display: "swap" });
 const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "bytealley",
-  description: "bytealley",
+  title: "Bytealley",
+  description:
+    "Monetize your skills with ease With ByteAlley, selling your products online is hassle-free. You can showcase your work and let us handle the backend tasks, allowing you to concentrate on what you do best.",
 };
 
 export const viewport: Viewport = {
