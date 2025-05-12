@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repository contains the **[Bytealley ](https://trybytealley.com)** official webapp, designed as a foundational framework for the organization’s educational programs.
+This repository contains the **[Bytealley ](https://trybytealley.com)** official webapp, designed as a market place for digital products.
 
 ## Technology Stack
 
