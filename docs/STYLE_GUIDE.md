@@ -4,14 +4,14 @@
 
 In order to run this app locally, you should have the following programs installed on your computer:
 
-- [Node.js](https://nodejs.org/) version 18.0.0 or higher
+- [Node.js](https://nodejs.org/) version 22.0.0 or higher
 - [pnpm](https://yarnpkg.com/) version 9.4.0 or higher
 
 ##### Clone this repository
 
 ```
-git clone git@github.com/bytealleyproject/bytealley_boilerplate_nextjs.git
-cd bytealley_boilerplate_nextjs
+git clone https://github.com/techstudioconsults/bytealley.git
+cd bytealley
 ```
 
 ##### Install dependencies
@@ -31,7 +31,7 @@ pnpm run dev
 ##### Navigate to
 
 ```
-htpp://localhost:3000/guides
+htpp://localhost:4200/guides
 ```
 
 ## Components
@@ -54,12 +54,18 @@ htpp://localhost:3000/guides
   },
   ```
 - Use the global CSS variables
-- Use Tailwind CSS and shadCN exclusively.
-- UI components should be stored in `~/components/common`
+- Use Tailwind CSS and bytealley components exclusively.
+- UI general components should be stored in `~/components`
+- Page specific components should be stored in the page component folder
 - Modal components should be stored in `~/components/modals`
 - Layout components should be stored in `~/components/layouts`
-- All tests should be stored in `~/test`
-- All emails are to be built with react email components and tailwind and stored in `~/emails/templates`
+- All tests should be created in their page folder level upwards e.g
+  - landing-routes
+    - home
+      - page.tsx
+      - components
+      - views
+      - test (this test folder is used for only the home page)
 
 ## Contributing
 
