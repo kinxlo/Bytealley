@@ -59,6 +59,7 @@ const BaseNavbar = ({ appService }: { appService: AppService }) => {
 
   const getRouteTheme = (): string => {
     const colorMap: { [key: string]: string } = {
+      "/": "text-mid-grey-I bg-mid-purple",
       "/seller": "text-mid-grey-I bg-mid-purple",
       "/features": "text-mid-grey-III bg-low-coral",
       "/contact": "text-mid-grey-III bg-low-coral",
