@@ -79,7 +79,6 @@ export const useProductRowActions = () => {
     }
     return actions;
   };
-
   return { getRowActions };
 };
 

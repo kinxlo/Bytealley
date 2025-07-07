@@ -52,7 +52,7 @@ export function DashboardSidebar({ navItems }: { navItems: any }) {
   };
 
   return (
-    <Sidebar className={`border-r-[0.5px] border-border shadow-none`}>
+    <Sidebar collapsible={`icon`} className={`border-r-[0.5px] border-border shadow-none`}>
       <SidebarHeader className={`h-28 items-center justify-center`}>
         <Logo width={140} height={47} />
       </SidebarHeader>

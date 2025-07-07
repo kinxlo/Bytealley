@@ -8,6 +8,7 @@ export const publicRoutes: string[] = [
   "/privacy-policy",
   "/about",
   "/contact",
+  "/guides",
 ];
 
 export const authRoutes: string[] = [
