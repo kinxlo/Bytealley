@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -20,7 +19,24 @@ import { Logo } from "../logo";
 import { SearchInput } from "../search-input";
 import { SetToolTip } from "../tool-tip";
 
-export function DashboardSidebar({ navItems }: { navItems: any }) {
+interface SidebarItem {
+  id: string;
+  route: string;
+  link: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  iconUrl?: string;
+  badge?: {
+    count: number;
+    variant: "danger" | "default";
+  };
+  divider?: boolean;
+}
+
+interface DashboardSidebarProperties {
+  navItems: SidebarItem[];
+}
+
+export function DashboardSidebar({ navItems }: DashboardSidebarProperties) {
   const pathname = usePathname();
   const userID = pathname.split("/")[2];
   const { setOpenMobile, isMobile } = useSidebar();
@@ -52,17 +68,18 @@ export function DashboardSidebar({ navItems }: { navItems: any }) {
   };
 
   return (
-    <Sidebar collapsible={`icon`} className={`border-r-[0.5px] border-border shadow-none`}>
-      <SidebarHeader className={`h-28 items-center justify-center`}>
+    <Sidebar collapsible="offcanvas" className="border-r-[0.5px] border-border shadow-none">
+      <SidebarHeader className="h-28 items-center justify-center">
         <Logo width={140} height={47} />
       </SidebarHeader>
-      <SidebarContent className={`hide-scrollbar`}>
-        {isMobile && <SearchInput inputBackgroundColor="bg-low-grey-III" className="w-[100%] rounded-none" />}
-        <SidebarMenu className={`space-y-2 p-4`}>
-          {navItems?.map((item: any) => {
+      <SidebarContent className="hide-scrollbar">
+        {isMobile && <SearchInput inputBackgroundColor="bg-low-grey-III" className="w-full rounded-none" />}
+        <SidebarMenu className="space-y-2 p-4">
+          {navItems.map((item) => {
             if (item.divider) {
               return <div key={item.id} />;
             }
+
             const link = item.link.replace(":userID", userID || "");
             const isActive = pathname.includes(item.id);
 
@@ -72,7 +89,7 @@ export function DashboardSidebar({ navItems }: { navItems: any }) {
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "flex h-[48px] items-center gap-3 rounded-lg text-[16px] font-medium transition-all duration-200",
+                      "flex h-12 items-center gap-3 rounded-lg text-base font-medium transition-all duration-200",
                       isActive
                         ? "border-2 border-primary text-primary shadow-active"
                         : "text-mid-grey-II hover:bg-low-grey-I",
@@ -80,7 +97,7 @@ export function DashboardSidebar({ navItems }: { navItems: any }) {
                   >
                     <Link onClick={handleCloseOnMobile} href={link} data-testid={item.id} role="sidebar-link">
                       {renderIcon(item)}
-                      <span className={`font-medium dark:text-white`}>{item.route}</span>
+                      <span className={cn("font-medium dark:text-white")}>{item.route}</span>
                       {item.badge && (
                         <SidebarMenuBadge
                           className={cn(

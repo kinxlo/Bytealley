@@ -44,7 +44,6 @@ export const SidebarNav: FC<ISidebarProperties> = ({ sideNavitems, logoComponent
         </div>
       );
     }
-
     return null;
   };
 

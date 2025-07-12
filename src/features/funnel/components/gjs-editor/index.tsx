@@ -14,7 +14,10 @@ interface StudioWrapperProperties {
 
 const StudioWrapper = ({ onReady }: StudioWrapperProperties) => {
   return (
-    <div className="h-full w-full flex-1 overflow-hidden">
+    // <div className="h-full w-full flex-1 overflow-hidden">
+    //   <GrapesJsStudio onReady={onReady} options={editorOptions} />
+    // </div>
+    <div className="grapesjs-editor h-full w-full flex-1 overflow-hidden">
       <GrapesJsStudio onReady={onReady} options={editorOptions} />
     </div>
   );

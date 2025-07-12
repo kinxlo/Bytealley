@@ -8,7 +8,7 @@ export class FunnelService {
     this.http = httpAdapter;
   }
 
-  async saveFunnelToDraft(data: FunnelFormData & { funnel: string }) {
+  async saveFunnelToDraft(data: FunnelFormData & { funnel: string; upsell_funnel_id?: string }) {
     const headers = { "Content-Type": "multipart/form-data" };
     const formattedData = new FormData();
 
@@ -18,9 +18,10 @@ export class FunnelService {
     formattedData.append("template", JSON.stringify(data.funnel));
     formattedData.append("asset", data.assets[0]);
     formattedData.append(`product_id`, data.product_id);
-    // data.products.forEach((productId, index) => {
-    //   formattedData.append(`products[${index}]`, productId);
-    // });
+
+    if (data.upsell_funnel_id) {
+      formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    }
 
     const response = await this.http.post("/funnels", formattedData, headers);
     if (response?.status === 201) {
@@ -28,7 +29,7 @@ export class FunnelService {
     }
   }
 
-  async publishFunnel(data: FunnelFormData & { funnel: string }) {
+  async publishFunnel(data: FunnelFormData & { funnel: string; upsell_funnel_id?: string }) {
     const headers = { "Content-Type": "multipart/form-data" };
     const formattedData = new FormData();
 
@@ -39,15 +40,56 @@ export class FunnelService {
     formattedData.append("asset", data.assets[0]);
     formattedData.append(`product_id`, data.product_id);
 
-    // data.products.forEach((productId, index) => {
-    //   formattedData.append(`products[${index}]`, productId);
-    // });
+    if (data.upsell_funnel_id) {
+      formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    }
 
     const response = await this.http.post("/funnels", formattedData, headers);
     if (response?.status === 201) {
       return response.data;
     }
   }
+
+  // async saveFunnelToDraft(data: FunnelFormData & { funnel: string }) {
+  //   const headers = { "Content-Type": "multipart/form-data" };
+  //   const formattedData = new FormData();
+
+  //   formattedData.append("title", data.title);
+  //   formattedData.append("thumbnail", data.thumbnail);
+  //   formattedData.append("status", "draft");
+  //   formattedData.append("template", JSON.stringify(data.funnel));
+  //   formattedData.append("asset", data.assets[0]);
+  //   formattedData.append(`product_id`, data.product_id);
+  //   // data.products.forEach((productId, index) => {
+  //   //   formattedData.append(`products[${index}]`, productId);
+  //   // });
+
+  //   const response = await this.http.post("/funnels", formattedData, headers);
+  //   if (response?.status === 201) {
+  //     return response.data;
+  //   }
+  // }
+
+  // async publishFunnel(data: FunnelFormData & { funnel: string }) {
+  //   const headers = { "Content-Type": "multipart/form-data" };
+  //   const formattedData = new FormData();
+
+  //   formattedData.append("title", data.title);
+  //   formattedData.append("thumbnail", data.thumbnail);
+  //   formattedData.append("status", "published");
+  //   formattedData.append("template", JSON.stringify(data.funnel));
+  //   formattedData.append("asset", data.assets[0]);
+  //   formattedData.append(`product_id`, data.product_id);
+
+  //   // data.products.forEach((productId, index) => {
+  //   //   formattedData.append(`products[${index}]`, productId);
+  //   // });
+
+  //   const response = await this.http.post("/funnels", formattedData, headers);
+  //   if (response?.status === 201) {
+  //     return response.data;
+  //   }
+  // }
 
   async getAllFunnels(filters: IFilters = Object.create({ page: 1 })) {
     const queryParameters = this.buildQueryParameters(filters);

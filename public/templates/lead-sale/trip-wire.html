@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Special One-Time Offer - Sales Page Template Bundle</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset and Base Styles */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", Arial, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.5;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      /* Layout Components */
+      .container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header/Nav */
+      .nav-bar {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem 0 !important;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 2rem 0;
+        width: 100%;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 1rem;
+        padding: 3rem 0;
+      }
+
+      .highlight-badge {
+        background-color: #d4e7e5;
+        color: #38514e;
+        border-radius: 1.8rem;
+        text-align: center;
+        margin: 0 auto;
+        font-weight: 600;
+      }
+
+      .heading-txt {
+        font-size: 2rem;
+      }
+
+      .image-container {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+      }
+
+      .image-container img {
+        width: 100%;
+        height: auto;
+        max-width: 650px;
+        display: block;
+      }
+
+      /* Button Styles */
+      .btn {
+        background-color: #38514e;
+        color: #ebe4d4;
+        border-radius: 0.4rem;
+        padding: 1.2rem;
+        border: none;
+        font-weight: 700;
+        font-size: 1rem;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        display: block;
+      }
+
+      .btn:hover {
+        background-color: #ebe4d4;
+        color: #38514e;
+        border: 1px solid #38514e;
+      }
+
+      /* Feature Section */
+      .feature-section {
+        padding: 3rem 0;
+        background-color: #fcfbf8;
+      }
+
+      .feature-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+      }
+
+      .feature-card {
+        background-color: #ffffff;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        border-radius: 0.6rem;
+        border: 1px solid #e9e9e9;
+      }
+
+      .feature-card h3 {
+        max-width: 190px;
+        text-align: center;
+      }
+
+      .feature-card p {
+        text-align: center;
+      }
+
+      /* Form Section */
+      .form-wrapper {
+        border: 1px solid #c2c2c2;
+        padding: 1rem;
+        border-radius: 0.8rem;
+      }
+
+      .payment-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .payment-form input {
+        padding: 1.2rem;
+        background-color: #f8f8f8;
+        color: #808080;
+        outline: none;
+        border: none;
+        border-radius: 0.3rem;
+        width: 100%;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+
+      .form-note {
+        font-size: 0.875rem;
+        color: #666;
+        text-align: center;
+      }
+
+      /* Form Error Styles */
+      .error {
+        color: red !important;
+        font-size: 0.8rem !important;
+        margin-top: 0.2rem !important;
+        display: none !important;
+      }
+
+      /* Checkbox */
+      .sp-checkbox-input {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+      }
+      .sp-checkbox-input input {
+        width: auto !important;
+      }
+      .checkbox-label {
+        width: calc(100% - 25px) !important;
+        font-size: 0.875rem;
+        color: #666;
+      }
+
+      /* Responsive Styles */
+      @media (min-width: 900px) {
+        h1 {
+          font-size: 3rem !important;
+        }
+
+        .highlight-badge {
+          margin: 0;
+        }
+
+        .hero-content {
+          align-items: flex-start;
+          text-align: left;
+          max-width: 500px;
+          padding: 3rem 0;
+        }
+
+        .grid-container {
+          gap: 3rem;
+          padding: 4rem 0;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .text-container {
+          max-width: 450px;
+          gap: 1rem;
+        }
+
+        .text-container h2,
+        .text-container p {
+          text-align: left !important;
+        }
+
+        .heading-txt {
+          font-size: 2.7rem;
+        }
+
+        .feature-section {
+          padding: 4rem 0;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 3rem;
+        }
+
+        .payment-form {
+          gap: 1.5rem;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        h1 {
+          font-size: 3.5rem;
+        }
+
+        .container {
+          width: 85%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="opt-hero-sec">
+      <nav class="nav-bar">
+        <div class="logo-container">
+          <h2>LOGO</h2>
+        </div>
+      </nav>
+      <div style="padding-inline: 2rem !important" class="grid-container container">
+        <div class="hero-content">
+          <div class="highlight-container">
+            <div style="width: fit-content; padding: 10px 4rem; background-color: #d4e7e5; border-radius: 40px">
+              <p style="margin-bottom: 0">Expires in 10 minutes</p>
+            </div>
+          </div>
+          <div class="text-content">
+            <h1>Special One-Time Offer Just for just ₦2,500</h1>
+            <p>
+              Supercharge your sales strategy with our complete Sales Page Template Bundle — transform your conversions
+              today!
+            </p>
+          </div>
+          <div class="button-container">
+            <a href="#lead-form">
+              <button class="btn">I WANT THIS BUNDLE!</button>
+            </a>
+          </div>
+        </div>
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1752137986/bytealley%20funnel/Frame_1707480390_gfz2hv.svg"
+              alt="Sales Page Template Bundle"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section">
+      <div class="feature-container container">
+        <div class="section-heading">
+          <h2 class="heading-txt">Why You'll Need This</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="card-content">
+              <h3 style="text-align: center">Unlocking the Psychology of High-Value Sales</h3>
+              <p>Master the mindset and psychology behind closing high-value deals consistently.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="card-content">
+              <h3 style="text-align: center">Proven Sales Frameworks</h3>
+              <p>Access battle-tested templates that convert visitors into paying customers.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="card-content">
+              <h3 style="text-align: center">Time-Saving Designs</h3>
+              <p>Skip the design process with ready-to-use, professionally crafted templates.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="card-content">
+              <h3 style="text-align: center">Mobile-Optimized Layouts</h3>
+              <p>Convert visitors on any device with responsive, mobile-friendly designs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div style="padding-inline: 2rem !important" class="grid-container container">
+        <div class="text-container">
+          <div class="heading-content">
+            <h2 class="heading-txt">Upgrade Your Sales Arsenal with this Bundle for ₦2,500</h2>
+          </div>
+          <div class="paragraph-content">
+            <p>
+              Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete
+              your purchase and your access will be sent instantly via email.
+            </p>
+          </div>
+        </div>
+        <div class="form-wrapper">
+          <form class="payment-form" id="lead-form">
+            <div class="input-group">
+              <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required />
+              <div id="first_name-error" class="error">Please enter your first name</div>
+            </div>
+            <div class="input-group">
+              <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required />
+              <div id="last_name-error" class="error">Please enter your last name</div>
+            </div>
+            <div class="input-group">
+              <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+              <div id="email-error" class="error">Please enter a valid email address</div>
+            </div>
+            <div class="sp-checkbox-input">
+              <input type="checkbox" id="updates-consent" name="updates-consent" checked />
+              <label for="updates-consent" class="checkbox-label">
+                I agree to receive updates, promotional content, or additional resources from the owner of this package
+                via email.
+              </label>
+            </div>
+            <div class="submit-button">
+              <button style="max-width: 100%" type="submit" class="btn" id="submit-button">PAY ₦2,500</button>
+            </div>
+            <div class="form-note">
+              <p>You'll be redirected to Paystack to complete your payment.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("lead-form");
+        const submitButton = document.getElementById("submit-button");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const emailInput = document.getElementById("email");
+        const consentCheckbox = document.getElementById("updates-consent");
+
+        // Get the funnel slug from the URL or set a default
+        const hostname = window.location.hostname;
+        const funnelSlug = hostname.split(".")[0];
+
+        // Validation functions
+        function validateFirstName() {
+          const errorElement = document.getElementById("first_name-error");
+          if (!firstNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateLastName() {
+          const errorElement = document.getElementById("last_name-error");
+          if (!lastNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateEmail() {
+          const errorElement = document.getElementById("email-error");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailInput.value.trim()) {
+            errorElement.textContent = "Please enter your email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          if (!emailRegex.test(emailInput.value)) {
+            errorElement.textContent = "Please enter a valid email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        // Event listeners for real-time validation
+        firstNameInput.addEventListener("blur", validateFirstName);
+        lastNameInput.addEventListener("blur", validateLastName);
+        emailInput.addEventListener("blur", validateEmail);
+
+        // Form submission handler
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFirstNameValid = validateFirstName();
+          const isLastNameValid = validateLastName();
+          const isEmailValid = validateEmail();
+
+          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
+            return;
+          }
+
+          // Disable the submit button to prevent multiple submissions
+          submitButton.disabled = true;
+          submitButton.textContent = "Processing...";
+
+          try {
+            // Prepare form data
+            const formData = {
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              funnel_slug: funnelSlug,
+              email: emailInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            // const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && data.data.authorization_url) {
+                window.location.href = data.data.authorization_url;
+              } else {
+                // Handle success without redirect URL
+                alert("Thank you for your submission!");
+                form.reset();
+              }
+            } else {
+              // Handle error response
+              const errorData = await response.json();
+              alert("Error: " + (errorData.message || "Something went wrong"));
+            }
+          } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred. Please try again.");
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "PAY ₦2,500";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

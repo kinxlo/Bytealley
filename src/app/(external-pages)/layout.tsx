@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 
+// import "../globals.css";
+
 import { Footer } from "./_components/footer";
 import { Navbar } from "./_components/navbar";
 

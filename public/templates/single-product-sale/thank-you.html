@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/thank.css" />
+    <!-- <link rel="stylesheet" href="/thank.css" /> -->
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
@@ -346,69 +346,109 @@
     }
   </style>
   <body>
-    <div class="nav-bar">
-      <nav class="spt-res-w-one">
-        <h2>LOGO</h2>
+    <!-- Navigation -->
+    <section style="position: absolute; width: 100%; background: linear-gradient(180deg, #113ec3 0%, #002289 100%)">
+      <nav
+        style="
+          color: white;
+          background-color: transparent !important;
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div style="font-size: 1.5rem; font-weight: bold">Logo</div>
 
-        <ul>
-          <li><a href="#">Nav Item</a></li>
-          <li><a href="#">Nav Item</a></li>
-          <li><a href="#">Nav Item</a></li>
-          <button class="show-mobile">Get Course</button>
-        </ul>
-
-        <div class="menu">
-          <button>Get Course</button>
-          <span class="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+        <div
+          id="navLinks"
+          style="display: flex; gap: 1rem; background: linear-gradient(180deg, #113ec3 0%, #002289 100%) !important"
+        >
+          <a href="#home" style="color: white; text-decoration: none; padding: 0.5rem">Home</a>
+          <a href="#about" style="color: white; text-decoration: none; padding: 0.5rem">About</a>
+          <a href="#contact" style="color: white; text-decoration: none; padding: 0.5rem">Contact</a>
         </div>
+        <div>
+          <button>Get Course</button>
+        </div>
+        <button
+          id="hamburger"
+          style="
+            display: none;
+            width: fit-content;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+          "
+        >
+          ☰
+        </button>
       </nav>
-    </div>
+    </section>
 
-    <section class="tsec">
+    <section style="padding-top: 8rem" class="tsec">
       <div class="tsec-container spt-res-w">
-        <img src="/image/Success Icon.svg" alt="success icon" />
-        <h1>Thank You for Your Purchase</h1>
-        <p>Your Order is Complete! Click below to download the full course and start your transformation journey:</p>
+        <img
+          src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/Success_Icon_xgpfk9.svg"
+          alt="success icon"
+        />
+        <h1 style="text-align: center">Thank You for Your Purchase</h1>
+        <p style="text-align: center">
+          Your Order is Complete! Click below to download the full course and start your transformation journey:
+        </p>
         <button class="download-btn">DOWNLOAD 10X REVENUE COURSE</button>
       </div>
     </section>
 
     <section class="tbs-sec">
-      <div class="tbs-sec-container spt-res-w">
-        <div class="tbanner-text">
+      <div
+        style="
+          background-color: #333;
+          background-image: url(https://res.cloudinary.com/kingsleysolomon/image/upload/v1733559341/grape.js/sah4xbsbsdrnhyhtoa0w.jpg);
+        "
+        class="tbs-sec-container spt-res-w"
+      >
+        <div class="tbanner-text" style="color: white">
           <h5 class="yellow-highlight">30% OFF TODAY ONLY!!!</h5>
-          <h1>Do You Want More?</h1>
+          <h1 style="color: white">Do You Want More?</h1>
           <p>
             Great job taking the first step! Ready to scale faster? Grab our exclusive coaching program to get
             personalized support and advanced strategies from the instructor.
           </p>
-          <button class="claim-btn">Claim Your Offer Now</button>
+          <div style="display: flex; align-items: center; justify-content: start">
+            <button>Claim Your Offer Now</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="footer-container spt-res-w">
-        <h2 class="spt-logo">LOGO</h2>
+    <div
+      style="
+        margin-bottom: 3rem;
+        background: hsla(227, 100%, 97%, 1);
+        color: black;
+        padding: 2rem 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      "
+    >
+      <h2 class="spt-logo">LOGO</h2>
 
-        <div class="footer-frag-two">
-          <ul class="links">
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
-          </ul>
-        </div>
-        <div class="footer-frag-three">
-          <ul class="links">
-            <li><a href="#">Nav Item</a></li>
-          </ul>
+      <div class="">
+        <div class="links" style="display: flex">
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
         </div>
       </div>
-    </footer>
+      <div class="footer-frag-three">
+        <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+      </div>
+    </div>
 
     <script src="/app.js"></script>
   </body>

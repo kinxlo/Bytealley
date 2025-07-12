@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
     /* Light mode colors */
@@ -340,7 +336,7 @@
   }
 }
 
-@layer utilities {
+/* @layer utilities {
   .border-default {
     @apply border-[1px] border-border md:border-[0.5px];
   }
@@ -352,4 +348,4 @@
 .ql-container,
 .ql-toolbar {
   border: 0.5px solid hsl(var(--border)) !important;
-}
+} */

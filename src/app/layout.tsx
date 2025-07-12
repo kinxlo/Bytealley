@@ -1,9 +1,8 @@
-import type { Metadata, Viewport } from "next";
-import { Montserrat, Newsreader } from "next/font/google";
-
 import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata, Viewport } from "next";
+import { Montserrat, Newsreader } from "next/font/google";
 
 import { GotoTop } from "~/components/miscellaneous/goto-top";
 import { NetworkStatusModal } from "~/components/miscellaneous/network-error";

@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X Revenue Course</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+      :root {
+        --primary-color: #113ec3;
+        --dark-blue: #032791;
+        --hero-bg: #113ec3;
+        --secondary-color: #ffbc49;
+        --faded-blue: #edf2ff;
+        --testimonial-bg: #f1f4ff;
+        --white: #ffffff;
+        --text-color: #262528;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style-type: none;
+      }
+
+      /* a {
+        text-decoration: none;
+        color: var(--white);
+        transition: color 0.3s;
+      }
+      a:hover {
+        color: var(--secondary-color);
+      } */
+
+      h1,
+      h2,
+      .spt-text-white {
+        color: var(--white);
+      }
+      body {
+        background-color: var(--white);
+        font-family: "Inter", serif;
+      }
+      span {
+        font-family: "Playfair Display", serif;
+        line-height: 1rem;
+      }
+
+      button {
+        background-color: var(--secondary-color);
+        color: black;
+        border-radius: 40px;
+        height: 48px;
+        text-transform: uppercase;
+        padding: 14px 1rem;
+        font-size: 14px;
+      }
+      /* Base styles needed for functionality */
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      .nav-menu {
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .faq-para {
+        display: none;
+      }
+      .faq-para.active {
+        display: block;
+      }
+      .faq-plus.hideplus {
+        display: none;
+      }
+      .faq-minus {
+        display: none;
+      }
+      .faq-minus.showminus {
+        display: block;
+      }
+
+      /* Mobile navigation styles */
+      .mobile-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #113ec3;
+        z-index: 1000;
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        width: 90%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #113ec3;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ffbc49;
+      }
+
+      /* Desktop styles */
+      @media (min-width: 820px) {
+        .hamburger {
+          display: none;
+        }
+
+        .nav-links {
+          position: static;
+          display: flex;
+          flex-direction: row;
+          padding: 0;
+          background-color: transparent;
+          box-shadow: none;
+          width: auto;
+        }
+
+        .mobile-only {
+          display: none;
+        }
+
+        .desktop-only {
+          display: block !important;
+        }
+
+        /* Footer styles */
+        /* .footer-grid {
+          grid-template-columns: 1fr 1fr 1fr !important;
+        }
+
+        .footer-links {
+          flex-direction: row !important;
+          justify-content: flex-start !important;
+        } */
+
+        /* Hero section adjustments */
+        .hero-content {
+          padding: 4rem 0 !important;
+        }
+        .hero-headline {
+          font-size: 3.5rem !important;
+          max-width: 800px !important;
+        }
+
+        /* Card grid adjustments */
+        .card-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+
+        /* Learn section header */
+        .learn-header {
+          grid-template-columns: 1fr auto !important;
+          align-items: center !important;
+        }
+        .learn-header-text {
+          text-align: left !important;
+          max-width: 500px !important;
+        }
+
+        /* Instructor section */
+        .instructor-container {
+          grid-template-columns: 1fr 1fr !important;
+          gap: 3rem !important;
+          align-items: center !important;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+
+        /* Payment form section */
+        .payment-container {
+          grid-template-columns: 1fr 1fr !important;
+          align-items: start !important;
+        }
+
+        /* FAQs */
+        .faq-container {
+          grid-template-columns: 1fr 1fr !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0; font-family: &quot;Inter&quot;, sans-serif; background-color: #ffffff">
+    <!-- Navigation -->
+    <section style="position: absolute; width: 100%; background: linear-gradient(180deg, #113ec3 0%, #002289 100%)">
+      <nav
+        style="
+          color: white;
+          background-color: transparent !important;
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div style="font-size: 1.5rem; font-weight: bold">Logo</div>
+
+        <div
+          id="navLinks"
+          style="display: flex; gap: 1rem; background: linear-gradient(180deg, #113ec3 0%, #002289 100%) !important"
+        >
+          <a href="#home" style="color: white; text-decoration: none; padding: 0.5rem">Home</a>
+          <a href="#about" style="color: white; text-decoration: none; padding: 0.5rem">About</a>
+          <a href="#contact" style="color: white; text-decoration: none; padding: 0.5rem">Contact</a>
+        </div>
+        <div>
+          <a href="#lead-form">
+            <button>Get Course</button>
+          </a>
+        </div>
+        <button
+          id="hamburger"
+          style="
+            display: none;
+            width: fit-content;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+          "
+        >
+          ☰
+        </button>
+      </nav>
+    </section>
+    <!-- Hero Section -->
+    <div style="padding-block: 8rem; background: linear-gradient(180deg, #113ec3 0%, #002289 100%)">
+      <p class="spt-small-text spt-text-white">The Ultimate Course to Boost Your Sales</p>
+      <div class="spt-headline">
+        <h1 style="color: white; text-align: center">
+          Unlock the Secrets to 10X <span class="spt-headline-sec">Your Revenue</span> in 30 Days!
+        </h1>
+        <p class="spt-text-white" style="text-align: center">
+          Transform your business with proven strategies used by successful entrepreneurs worldwide. Join over 1,000
+          entrepreneurs who've already scaled their revenue exponentially.
+        </p>
+      </div>
+
+      <div class="spt-timer">
+        <h3 class="spt-text-white" style="text-align: center">Limited Time Offer - Save 50% Today!</h3>
+        <div class="spt-timer-container">
+          <div>
+            <h1 class="spt-timer-text spt-text-white" id="hours">00</h1>
+            <p class="spt-timer-text spt-text-white">Hours</p>
+          </div>
+          <div>
+            <h1 class="spt-timer-text spt-text-white" id="minutes">00</h1>
+            <p class="spt-timer-text spt-text-white">Minutes</p>
+          </div>
+          <div>
+            <h1 class="spt-timer-text spt-text-white" id="seconds">00</h1>
+            <p class="spt-timer-text spt-text-white">seconds</p>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center">
+        <a href="#lead-form">
+          <button class="spt-hero-cta" style="text-align: center">YES, I WANT TO 10X MY REVENUE</button>
+        </a>
+      </div>
+    </div>
+    <!-- Why Choose Us Section -->
+    <section style="padding: 3rem 0">
+      <div style="width: 90%; margin: 0 auto; max-width: 1440px">
+        <div style="text-align: center">
+          <p
+            style="
+              color: #113ec3;
+              background-color: #edf2ff;
+              padding: 8px;
+              border-radius: 999px;
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-weight: bold;
+              font-size: 14px;
+              width: 140px;
+              margin: 0 auto;
+              text-align: center;
+            "
+          >
+            Why Choose Us
+          </p>
+          <h2 style="font-size: 28px; font-weight: 700; margin: 1rem 0 3rem; color: #262528; text-align: center">
+            Why Choose the 10X Revenue Course?
+          </h2>
+        </div>
+
+        <div
+          class="card-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+          "
+        >
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: center;
+              transition: transform 0.3s ease;
+            "
+          >
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/target-arrow-svgrepo-com_cr11xk.svg"
+              alt="Proven Strategies Icon"
+              style="height: 40px; margin-bottom: 16px"
+            />
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Proven Strategies</h3>
+            <p style="font-size: 14px">
+              Learn the exact steps to increase your sales and revenue, used by successful entrepreneurs worldwide.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: center;
+              transition: transform 0.3s ease;
+            "
+          >
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894357/bytealley%20funnel/chart-column-grow-svgrepo-com_l09a9a.svg"
+              alt="Systems Icon"
+              style="height: 40px; margin-bottom: 16px"
+            />
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Scalable Systems</h3>
+            <p style="font-size: 14px">
+              Discover systems that scale with your business and help you grow, not just temporarily, but for the long
+              term.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: center;
+              transition: transform 0.3s ease;
+            "
+          >
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894357/bytealley%20funnel/chart-pie-svgrepo-com_raecb4.svg"
+              alt="Insights Icon"
+              style="height: 40px; margin-bottom: 16px"
+            />
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Actionable Insights</h3>
+            <p style="font-size: 14px">Gain practical knowledge you can implement immediately to see quick results.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You'll Learn Section -->
+    <section style="background-color: #fffcf7; padding: 4rem 0">
+      <div style="width: 90%; margin: 0 auto; max-width: 1440px">
+        <div class="learn-header" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 40px">
+          <div>
+            <p
+              style="
+                color: #113ec3;
+                background-color: #edf2ff;
+                padding: 8px;
+                border-radius: 999px;
+                font-family: &quot;Playfair Display&quot;, serif;
+                font-weight: bold;
+                font-size: 14px;
+                width: 140px;
+                text-align: center;
+                margin: 0 0 1rem 0;
+              "
+            >
+              Course Benefits
+            </p>
+            <h2
+              class="learn-header-text"
+              style="font-size: 28px; font-weight: 700; text-align: center; margin-top: 0.9rem; color: #262528"
+            >
+              What You'll Learn in the 10X Revenue Course
+            </h2>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center">
+            <a href="#lead-form">
+              <button
+                style="
+                  background-color: #1d4ed8;
+                  color: white;
+                  font-weight: 600;
+                  padding: 12px 24px;
+                  border-radius: 30px;
+                  border: none;
+                  cursor: pointer;
+                  max-width: 200px;
+                  transition: background 0.3s ease;
+                "
+              >
+                GET THIS COURSE
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="card-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+          "
+        >
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: left;
+              transition: transform 0.3s ease;
+            "
+          >
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">
+              Unlocking the Psychology of High-Value Sales
+            </h3>
+            <p style="font-size: 14px">
+              Master the mindset and psychology behind closing high-value deals consistently.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: left;
+              transition: transform 0.3s ease;
+            "
+          >
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Building Scalable Marketing Systems</h3>
+            <p style="font-size: 14px">
+              Create marketing systems that work 24/7 to generate qualified leads for your business.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: left;
+              transition: transform 0.3s ease;
+            "
+          >
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">
+              Creating Offers That Sell Like Hotcakes
+            </h3>
+            <p style="font-size: 14px">Design irresistible offers that your customers can't refuse.</p>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border: 1px solid #eee;
+              border-radius: 12px;
+              padding: 2.5rem;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+              text-align: left;
+              transition: transform 0.3s ease;
+            "
+          >
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Scaling to 7 Figures and Beyond</h3>
+            <p style="font-size: 14px">
+              Learn the advanced strategies to scale your business to multiple seven figures.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section>
+      <div
+        class="instructor-container"
+        style="
+          width: 90%;
+          margin: 0 auto;
+          max-width: 1440px;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 2rem 0;
+        "
+      >
+        <div>
+          <img
+            src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895263/bytealley%20funnel/author_shonzl.svg"
+            alt="Instructor"
+            style="width: 100%; border-radius: 1rem"
+          />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1.3rem; width: 100%">
+          <div>
+            <p
+              style="
+                color: #113ec3;
+                background-color: #edf2ff;
+                padding: 8px;
+                border-radius: 999px;
+                font-family: &quot;Playfair Display&quot;, serif;
+                font-weight: bold;
+                font-size: 14px;
+                width: 140px;
+                text-align: center;
+              "
+            >
+              Course Instructor
+            </p>
+            <h2 style="font-size: 28px; font-weight: 700; color: #262528">About Farouq Opeyemi</h2>
+          </div>
+          <p style="line-height: 1.4">
+            <b>Farouq Opeyemi</b> is a renowned entrepreneur, keynote speaker, and the creator of the highly successful
+            10X Revenue Course. With a background in business development and digital marketing, Farouq has helped
+            hundreds of entrepreneurs scale their businesses and achieve exponential growth.
+          </p>
+          <p style="line-height: 1.4">
+            He is a thought leader in the space of scalable systems and sales optimization, having worked with top-tier
+            companies and startups to improve their revenue generation strategies.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section style="background-color: #f1f4ff; padding: 4rem 0">
+      <div style="width: 90%; margin: 0 auto; max-width: 1440px; display: flex; flex-direction: column; gap: 2rem">
+        <div>
+          <p
+            style="
+              color: #113ec3;
+              background-color: #dde6ff;
+              padding: 8px;
+              border-radius: 999px;
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-weight: bold;
+              font-size: 14px;
+              width: 140px;
+              text-align: center;
+              margin: 0 auto;
+            "
+          >
+            Testimonials
+          </p>
+          <h2 style="font-size: 28px; font-weight: 700; color: #262528; text-align: center">
+            What Our Students Are Saying
+          </h2>
+        </div>
+
+        <div class="testimonial-grid" style="display: grid; grid-template-columns: 1fr; gap: 2rem">
+          <div style="background-color: white; padding: 1rem; display: grid; grid-template-columns: 1fr; gap: 1rem">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894359/bytealley%20funnel/Quotes_atcghb.svg"
+                alt="quotes"
+                style="height: 40px; width: fit-content"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/star-rating_vkrewa.svg"
+                alt="rating"
+                style="height: 40px; width: fit-content"
+              />
+            </div>
+            <p>
+              Before the 10X Revenue Course, my sales were stagnant. After applying the strategies, I saw a 300%
+              increase in monthly revenue. The course provided practical, actionable steps that I could implement right
+              away. It completely transformed my approach to revenue generation.
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894360/bytealley%20funnel/user-testimonial_a3cisk.svg"
+                alt="user image"
+                style="height: 40px; width: fit-content"
+              />
+              <div>
+                <h5 style="margin: 0">Amaka Benson</h5>
+                <p style="margin: 0">CEO, Lavish Interiors</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background-color: white; padding: 1rem; display: grid; grid-template-columns: 1fr; gap: 1rem">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894359/bytealley%20funnel/Quotes_atcghb.svg"
+                alt="quotes"
+                style="height: 40px; width: fit-content"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/star-rating_vkrewa.svg"
+                alt="rating"
+                style="height: 40px; width: fit-content"
+              />
+            </div>
+            <p>
+              Before the 10X Revenue Course, my sales were stagnant. After applying the strategies, I saw a 300%
+              increase in monthly revenue. The course provided practical, actionable steps that I could implement right
+              away. It completely transformed my approach to revenue generation.
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894360/bytealley%20funnel/user-testimonial_a3cisk.svg"
+                alt="user image"
+                style="height: 40px; width: fit-content"
+              />
+              <div>
+                <h5 style="margin: 0">Amaka Benson</h5>
+                <p style="margin: 0">CEO, Lavish Interiors</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background-color: white; padding: 1rem; display: grid; grid-template-columns: 1fr; gap: 1rem">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894359/bytealley%20funnel/Quotes_atcghb.svg"
+                alt="quotes"
+                style="height: 40px; width: fit-content"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/star-rating_vkrewa.svg"
+                alt="rating"
+                style="height: 40px; width: fit-content"
+              />
+            </div>
+            <p>
+              Before the 10X Revenue Course, my sales were stagnant. After applying the strategies, I saw a 300%
+              increase in monthly revenue. The course provided practical, actionable steps that I could implement right
+              away. It completely transformed my approach to revenue generation.
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894360/bytealley%20funnel/user-testimonial_a3cisk.svg"
+                alt="user image"
+                style="height: 40px; width: fit-content"
+              />
+              <div>
+                <h5 style="margin: 0">Amaka Benson</h5>
+                <p style="margin: 0">CEO, Lavish Interiors</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment Form Section -->
+    <section style="padding: 0 3rem">
+      <div
+        class="payment-container"
+        style="
+          width: 90%;
+          margin: 0 auto;
+          max-width: 1440px;
+          display: flex;
+          gap: 3.5rem;
+          justify-content: space-between;
+          padding: 4rem 0;
+          align-items: center !important;
+        "
+      >
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+          <h2 style="color: black">Snatch This Deal Now!</h2>
+          <p style="text-align: left; width: 100%; max-width: 580px; line-height: 1.5">
+            Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete your
+            purchase and your access will be sent instantly via email.
+          </p>
+        </div>
+
+        <div style="background-color: white; padding: 1rem; border-radius: 0.8rem">
+          <form class="opt-in-form" id="lead-form" style="display: flex; flex-direction: column; gap: 1.5rem">
+            <div class="form-group" style="width: 100%">
+              <input
+                style="
+                  padding: 1.2rem;
+                  background-color: #f8f8f8;
+                  color: gray;
+                  border: none;
+                  border-radius: 0.3rem;
+                  width: 100%;
+                "
+                type="text"
+                id="first_name"
+                name="first_name"
+                placeholder="Enter your first name"
+                required
+              />
+              <div
+                id="first_name-error"
+                class="error"
+                style="color: red; font-size: 0.8rem; margin-top: 0.2rem; display: none"
+              >
+                Please enter your first name
+              </div>
+            </div>
+
+            <div class="form-group" style="width: 100%">
+              <input
+                style="
+                  padding: 1.2rem;
+                  background-color: #f8f8f8;
+                  color: gray;
+                  border: none;
+                  border-radius: 0.3rem;
+                  width: 100%;
+                "
+                type="text"
+                id="last_name"
+                name="last_name"
+                placeholder="Enter your last name"
+                required
+              />
+              <div
+                id="last_name-error"
+                class="error"
+                style="color: red; font-size: 0.8rem; margin-top: 0.2rem; display: none"
+              >
+                Please enter your last name
+              </div>
+            </div>
+
+            <div class="form-group" style="width: 100%">
+              <input
+                style="
+                  padding: 1.2rem;
+                  background-color: #f8f8f8;
+                  color: gray;
+                  border: none;
+                  border-radius: 0.3rem;
+                  width: 100%;
+                "
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+              />
+              <div
+                id="email-error"
+                class="error"
+                style="color: red; font-size: 0.8rem; margin-top: 0.2rem; display: none"
+              >
+                Please enter a valid email address
+              </div>
+            </div>
+
+            <div class="sp-checkbox-input" style="display: flex; align-items: start; gap: 0.5rem; margin-bottom: 1rem">
+              <input type="checkbox" id="updates-consent" name="updates-consent" checked style="width: auto" />
+              <label for="updates-consent" style="font-size: 0.9rem; color: #4a4a4a">
+                I agree to receive updates, promotional content, or additional resources via email.
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              id="submit-button"
+              style="
+                background-color: #113ec3;
+                color: white;
+                border-radius: 0.4rem;
+                border: 0;
+                font-weight: 700;
+                font-size: medium;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                max-width: 100%;
+              "
+              onmouseover="this.style.backgroundColor='#032791'"
+              onmouseout="this.style.backgroundColor='#113ec3'"
+            >
+              GET INSTANT ACCESS NOW
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section>
+      <div
+        class="faq-container"
+        style="
+          width: 90%;
+          margin: 0 auto;
+          max-width: 1440px;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          align-items: center;
+          padding: 4rem 0;
+        "
+      >
+        <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 400px; text-align: left">
+          <div style="width: 100%; max-width: 350px">
+            <div
+              style="
+                background-color: #edf2ff;
+                border-radius: 999px;
+                width: fit-content;
+                padding: 4px 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <p style="margin: 0; color: #113ec3; font-weight: bold">FAQS</p>
+            </div>
+            <h1 style="font-size: 28px; font-weight: 700; color: #262528">Frequently Asked Questions</h1>
+          </div>
+          <p style="line-height: 1.5">
+            Got question? We've got answers. Below, we've addressed some of the most common questions about lead Scout's
+            pricing.
+          </p>
+        </div>
+
+        <div>
+          <div style="padding: 0.5rem">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; cursor: pointer"
+              class="faq-question"
+            >
+              <h4>What happens after I enroll?</h4>
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
+                alt="Plus"
+                class="faq-plus"
+                style="height: 20px; width: 20px"
+              />
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
+                alt="Minus"
+                class="faq-minus"
+                style="height: 20px; width: 20px; display: none"
+              />
+            </div>
+            <p
+              class="faq-para"
+              style="color: #666; font-size: 16px; letter-spacing: 1px; line-height: 1.5; padding: 1rem 0"
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+              reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+              animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+            </p>
+          </div>
+          <hr style="border: 1px solid #d3d3d3" />
+
+          <div style="padding: 0.5rem">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; cursor: pointer"
+              class="faq-question"
+            >
+              <h4>Is there a refund policy?</h4>
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
+                alt="Plus"
+                class="faq-plus"
+                style="height: 20px; width: 20px"
+              />
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
+                alt="Minus"
+                class="faq-minus"
+                style="height: 20px; width: 20px; display: none"
+              />
+            </div>
+            <p
+              class="faq-para"
+              style="color: #666; font-size: 16px; letter-spacing: 1px; line-height: 1.5; padding: 1rem 0"
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate delectus nobis voluptas labore. Tempora
+              quidem cumque molestiae est culpa nobis modi, facere maxime cupiditate sapiente quis officiis aspernatur
+              commodi eaque incidunt, laboriosam id possimus. Sapiente.
+            </p>
+          </div>
+          <hr style="border: 1px solid #d3d3d3" />
+
+          <div style="padding: 0.5rem">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; cursor: pointer"
+              class="faq-question"
+            >
+              <h4>How long do i have access to the course?</h4>
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
+                alt="Plus"
+                class="faq-plus"
+                style="height: 20px; width: 20px"
+              />
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
+                alt="Minus"
+                class="faq-minus"
+                style="height: 20px; width: 20px; display: none"
+              />
+            </div>
+            <p
+              class="faq-para"
+              style="color: #666; font-size: 16px; letter-spacing: 1px; line-height: 1.5; padding: 1rem 0"
+            >
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae, assumenda doloribus quis, fugit placeat,
+              error ipsa adipisci non aut vero commodi tenetur a aperiam cum veniam ea provident pariatur voluptates
+              deserunt neque. Ut, praesentium blanditiis?
+            </p>
+          </div>
+          <hr style="border: 1px solid #d3d3d3" />
+
+          <div style="padding: 0.5rem">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; cursor: pointer"
+              class="faq-question"
+            >
+              <h4>How soon will i see result?</h4>
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
+                alt="Plus"
+                class="faq-plus"
+                style="height: 20px; width: 20px"
+              />
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
+                alt="Minus"
+                class="faq-minus"
+                style="height: 20px; width: 20px; display: none"
+              />
+            </div>
+            <p
+              class="faq-para"
+              style="color: #666; font-size: 16px; letter-spacing: 1px; line-height: 1.5; padding: 1rem 0"
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ex corrupti labore voluptatibus, nulla
+              odio hic obcaecati veniam cupiditate alias ad deleniti doloremque delectus blanditiis fuga! Obcaecati
+              doloribus maiores et unde, illum aliquid modi voluptatum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section style="padding: 3rem 0">
+      <div style="width: 90%; margin: 0 auto; max-width: 1440px">
+        <div style="background-color: #032791; border-radius: 1rem; text-align: center; padding: 3rem 1rem">
+          <div
+            style="
+              width: 100%;
+              max-width: 700px;
+              margin: auto;
+              color: white;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              gap: 1.5rem;
+            "
+          >
+            <h1 style="color: white; font-size: 2rem">
+              Ready to <span style="color: #ffbc49; font-style: italic">10X</span> Your Revenue?
+            </h1>
+            <p style="color: white; line-height: 1.5">
+              This is the perfect opportunity to accelerate your growth and unlock new revenue streams. Don't wait! your
+              business transformation is just a click away!
+            </p>
+            <a href="#lead-form">
+              <button
+                style="
+                  background-color: #ffbc49;
+                  color: #262528;
+                  border-radius: 2.5rem;
+                  padding: 1rem 0.5rem;
+                  font-weight: bolder;
+                  border: none;
+                  width: 100%;
+                  max-width: 250px;
+                "
+              >
+                Get Instant Access Now!
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+
+    <div
+      style="
+        margin-bottom: 3rem;
+        background: hsla(227, 100%, 97%, 1);
+        color: black;
+        padding: 2rem 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      "
+    >
+      <h2 class="spt-logo">LOGO</h2>
+
+      <div class="">
+        <div class="links" style="display: flex">
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+          <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+        </div>
+      </div>
+      <div class="footer-frag-three">
+        <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
+      </div>
+    </div>
+
+    <script>
+      // Mobile Navigation
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+
+      // Toggle mobile menu
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+          hamburger.classList.remove("active");
+          navLinks.classList.remove("active");
+        }
+      });
+
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 820) {
+          hamburger.classList.remove("active");
+          navLinks.classList.remove("active");
+        }
+      });
+
+      // FAQ Accordion
+      const faqQuestions = document.querySelectorAll(".faq-question");
+
+      faqQuestions.forEach((question, index) => {
+        const plus = question.querySelector(".faq-plus");
+        const minus = question.querySelector(".faq-minus");
+        const answer = question.parentElement.querySelector(".faq-para");
+
+        // Make first FAQ active by default
+        if (index === 0) {
+          plus.classList.add("hideplus");
+          minus.classList.add("showminus");
+          answer.classList.add("active");
+        }
+
+        question.addEventListener("click", () => {
+          // Close all other FAQs
+          faqQuestions.forEach((q, i) => {
+            if (i !== index) {
+              q.querySelector(".faq-plus").classList.remove("hideplus");
+              q.querySelector(".faq-minus").classList.remove("showminus");
+              q.parentElement.querySelector(".faq-para").classList.remove("active");
+            }
+          });
+
+          // Toggle current FAQ
+          plus.classList.toggle("hideplus");
+          minus.classList.toggle("showminus");
+          answer.classList.toggle("active");
+        });
+      });
+
+      // Countdown Timer
+      const countDownDate = new Date();
+      countDownDate.setDate(countDownDate.getDate() + 3); // 3 days from now
+
+      const timer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        // Time calculations
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result
+        document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+        document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+        document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+
+        // If the countdown is over
+        if (distance < 0) {
+          clearInterval(timer);
+          document.getElementById("hours").innerHTML = "00";
+          document.getElementById("minutes").innerHTML = "00";
+          document.getElementById("seconds").innerHTML = "00";
+        }
+      }, 1000);
+    </script>
+    <script>
+      // Function to toggle the navbar on small screens
+      function toggleNavbar() {
+        const navLinks = document.getElementById("navLinks");
+        if (navLinks.style.display === "flex") {
+          navLinks.style.display = "none";
+        } else {
+          navLinks.style.display = "flex";
+        }
+      }
+
+      // Check screen size and adjust navbar accordingly
+      function checkScreenSize() {
+        const navLinks = document.getElementById("navLinks");
+        const hamburger = document.getElementById("hamburger");
+
+        if (window.innerWidth <= 768) {
+          // Mobile view
+          navLinks.style.display = "none";
+          navLinks.style.flexDirection = "column";
+          navLinks.style.position = "absolute";
+          navLinks.style.top = "60px";
+          navLinks.style.left = "0";
+          navLinks.style.width = "100%";
+          navLinks.style.backgroundColor = "#333";
+          navLinks.style.padding = "1rem";
+          hamburger.style.display = "block";
+        } else {
+          // Desktop view
+          navLinks.style.display = "flex";
+          navLinks.style.flexDirection = "row";
+          navLinks.style.position = "static";
+          navLinks.style.width = "auto";
+          hamburger.style.display = "none";
+        }
+      }
+
+      // Add event listeners
+      document.getElementById("hamburger").addEventListener("click", toggleNavbar);
+      window.addEventListener("resize", checkScreenSize);
+
+      // Initial check
+      checkScreenSize();
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("lead-form");
+        const submitButton = document.getElementById("submit-button");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const emailInput = document.getElementById("email");
+        const consentCheckbox = document.getElementById("updates-consent");
+
+        // Get the funnel slug from the URL or set a default
+        const hostname = window.location.hostname;
+        const funnelSlug = hostname.split(".")[0];
+
+        // Validation functions
+        function validateFirstName() {
+          const errorElement = document.getElementById("first_name-error");
+          if (!firstNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateLastName() {
+          const errorElement = document.getElementById("last_name-error");
+          if (!lastNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateEmail() {
+          const errorElement = document.getElementById("email-error");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailInput.value.trim()) {
+            errorElement.textContent = "Please enter your email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          if (!emailRegex.test(emailInput.value)) {
+            errorElement.textContent = "Please enter a valid email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        // Event listeners for real-time validation
+        firstNameInput.addEventListener("blur", validateFirstName);
+        lastNameInput.addEventListener("blur", validateLastName);
+        emailInput.addEventListener("blur", validateEmail);
+
+        // Form submission handler
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFirstNameValid = validateFirstName();
+          const isLastNameValid = validateLastName();
+          const isEmailValid = validateEmail();
+
+          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
+            return;
+          }
+
+          // Disable the submit button to prevent multiple submissions
+          submitButton.disabled = true;
+          submitButton.textContent = "Processing...";
+
+          try {
+            // Prepare form data
+            const formData = {
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              funnel_slug: funnelSlug,
+              email: emailInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            // const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && data.data.authorization_url) {
+                window.location.href = data.data.authorization_url;
+              } else {
+                // Handle success without redirect URL
+                alert("Thank you for your submission!");
+                form.reset();
+              }
+            } else {
+              // Handle error response
+              const errorData = await response.json();
+              alert("Error: " + (errorData.message || "Something went wrong"));
+            }
+          } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred. Please try again.");
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "GET INSTANT ACCESS NOW";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

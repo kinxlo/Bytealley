@@ -1,34 +1,36 @@
 export const templatesMetadata = [
-  // {
-  //   id: "lead",
-  //   thumbnail: "/images/template-1.png",
-  //   pages: [
-  //     { id: "page-1", name: "Home", file: "home.html" },
-  //     { id: "page-2", name: "Feedback", file: "feedback.html" },
-  //   ],
-  // },
-  // {
-  //   id: "webinar",
-  //   thumbnail: "/images/template-2.png",
-  //   pages: [
-  //     { id: "page-2", name: "Webinar", file: "webinar.html" },
-  //     { id: "page-3", name: "Feedback", file: "feedback.html" },
-  //   ],
-  // },
   {
-    id: "Sales",
-    thumbnail: "/images/template-3.png",
+    id: "single-product-sale",
+    thumbnail: "/images/template-4.png",
     pages: [
-      { id: "page-3", name: "Sales", file: "sales.html" },
-      { id: "page-2", name: "Feedback", file: "feedback.html" },
+      { id: "page-1", name: "Home", file: "index.html" },
+      { id: "page-2", name: "Thank you", file: "thank-you.html" },
     ],
   },
   {
-    id: "Sales-II",
-    thumbnail: "/images/template-4.png",
+    id: "lead-sale",
+    thumbnail: "/images/template-5.png",
     pages: [
-      { id: "page-4", name: "Sales", file: "sales-ii.html" },
-      { id: "page-2", name: "Feedback", file: "thanks.html" },
+      { id: "page-1", name: "Home", file: "index.html" },
+      { id: "page-2", name: "Trip wire", file: "trip-wire.html" },
+      { id: "page-3", name: "Thank you", file: "thank-you.html" },
+    ],
+  },
+  // {
+  //   id: "multi-step-sale",
+  //   thumbnail: "/images/template-6.png",
+  //   pages: [
+  //     { id: "page-1", name: "Home", file: "index.html" },
+  //     { id: "page-2", name: "Page two", file: "page-2.html" },
+  //     { id: "page-3", name: "Thank you", file: "thank-you.html" },
+  //   ],
+  // },
+  {
+    id: "sales",
+    thumbnail: "/images/template-3.png",
+    pages: [
+      { id: "page-1", name: "Home", file: "index.html" },
+      { id: "page-2", name: "Thank You", file: "thank-you.html" },
     ],
   },
 ];

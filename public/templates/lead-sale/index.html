@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+    * {
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      list-style-type: none !important;
+    }
+    :root {
+      --primary-color: #38514e !important;
+      --secondary-color: #ebe4d4 !important;
+      --white-text: #e6e6e6 !important;
+      --off-white: #fcfbf8 !important;
+      --faded-green-bg: #eaefff1f !important;
+      --light-green: #536d6a !important;
+      --cream-bg: #ebe4d4 !important;
+      --cream-bg-ii: #fcfbf8 !important;
+    }
+
+    body {
+      background-color: var(--white) !important;
+      font-family: "Inter", serif !important;
+    }
+
+    /* Button Styles */
+    button {
+      background-color: var(--primary-color) !important;
+      color: var(--secondary-color) !important;
+      border-radius: 0.4rem !important;
+      padding: 1.2rem !important;
+      border: 0 !important;
+      font-weight: 700 !important;
+      font-size: medium !important;
+      width: 100% !important;
+      margin: auto !important;
+      cursor: pointer !important;
+    }
+    button:hover {
+      background-color: var(--secondary-color) !important;
+      color: var(--primary-color) !important;
+      border: 1px solid var(--primary-color) !important;
+    }
+
+    /* List Styles */
+    ul {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+      padding: 0.5rem !important;
+      width: 90% !important;
+    }
+    li {
+      list-style-type: disc !important;
+      margin-left: 1rem !important;
+      padding: 0.5rem 0rem !important;
+    }
+
+    /* Hero Section */
+    .opt-hero-sec {
+      background-color: var(--primary-color);
+      width: 100% !important;
+    }
+
+    /* Navigation */
+    .nav-bar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+      padding: 2rem 0rem !important;
+      text-align: center !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      color: white !important;
+    }
+    .nav-bar-content {
+      width: 100% !important;
+    }
+    .nav-bar h2 {
+      color: white !important;
+    }
+
+    /* Hero Text */
+    .opt-hero-content {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 1rem !important;
+      padding: 3rem 0rem !important;
+      color: var(--white-text) !important;
+      max-width: 861px !important;
+      width: 100% !important;
+    }
+    .opt-hero-text {
+      text-align: center !important;
+      color: white !important;
+      width: 100% !important;
+    }
+    .opt-hero-text h1,
+    .opt-hero-text p {
+      text-align: center !important;
+      color: white !important;
+    }
+
+    /* Free Badge */
+    .free-badge {
+      background-color: var(--light-green) !important;
+      padding: 0.9rem !important;
+      color: white !important;
+      border-radius: 1.8rem !important;
+      width: fit-content !important;
+      margin: 0 auto !important;
+    }
+    .free-badge p {
+      margin: 0 !important;
+    }
+
+    /* Typography */
+    .heading-txt {
+      font-size: 2rem !important;
+    }
+    .text-content {
+      width: 100% !important;
+    }
+
+    /* Layout Containers */
+    .spt-res-w {
+      width: 100% !important;
+      margin: auto !important;
+      max-width: 1440px !important;
+    }
+    .content-wrapper {
+      width: 100% !important;
+    }
+
+    /* Grid Layout */
+    .grid-container {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      align-items: center !important;
+      padding: 2rem 0rem !important;
+      width: 100% !important;
+    }
+    .grid-item {
+      width: 100% !important;
+    }
+
+    /* Image Box */
+    .opt-img-box {
+      width: 100% !important;
+    }
+    .opt-img-box img {
+      width: 100% !important;
+      max-width: 560px !important;
+      margin-left: 0 !important;
+      display: block !important;
+    }
+
+    /* Info Section */
+    .opt-info-sec {
+      padding: 2rem 0rem !important;
+      width: 100% !important;
+    }
+    .opt-info {
+      background-color: var(--cream-bg) !important;
+      padding: 1rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.1rem !important;
+      text-align: left !important;
+      color: #4a4a4a !important;
+      border-radius: 0.5rem !important;
+      width: 100% !important;
+    }
+
+    /* Form Styles */
+    .opt-in-form {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+      padding: 1rem !important;
+      width: 100% !important;
+    }
+    .form-group {
+      width: 100% !important;
+    }
+    .opt-in-form input {
+      padding: 1.2rem !important;
+      color: gray !important;
+      border: none !important;
+      border-radius: 0.3rem !important;
+      width: 100% !important;
+    }
+
+    /* Error Messages */
+    .error {
+      color: red !important;
+      font-size: 0.8rem !important;
+      margin-top: 0.2rem !important;
+      display: none !important;
+    }
+
+    /* Checkbox */
+    .sp-checkbox-input {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      margin-bottom: 1rem !important;
+      width: 100% !important;
+    }
+    .sp-checkbox-input input {
+      width: auto !important;
+    }
+    .checkbox-label {
+      width: calc(100% - 25px) !important;
+    }
+
+    /* Media Queries */
+    @media (width > 900px) {
+      h1 {
+        font-size: 3rem !important;
+      }
+      li {
+        font-size: 1.3rem !important;
+      }
+      .opt-info-sec {
+        padding: 4rem 0rem !important;
+      }
+      .opt-info {
+        padding: 3rem !important;
+      }
+      .opt-hero-content {
+        padding: 4.5rem 0rem !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+        max-width: 750px !important;
+        margin: auto !important;
+      }
+      .grid-container {
+        gap: 3rem !important;
+        padding: 4rem 0rem !important;
+        grid-template-columns: 1fr 1fr !important;
+      }
+      .opt-in-form {
+        gap: 1.5rem !important;
+      }
+    }
+
+    @media (width > 1440px) {
+      h1 {
+        font-size: 3rem !important;
+      }
+      .spt-res-w {
+        width: 85% !important;
+      }
+    }
+  </style>
+  <body>
+    <section class="opt-hero-sec">
+      <nav class="nav-bar">
+        <div class="nav-bar-content">
+          <div class="nav-bar-text">
+            <h2>LOGO</h2>
+          </div>
+        </div>
+      </nav>
+
+      <div class="opt-hero-content spt-res-w">
+        <div class="free-badge">
+          <div class="free-text">
+            <p>Free Download</p>
+          </div>
+        </div>
+        <div class="opt-hero-text">
+          <div class="hero-heading">
+            <h1>The Ultimate Guide to Doubling Your Sales in 30 Days!</h1>
+          </div>
+          <div class="hero-subtext">
+            <p>Get instant access to our proven strategies for increasing your sales and growing your business</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="opt-info-sec">
+      <div class="grid-container spt-res-w">
+        <div class="grid-item opt-img-box">
+          <div class="image-wrapper">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1752137986/bytealley%20funnel/freepik__the-style-is-candid-image-photography-with-natural__91143_1_u1ysfs.svg"
+              alt="e-book image"
+            />
+          </div>
+        </div>
+        <div class="grid-item opt-info">
+          <div class="text-content">
+            <div class="heading-wrapper">
+              <h2 class="heading-txt">What You Will Get</h2>
+            </div>
+            <div class="list-content">
+              <ul>
+                <li>
+                  <div class="list-item-text">
+                    <b>Proven Strategies:</b> Learn actionable tactics that top entrepreneurs use to increase their
+                    sales.
+                  </div>
+                </li>
+                <li>
+                  <div class="list-item-text">
+                    <b>Quick Implementation:</b> Start seeing results fast with easy-to-follow steps and templates.
+                  </div>
+                </li>
+                <li>
+                  <div class="list-item-text">
+                    <b>Maximize Your Revenue:</b> Unlock growth potential with our step-by-step plan to double your
+                    sales in just 30 days.
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <form class="opt-in-form" id="lead-form">
+            <div class="form-group">
+              <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required />
+              <div id="first_name-error" class="error">Please enter your first name</div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required />
+              <div id="last_name-error" class="error">Please enter your last name</div>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+              <div id="email-error" class="error">Please enter a valid email address</div>
+            </div>
+            <div class="sp-checkbox-input">
+              <input type="checkbox" id="updates-consent" name="updates-consent" checked />
+              <label for="updates-consent" class="checkbox-label">
+                I agree to receive updates, promotional content, or additional resources from the owner of this package
+                via email.
+              </label>
+            </div>
+            <button style="font-size: 14px; max-width: 100%" type="submit" id="submit-button">
+              SEND ME THE FREE GUIDE
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("lead-form");
+        const submitButton = document.getElementById("submit-button");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const emailInput = document.getElementById("email");
+        const consentCheckbox = document.getElementById("updates-consent");
+
+        // Get the funnel slug from the URL or set a default
+        const hostname = window.location.hostname;
+        const funnelSlug = hostname.split(".")[0];
+
+        // Validation functions
+        function validateFirstName() {
+          const errorElement = document.getElementById("first_name-error");
+          if (!firstNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateLastName() {
+          const errorElement = document.getElementById("last_name-error");
+          if (!lastNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateEmail() {
+          const errorElement = document.getElementById("email-error");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailInput.value.trim()) {
+            errorElement.textContent = "Please enter your email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          if (!emailRegex.test(emailInput.value)) {
+            errorElement.textContent = "Please enter a valid email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        // Event listeners for real-time validation
+        firstNameInput.addEventListener("blur", validateFirstName);
+        lastNameInput.addEventListener("blur", validateLastName);
+        emailInput.addEventListener("blur", validateEmail);
+
+        // Form submission handler
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFirstNameValid = validateFirstName();
+          const isLastNameValid = validateLastName();
+          const isEmailValid = validateEmail();
+
+          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
+            return;
+          }
+
+          // Disable the submit button to prevent multiple submissions
+          submitButton.disabled = true;
+          submitButton.textContent = "Processing...";
+
+          try {
+            // Prepare form data
+            const formData = {
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              funnel_slug: funnelSlug,
+              email: emailInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            // const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && data.data.authorization_url) {
+                window.location.href = data.data.authorization_url;
+              } else {
+                // Handle success without redirect URL
+                alert("Thank you for your submission!");
+                form.reset();
+              }
+            } else {
+              // Handle error response
+              const errorData = await response.json();
+              alert("Error: " + (errorData.message || "Something went wrong"));
+            }
+          } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred. Please try again.");
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "SEND ME THE FREE GUIDE";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

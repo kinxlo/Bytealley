@@ -38,6 +38,7 @@ const BaseFunnelForm = ({
   const [funnel, setFunnel] = useState<any>();
   const [formatedData, setFormattedData] = useState<any>();
   const [products, setProducts] = useState<{ value: string; label: string; thumbnail: string | File | null }[]>([]);
+  const [funnels, setFunnels] = useState<{ value: string; label: string }[]>([]);
   const methods = useForm<FunnelFormData>({
     resolver: zodResolver(funnelSchema),
     mode: "onChange",
@@ -46,6 +47,7 @@ const BaseFunnelForm = ({
       product_id: "",
       thumbnail: null,
       assets: [],
+      upsell_funnel_id: "",
     },
   });
 
@@ -96,7 +98,29 @@ const BaseFunnelForm = ({
     doProductExist();
   }, [productService]);
 
-  const handleSubmitForm = async (data: FunnelFormData) => {
+  useEffect(() => {
+    const fetchFunnels = async () => {
+      const response = await funnelService.getAllFunnels();
+      if (response) {
+        const formattedFunnels = response.data.map((funnel) => ({
+          value: funnel.id,
+          label: funnel.title,
+        }));
+        setFunnels(formattedFunnels);
+      }
+    };
+    fetchFunnels();
+  }, [funnelService]);
+
+  // const handleSubmitForm = async (data: FunnelFormData) => {
+  //   const formatedData = {
+  //     ...data,
+  //     funnel,
+  //   };
+  //   setFormattedData(formatedData);
+  //   setIsDialogOpen(true);
+  // };
+  const handleSubmitForm = async (data: FunnelFormData & { upsell_funnel_id?: string }) => {
     const formatedData = {
       ...data,
       funnel,
@@ -166,6 +190,15 @@ const BaseFunnelForm = ({
               options={products}
               placeholder="Choose a product"
               required
+            />
+
+            <FormField
+              type={`select`}
+              className={`h-12 bg-low-grey-III`}
+              label="Upsell Funnel"
+              name="upsell_funnel_id"
+              options={funnels}
+              placeholder="Choose a funnel (optional)"
             />
 
             <FileUpload

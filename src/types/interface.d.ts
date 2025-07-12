@@ -77,16 +77,18 @@ declare global {
     token: string;
   }
 
-  interface SidebarItem {
+  export interface SidebarItemBadge {
+    count: number;
+    variant: "default" | "danger";
+  }
+
+  export interface SidebarItem {
+    id: string;
     route: string;
     link: string;
-    icon?: IconType;
+    icon?: React.ComponentType<{ className?: string }>;
     iconUrl?: string;
-    id: string;
-    badge?: {
-      count?: number;
-      variant?: "danger" | "warning" | "success";
-    };
+    badge?: SidebarItemBadge;
     divider?: boolean;
   }
 

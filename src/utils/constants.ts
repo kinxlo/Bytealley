@@ -32,6 +32,7 @@ export const useSidebarItems = () => {
           badge: {
             ...item.badge,
             count: orderCreatedCount,
+            variant: item.badge?.variant ?? "danger", // Ensure variant is always defined
           },
         };
       }
