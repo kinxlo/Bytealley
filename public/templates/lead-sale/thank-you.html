@@ -3,262 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thank You</title>
-    <style>
-      :root {
-        --gjs-t-color-primary: #38514e !important;
-        --gjs-t-color-secondary: #ebe4d4 !important;
-        --gjs-t-color-white: #e6e6e6 !important;
-        --gjs-t-color-off-white: #fcfbf8 !important;
-        --gjs-t-color-light-green: #536d6a !important;
-        --gjs-t-color-cream: #ebe4d4 !important;
-        --gjs-t-color-cream-ii: #fcfbf8 !important;
-        --gjs-t-color-accent: #ffb347 !important;
-        --gjs-t-color-success: #28a745 !important;
-        --gjs-t-color-warning: #ffc107 !important;
-        --gjs-t-color-error: #dc3545 !important;
-      }
-
-      .gjs-t-body {
-        background-color: inherit !important;
-        color: inherit !important;
-        font-size: 1rem !important;
-        line-height: 1.75rem !important;
-        font-family: "Inter", sans-serif !important;
-      }
-
-      .gjs-t-link {
-        color: var(--gjs-t-color-primary) !important;
-        text-decoration: none !important;
-        transition: color 0.3s !important;
-      }
-
-      .gjs-t-link:hover {
-        color: var(--gjs-t-color-secondary) !important;
-      }
-
-      .gjs-t-button {
-        background-color: var(--gjs-t-color-primary) !important;
-        color: white !important;
-        border-radius: 0.7rem !important;
-        padding: 0.9rem !important;
-        border: 0 !important;
-        font-weight: 700 !important;
-        font-size: medium !important;
-        width: 100% !important;
-        max-width: 250px !important;
-        cursor: pointer !important;
-      }
-
-      .gjs-t-button:hover {
-        background-color: var(--gjs-t-color-secondary) !important;
-        color: black !important;
-        border: 1px solid var(--gjs-t-color-primary) !important;
-      }
-
-      .gjs-t-h1 {
-        font-size: 2rem !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        color: var(--gjs-t-color-primary) !important;
-      }
-
-      .gjs-t-h2 {
-        font-size: 1.5rem !important;
-        line-height: 2rem !important;
-        color: var(--gjs-t-color-primary) !important;
-      }
-
-      .gjs-t-list {
-        list-style-type: none !important;
-      }
-
-      .gjs-container {
-        width: 90% !important;
-        margin: auto !important;
-        max-width: 1440px !important;
-      }
-
-      .gjs-nav-bar {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-        padding: 2rem 0 !important;
-        text-align: center !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-      }
-
-      .gjs-section-thank-you {
-        padding: 4rem 0 !important;
-      }
-
-      .gjs-thank-you-container {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 2rem !important;
-        text-align: center !important;
-        padding: 2rem 0 !important;
-        width: 100% !important;
-        max-width: 700px !important;
-        margin: auto !important;
-      }
-
-      .gjs-thank-you-text {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem !important;
-      }
-
-      .gjs-section-accordion {
-        padding: 4rem 0 !important;
-      }
-
-      .gjs-accordion-container {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2rem !important;
-      }
-
-      .gjs-accordion {
-        background-color: var(--gjs-t-color-cream-ii) !important;
-        padding: 1rem !important;
-        border-radius: 1rem !important;
-      }
-
-      .gjs-accordion-img {
-        width: 24px !important;
-        height: 24px !important;
-      }
-
-      .gjs-accordion-img img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: contain !important;
-      }
-
-      .gjs-success-icon {
-        width: 80px !important;
-        height: 80px !important;
-      }
-
-      .gjs-success-icon img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: contain !important;
-      }
-
-      .gjs-accordion-checks {
-        display: flex !important;
-        gap: 0.8rem !important;
-        align-items: center !important;
-      }
-
-      .gjs-accordion-question {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 0.5rem !important;
-      }
-
-      .gjs-accordion-para {
-        display: none !important;
-        padding: 1rem !important;
-      }
-
-      .gjs-accordion-para.active {
-        display: block !important;
-        transition: 0.3s ease-in-out !important;
-      }
-
-      .gjs-accordion-plus.hideplus {
-        display: none !important;
-        transition: 0.3s ease-in-out !important;
-      }
-
-      .gjs-accordion-minus {
-        display: none !important;
-      }
-
-      .gjs-accordion-minus.showminus {
-        display: block !important;
-        rotate: 90deg !important;
-        transition: 0.3s ease-in-out !important;
-      }
-
-      .gjs-logo {
-        color: var(--gjs-t-color-primary) !important;
-        text-align: center !important;
-      }
-
-      .gjs-links {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem !important;
-        justify-content: center !important;
-      }
-
-      .gjs-links li a {
-        color: var(--gjs-t-color-primary) !important;
-      }
-
-      .gjs-links li a:hover {
-        color: var(--gjs-t-color-secondary) !important;
-      }
-
-      .gjs-text-wrapper {
-        width: 100% !important;
-      }
-
-      .gjs-text-content {
-        width: 100% !important;
-      }
-
-      @media (width > 768px) {
-        .gjs-links {
-          flex-direction: row !important;
-          gap: 0.5rem !important;
-        }
-      }
-
-      @media (width > 900px) {
-        .gjs-t-link {
-          color: var(--gjs-t-color-white) !important;
-        }
-
-        .gjs-t-h1 {
-          font-size: 2rem !important;
-        }
-
-        .gjs-t-h2 {
-          font-size: 2.8rem !important;
-        }
-
-        .gjs-logo {
-          text-align: left !important;
-        }
-
-        .gjs-links {
-          gap: 1.5rem !important;
-        }
-
-        .gjs-success-icon {
-          width: 100px !important;
-          height: 100px !important;
-        }
-      }
-
-      @media (width > 1440px) {
-        .gjs-t-h1 {
-          font-size: 3rem !important;
-        }
-
-        .gjs-container {
-          width: 85% !important;
-        }
-      }
-    </style>
+    <title>Document</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
@@ -267,124 +12,130 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
       rel="stylesheet"
     />
+    <style>
+      /* Root style to prevent clashes in GrapesJS */
+      .gjs-editor .gjs-cm-editor,
+      .gjs-editor .gjs-frame-wrapper,
+      .gjs-editor .gjs-frame {
+        all: initial !important;
+        font-family: inherit !important;
+      }
+
+      /* Custom styles */
+      .tailwind-root {
+        --primary-color: #38514e;
+        --secondary-color: #ebe4d4;
+        --white-text: #e6e6e6;
+        --off-white: #fcfbf8;
+        --faded-green-bg: #eaefff1f;
+        --light-green: #536d6a;
+        --cream-bg: #ebe4d4;
+        --cream-bg-ii: #fcfbf8;
+      }
+
+      .list-item {
+        list-style-type: disc;
+      }
+
+      p {
+        color: #4a4a4a !important;
+      }
+
+      button {
+        padding: 0 !important;
+      }
+    </style>
   </head>
 
-  <body class="gjs-t-body">
-    <section class="gjs-nav-section">
-      <nav class="gjs-nav-bar">
-        <div class="gjs-logo-wrapper">
-          <h2 class="gjs-logo">LOGO</h2>
+  <body class="bg-white font-['Inter'] text-[#38514e]">
+    <!-- Navigation -->
+    <nav class="flex w-full max-w-full items-center justify-center py-4 text-center text-white shadow-md md:py-8">
+      <div class="w-full">
+        <div class="flex items-center justify-center">
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+            alt="logo"
+            class="w-[80px] md:w-[100px]"
+          />
         </div>
-      </nav>
-    </section>
+      </div>
+    </nav>
 
-    <section class="gjs-section-thank-you">
-      <div class="gjs-thank-you-container gjs-container">
-        <div class="gjs-success-icon">
+    <!-- Thank You Section -->
+    <section class="py-16">
+      <div class="container mx-auto flex max-w-2xl flex-col items-center justify-center gap-8 px-4 text-center">
+        <div class="h-[173px] w-[173px]">
           <img
             src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894362/bytealley%20funnel/Success_Icon_xgpfk9.svg"
             alt="success icon"
+            width="173px"
+            height="173px"
+            class="h-[173px] w-[173px] object-contain"
           />
         </div>
-        <div class="gjs-thank-you-text">
-          <div class="gjs-text-wrapper">
-            <h2 class="gjs-t-h2">Thank You For Your Purchase</h2>
-          </div>
-          <div class="gjs-text-content">
-            <p style="text-align: center">We've received your payment successfully. Your package is on its way</p>
-          </div>
+        <div class="flex flex-col items-center justify-center space-y-4">
+          <h2 class="text-center text-3xl font-bold text-black md:text-4xl lg:text-5xl">Thank You For Your Purchase</h2>
+          <p class="text-center text-lg">We've received your payment successfully. Your package is on its way</p>
         </div>
       </div>
     </section>
 
-    <section class="gjs-section-accordion">
-      <div class="gjs-accordion-container gjs-container">
-        <div class="gjs-accordion">
-          <div class="gjs-accordion-question">
-            <div class="gjs-accordion-checks">
-              <div class="gjs-accordion-img">
+    <!-- Accordion Section -->
+    <section class="py-10 md:py-16">
+      <div class="container mx-auto max-w-4xl space-y-6 px-4">
+        <!-- Accordion Item 1 -->
+        <div class="rounded-xl bg-[#fcfbf8] p-4">
+          <div class="accordion-toggle flex cursor-pointer items-center justify-between">
+            <div class="flex items-start gap-3">
+              <div class="hidden h-6 w-6 lg:block">
                 <img
                   src="https://res.cloudinary.com/doejcrfso/image/upload/v1752156552/bytealley%20funnel/checkbox_c8psr0.svg"
                   alt="checkbox-icon"
+                  class="h-full w-full object-contain"
                 />
               </div>
-              <div class="gjs-text-wrapper">
-                <h2 class="gjs-t-h2">Check Your Email</h2>
+              <div>
+                <h3 class="text-xl font-bold md:text-2xl">Check Your Email</h3>
+                <p class="mb-0 text-left">An email has been sent to your@email.com to access your freebie product</p>
               </div>
             </div>
-            <div class="gjs-accordion-img">
+            <div class="accordion-arrow hidden h-6 w-6 transform transition-transform duration-300 lg:block">
               <img
                 src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
-                alt=""
-                class="gjs-accordion-plus"
+                alt="arrow"
+                class="h-full w-full object-contain"
               />
-              <img
-                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
-                alt=""
-                class="gjs-accordion-minus"
-              />
-            </div>
-          </div>
-
-          <div class="gjs-accordion-para">
-            <div class="gjs-text-content">
-              <p>An email has been sent to your@email.com to access your freebie product</p>
             </div>
           </div>
         </div>
 
-        <div class="gjs-accordion">
-          <div class="gjs-accordion-question">
-            <div class="gjs-accordion-checks">
-              <div class="gjs-accordion-img">
+        <!-- Accordion Item 2 -->
+        <div class="rounded-xl bg-[#fcfbf8] p-4">
+          <div class="flex flex-col items-start justify-between gap-4 lg:flex-row lg:items-center">
+            <div class="flex w-[50%] items-start gap-3">
+              <div class="hidden h-6 w-6 lg:block">
                 <img
                   src="https://res.cloudinary.com/doejcrfso/image/upload/v1752156552/bytealley%20funnel/checkbox_c8psr0.svg"
                   alt="checkbox-icon"
+                  class="h-full w-full object-contain"
                 />
               </div>
-              <div class="gjs-text-wrapper">
-                <h2 class="gjs-t-h2">Download Your Product</h2>
+              <div>
+                <h3 class="text-xl font-bold md:text-2xl">Download Your Product</h3>
               </div>
             </div>
-            <div class="gjs-button-wrapper">
-              <button class="gjs-t-button">ACCESS PRODUCT</button>
+            <div>
+              <button
+                class="h-[48px] w-fit rounded-lg border border-transparent bg-[#38514e] !px-6 py-2 font-bold text-white transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e]"
+              >
+                ACCESS PRODUCT
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <script>
-      const plusButtons = document.querySelectorAll(".gjs-accordion-plus");
-      const minusButtons = document.querySelectorAll(".gjs-accordion-minus");
-      const paragraphs = document.querySelectorAll(".gjs-accordion-para");
-
-      function setupToggle(index) {
-        plusButtons[index].addEventListener("click", () => {
-          // Hide all other active FAQs first
-          plusButtons.forEach((btn, i) => {
-            if (i !== index) {
-              btn.classList.remove("hideplus");
-              minusButtons[i].classList.remove("showminus");
-              paragraphs[i].classList.remove("active");
-            }
-          });
-
-          // Show clicked FAQ
-          plusButtons[index].classList.add("hideplus");
-          minusButtons[index].classList.add("showminus");
-          paragraphs[index].classList.add("active");
-        });
-
-        minusButtons[index].addEventListener("click", () => {
-          minusButtons[index].classList.remove("showminus");
-          paragraphs[index].classList.remove("active");
-          plusButtons[index].classList.remove("hideplus");
-        });
-      }
-
-      // Set up event listeners for all elements
-      plusButtons.forEach((_, index) => setupToggle(index));
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </body>
 </html>

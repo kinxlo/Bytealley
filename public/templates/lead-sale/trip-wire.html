@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Special One-Time Offer - Sales Page Template Bundle</title>
+    <title>Document</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
@@ -13,400 +13,189 @@
       rel="stylesheet"
     />
     <style>
-      /* Reset and Base Styles */
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: "Inter", Arial, sans-serif;
-        background-color: #ffffff;
-        color: #000000;
-        line-height: 1.5;
+      /* Root style to prevent clashes in GrapesJS */
+      .gjs-editor .gjs-cm-editor,
+      .gjs-editor .gjs-frame-wrapper,
+      .gjs-editor .gjs-frame {
+        all: initial !important;
+        font-family: inherit !important;
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      /* Custom styles */
+      .tailwind-root {
+        --primary-color: #38514e;
+        --secondary-color: #ebe4d4;
+        --white-text: #e6e6e6;
+        --off-white: #fcfbf8;
+        --faded-green-bg: #eaefff1f;
+        --light-green: #536d6a;
+        --cream-bg: #ebe4d4;
+        --cream-bg-ii: #fcfbf8;
       }
 
-      /* Typography */
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-weight: 700;
-        line-height: 1.2;
+      .list-item {
+        list-style-type: disc;
       }
 
       p {
-        margin-bottom: 1rem;
+        color: #4a4a4a !important;
       }
 
-      /* Layout Components */
-      .container {
-        width: 100%;
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      /* Header/Nav */
-      .nav-bar {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 2rem 0 !important;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      }
-
-      /* Hero Section */
-      .grid-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        align-items: center;
-        padding: 2rem 0;
-        width: 100%;
-      }
-
-      .hero-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 1rem;
-        padding: 3rem 0;
-      }
-
-      .highlight-badge {
-        background-color: #d4e7e5;
-        color: #38514e;
-        border-radius: 1.8rem;
-        text-align: center;
-        margin: 0 auto;
-        font-weight: 600;
-      }
-
-      .heading-txt {
-        font-size: 2rem;
-      }
-
-      .image-container {
-        width: 100%;
-        max-width: 650px;
-        margin: 0 auto;
-      }
-
-      .image-container img {
-        width: 100%;
-        height: auto;
-        max-width: 650px;
-        display: block;
-      }
-
-      /* Button Styles */
-      .btn {
-        background-color: #38514e;
-        color: #ebe4d4;
-        border-radius: 0.4rem;
-        padding: 1.2rem;
-        border: none;
-        font-weight: 700;
-        font-size: 1rem;
-        width: 100%;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-        display: block;
-      }
-
-      .btn:hover {
-        background-color: #ebe4d4;
-        color: #38514e;
-        border: 1px solid #38514e;
-      }
-
-      /* Feature Section */
-      .feature-section {
-        padding: 3rem 0;
-        background-color: #fcfbf8;
-      }
-
-      .feature-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        width: 100%;
-      }
-
-      .feature-card {
-        background-color: #ffffff;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-        border-radius: 0.6rem;
-        border: 1px solid #e9e9e9;
-      }
-
-      .feature-card h3 {
-        max-width: 190px;
-        text-align: center;
-      }
-
-      .feature-card p {
-        text-align: center;
-      }
-
-      /* Form Section */
-      .form-wrapper {
-        border: 1px solid #c2c2c2;
-        padding: 1rem;
-        border-radius: 0.8rem;
-      }
-
-      .payment-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .payment-form input {
-        padding: 1.2rem;
-        background-color: #f8f8f8;
-        color: #808080;
-        outline: none;
-        border: none;
-        border-radius: 0.3rem;
-        width: 100%;
-        font-family: inherit;
-        font-size: 1rem;
-      }
-
-      .form-note {
-        font-size: 0.875rem;
-        color: #666;
-        text-align: center;
-      }
-
-      /* Form Error Styles */
-      .error {
-        color: red !important;
-        font-size: 0.8rem !important;
-        margin-top: 0.2rem !important;
-        display: none !important;
-      }
-
-      /* Checkbox */
-      .sp-checkbox-input {
-        display: flex !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
-        margin-bottom: 1rem !important;
-        width: 100% !important;
-      }
-      .sp-checkbox-input input {
-        width: auto !important;
-      }
-      .checkbox-label {
-        width: calc(100% - 25px) !important;
-        font-size: 0.875rem;
-        color: #666;
-      }
-
-      /* Responsive Styles */
-      @media (min-width: 900px) {
-        h1 {
-          font-size: 3rem !important;
-        }
-
-        .highlight-badge {
-          margin: 0;
-        }
-
-        .hero-content {
-          align-items: flex-start;
-          text-align: left;
-          max-width: 500px;
-          padding: 3rem 0;
-        }
-
-        .grid-container {
-          gap: 3rem;
-          padding: 4rem 0;
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .text-container {
-          max-width: 450px;
-          gap: 1rem;
-        }
-
-        .text-container h2,
-        .text-container p {
-          text-align: left !important;
-        }
-
-        .heading-txt {
-          font-size: 2.7rem;
-        }
-
-        .feature-section {
-          padding: 4rem 0;
-        }
-
-        .feature-grid {
-          grid-template-columns: repeat(4, 1fr);
-          gap: 3rem;
-        }
-
-        .payment-form {
-          gap: 1.5rem;
-        }
-      }
-
-      @media (min-width: 1440px) {
-        h1 {
-          font-size: 3.5rem;
-        }
-
-        .container {
-          width: 85%;
-        }
+      button {
+        padding: 0 !important;
       }
     </style>
   </head>
-  <body>
-    <section class="opt-hero-sec">
-      <nav class="nav-bar">
-        <div class="logo-container">
-          <h2>LOGO</h2>
+  <body class="bg-white font-['Inter'] text-black">
+    <!-- Header/Nav -->
+    <nav class="flex w-full max-w-full items-center justify-center py-4 text-center text-white shadow-md md:py-8">
+      <div class="w-full">
+        <div class="flex items-center justify-center">
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+            alt="logo"
+            class="w-[80px] md:w-[100px]"
+          />
         </div>
-      </nav>
-      <div style="padding-inline: 2rem !important" class="grid-container container">
-        <div class="hero-content">
-          <div class="highlight-container">
-            <div style="width: fit-content; padding: 10px 4rem; background-color: #d4e7e5; border-radius: 40px">
-              <p style="margin-bottom: 0">Expires in 10 minutes</p>
-            </div>
-          </div>
-          <div class="text-content">
-            <h1>Special One-Time Offer Just for just ₦2,500</h1>
-            <p>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="py-8 md:py-12">
+      <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+        <div class="grid items-center gap-8 lg:grid-cols-2">
+          <div class="space-y-6 text-center md:text-left">
+            <div class="highlight-badge">Expires in 10 minutes</div>
+            <h1 class="text-center text-5xl lg:text-left">Special One-Time Offer Just for just ₦2,500</h1>
+            <p class="text-center text-lg lg:text-left">
               Supercharge your sales strategy with our complete Sales Page Template Bundle — transform your conversions
               today!
             </p>
+            <div class="flex items-center justify-center lg:justify-start">
+              <a href="#lead-form" class="block w-fit">
+                <button
+                  class="h-[48px] w-full max-w-xs rounded-md border border-transparent bg-[#38514e] !px-6 py-3 font-bold text-[#ebe4d4] transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e] md:mx-0"
+                >
+                  I WANT THIS BUNDLE!
+                </button>
+              </a>
+            </div>
           </div>
-          <div class="button-container">
-            <a href="#lead-form">
-              <button class="btn">I WANT THIS BUNDLE!</button>
-            </a>
-          </div>
-        </div>
-        <div class="image-wrapper">
-          <div class="image-container">
+          <div class="flex justify-center">
             <img
               src="https://res.cloudinary.com/doejcrfso/image/upload/v1752137986/bytealley%20funnel/Frame_1707480390_gfz2hv.svg"
               alt="Sales Page Template Bundle"
+              class="w-full max-w-lg"
             />
           </div>
         </div>
       </div>
     </section>
 
-    <section class="feature-section">
-      <div class="feature-container container">
-        <div class="section-heading">
-          <h2 class="heading-txt">Why You'll Need This</h2>
-        </div>
-        <div class="feature-grid">
-          <div class="feature-card">
-            <div class="card-content">
-              <h3 style="text-align: center">Unlocking the Psychology of High-Value Sales</h3>
-              <p>Master the mindset and psychology behind closing high-value deals consistently.</p>
-            </div>
+    <!-- Features Section -->
+    <section class="bg-[#fcfbf8] py-12">
+      <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black">Why You'll Need This</h2>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Feature 1 -->
+          <div class="rounded-lg border border-[#e9e9e9] bg-white p-6 text-center">
+            <h3 class="mb-3 text-center text-lg font-bold">Unlocking the Psychology of High-Value Sales</h3>
+            <p class="text-center">Master the mindset and psychology behind closing high-value deals consistently.</p>
           </div>
-          <div class="feature-card">
-            <div class="card-content">
-              <h3 style="text-align: center">Proven Sales Frameworks</h3>
-              <p>Access battle-tested templates that convert visitors into paying customers.</p>
-            </div>
+          <!-- Feature 2 -->
+          <div class="rounded-lg border border-[#e9e9e9] bg-white p-6 text-center">
+            <h3 class="mb-3 text-center text-lg font-bold">Proven Sales Frameworks</h3>
+            <p class="text-center">Access battle-tested templates that convert visitors into paying customers.</p>
           </div>
-          <div class="feature-card">
-            <div class="card-content">
-              <h3 style="text-align: center">Time-Saving Designs</h3>
-              <p>Skip the design process with ready-to-use, professionally crafted templates.</p>
-            </div>
+          <!-- Feature 3 -->
+          <div class="rounded-lg border border-[#e9e9e9] bg-white p-6 text-center">
+            <h3 class="mb-3 text-center text-lg font-bold">Time-Saving Designs</h3>
+            <p class="text-center">Skip the design process with ready-to-use, professionally crafted templates.</p>
           </div>
-          <div class="feature-card">
-            <div class="card-content">
-              <h3 style="text-align: center">Mobile-Optimized Layouts</h3>
-              <p>Convert visitors on any device with responsive, mobile-friendly designs.</p>
-            </div>
+          <!-- Feature 4 -->
+          <div class="rounded-lg border border-[#e9e9e9] bg-white p-6 text-center">
+            <h3 class="mb-3 text-center text-lg font-bold">Mobile-Optimized Layouts</h3>
+            <p class="text-center">Convert visitors on any device with responsive, mobile-friendly designs.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div style="padding-inline: 2rem !important" class="grid-container container">
-        <div class="text-container">
-          <div class="heading-content">
-            <h2 class="heading-txt">Upgrade Your Sales Arsenal with this Bundle for ₦2,500</h2>
-          </div>
-          <div class="paragraph-content">
-            <p>
+    <!-- Form Section -->
+    <section class="py-12">
+      <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+        <div class="grid items-center gap-8 lg:grid-cols-2">
+          <div class="space-y-4">
+            <h2 class="text-center text-3xl font-bold text-black lg:text-left">
+              Upgrade Your Sales Arsenal with this Bundle for ₦2,500
+            </h2>
+            <p class="text-lg">
               Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete
               your purchase and your access will be sent instantly via email.
             </p>
           </div>
-        </div>
-        <div class="form-wrapper">
-          <form class="payment-form" id="lead-form">
-            <div class="input-group">
-              <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required />
-              <div id="first_name-error" class="error">Please enter your first name</div>
-            </div>
-            <div class="input-group">
-              <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required />
-              <div id="last_name-error" class="error">Please enter your last name</div>
-            </div>
-            <div class="input-group">
-              <input type="email" id="email" name="email" placeholder="Enter your email address" required />
-              <div id="email-error" class="error">Please enter a valid email address</div>
-            </div>
-            <div class="sp-checkbox-input">
-              <input type="checkbox" id="updates-consent" name="updates-consent" checked />
-              <label for="updates-consent" class="checkbox-label">
-                I agree to receive updates, promotional content, or additional resources from the owner of this package
-                via email.
-              </label>
-            </div>
-            <div class="submit-button">
-              <button style="max-width: 100%" type="submit" class="btn" id="submit-button">PAY ₦2,500</button>
-            </div>
-            <div class="form-note">
-              <p>You'll be redirected to Paystack to complete your payment.</p>
-            </div>
-          </form>
+          <div class="bg-white p-6">
+            <form id="lead-form" class="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  id="first_name"
+                  name="first_name"
+                  placeholder="Enter your first name"
+                  required
+                  class="w-full rounded border-none bg-[#f8f8f8] p-3 outline-none"
+                />
+                <div id="first_name-error" class="mt-1 hidden text-sm text-red-500">Please enter your first name</div>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="last_name"
+                  name="last_name"
+                  placeholder="Enter your last name"
+                  required
+                  class="w-full rounded border-none bg-[#f8f8f8] p-3 outline-none"
+                />
+                <div id="last_name-error" class="mt-1 hidden text-sm text-red-500">Please enter your last name</div>
+              </div>
+              <div>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email address"
+                  required
+                  class="w-full rounded border-none bg-[#f8f8f8] p-3 outline-none"
+                />
+                <div id="email-error" class="mt-1 hidden text-sm text-red-500">Please enter a valid email address</div>
+              </div>
+              <div class="flex w-full !flex-row items-start gap-2">
+                <input
+                  type="checkbox"
+                  id="updates-consent"
+                  name="updates-consent"
+                  checked
+                  class="mt-1 w-fit accent-[var(--primary-color)]"
+                />
+                <label for="updates-consent" class="text-sm md:text-base">
+                  I agree to receive updates, promotional content, or additional resources from the owner of this
+                  package via email.
+                </label>
+              </div>
+              <button
+                type="submit"
+                id="submit-button"
+                class="h-[48px] w-full max-w-full rounded-md border border-transparent bg-[#38514e] px-6 py-3 font-bold text-[#ebe4d4] transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e]"
+              >
+                PAY ₦2,500
+              </button>
+              <p class="text-center text-sm text-[#666]">You'll be redirected to Paystack to complete your payment.</p>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("lead-form");
@@ -424,20 +213,20 @@
         function validateFirstName() {
           const errorElement = document.getElementById("first_name-error");
           if (!firstNameInput.value.trim()) {
-            errorElement.style.display = "block";
+            errorElement.classList.remove("hidden");
             return false;
           }
-          errorElement.style.display = "none";
+          errorElement.classList.add("hidden");
           return true;
         }
 
         function validateLastName() {
           const errorElement = document.getElementById("last_name-error");
           if (!lastNameInput.value.trim()) {
-            errorElement.style.display = "block";
+            errorElement.classList.remove("hidden");
             return false;
           }
-          errorElement.style.display = "none";
+          errorElement.classList.add("hidden");
           return true;
         }
 
@@ -447,17 +236,17 @@
 
           if (!emailInput.value.trim()) {
             errorElement.textContent = "Please enter your email address";
-            errorElement.style.display = "block";
+            errorElement.classList.remove("hidden");
             return false;
           }
 
           if (!emailRegex.test(emailInput.value)) {
             errorElement.textContent = "Please enter a valid email address";
-            errorElement.style.display = "block";
+            errorElement.classList.remove("hidden");
             return false;
           }
 
-          errorElement.style.display = "none";
+          errorElement.classList.add("hidden");
           return true;
         }
 
@@ -493,8 +282,8 @@
               maillist_permission: consentCheckbox.checked,
             };
 
-            // const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
-            const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+            const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            // const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
 
             const response = await fetch(apiUrl, {
               method: "POST",
