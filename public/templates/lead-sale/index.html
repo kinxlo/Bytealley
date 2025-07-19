@@ -277,8 +277,8 @@
 
             // Call the email API endpoint if checkbox is checked
             if (consentCheckbox.checked) {
-              const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/asset`;
-              // const emailApiUrl = `https://api.trybytealley.com/api/funnels/asset`;
+              // const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/asset`;
+              const emailApiUrl = `https://api.trybytealley.com/api/funnels/asset`;
               try {
                 const emailResponse = await fetch(emailApiUrl, {
                   method: "POST",

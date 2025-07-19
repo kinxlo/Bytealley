@@ -233,7 +233,8 @@
           try {
             const hostname = window.location.hostname;
             const funnelSlug = hostname.split(".")[0];
-            const productsApiUrl = `https://api-dev.trybytealley.com/api/products/funnels/${funnelSlug}`;
+            const productsApiUrl = `https://api.trybytealley.com/api/products/funnels/${funnelSlug}`;
+            // const productsApiUrl = `https://api-dev.trybytealley.com/api/products/funnels/${funnelSlug}`;
 
             console.log(`Fetching bump products for funnel: ${funnelSlug}`);
 
@@ -322,8 +323,8 @@
 
             console.log(requestData);
 
-            const apiURL = "https://api-dev.trybytealley.com/api/carts/funnel";
-            // const apiURL = "https://api.trybytealley.com/api/carts/funnel";
+            // const apiURL = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const apiURL = "https://api.trybytealley.com/api/carts/funnel";
             console.log(`Submitting to API URL: ${apiURL}`);
 
             const response = await fetch(apiURL, {
@@ -415,8 +416,8 @@
 
             console.log("Preparing to submit DECLINE request with data:", JSON.stringify(requestData, null, 2));
 
-            const apiURL = "https://api-dev.trybytealley.com/api/carts/funnel";
-            // const apiURL = "https://api.trybytealley.com/api/carts/funnel";
+            // const apiURL = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const apiURL = "https://api.trybytealley.com/api/carts/funnel";
             console.log(`Submitting to API URL: ${apiURL}`);
 
             const response = await fetch(apiURL, {
