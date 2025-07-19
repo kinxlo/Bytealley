@@ -88,7 +88,7 @@
               Get Course
             </button>
             <div class="lg:hidden">
-              <button class="menu flex h-8 w-8 flex-col !bg-white items-center justify-center">☰</button>
+              <button class="menu flex h-8 w-8 flex-col items-center justify-center !bg-white">☰</button>
             </div>
           </div>
         </nav>
@@ -434,45 +434,42 @@
     <section class="py-12 md:py-20">
       <div class="container mx-auto flex flex-col items-center gap-12 px-4 md:flex-row">
         <div class="w-full rounded-xl bg-white shadow-xl md:w-1/2">
-          <form id="payment-form" class="flex flex-col gap-4 shadow-none">
-            <div>
-              <!-- <label class="mb-2 block font-bold">First Name</label> -->
+          <form class="flex w-full flex-col gap-3 p-2 shadow-none md:gap-4 md:p-4" id="lead-form">
+            <div class="w-full">
               <input
                 type="text"
-                name="firstname"
-                placeholder="Enter first name"
-                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                id="first_name"
+                name="first_name"
+                placeholder="Enter your first name"
                 required
+                class="w-full rounded-md border-none px-3 py-2 text-gray-500 md:px-4 md:py-3"
               />
+              <div id="first_name-error" class="mt-1 hidden text-sm text-red-500">Please enter your first name</div>
             </div>
-
-            <div>
-              <!-- <label class="mb-2 block font-bold">Last Name</label> -->
+            <div class="w-full">
               <input
                 type="text"
-                name="lastname"
-                placeholder="Enter last name"
-                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                id="last_name"
+                name="last_name"
+                placeholder="Enter your last name"
                 required
+                class="w-full rounded-md border-none px-3 py-2 text-gray-500 md:px-4 md:py-3"
               />
+              <div id="last_name-error" class="mt-1 hidden text-sm text-red-500">Please enter your last name</div>
             </div>
-
-            <div>
-              <!-- <label class="mb-2 block font-bold">Email Address</label> -->
+            <div class="w-full">
               <input
                 type="email"
+                id="email"
                 name="email"
-                placeholder="Enter email address"
-                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                placeholder="Enter your email address"
                 required
+                class="w-full rounded-md border-none px-3 py-2 text-gray-500 md:px-4 md:py-3"
               />
+              <div id="email-error" class="mt-1 hidden text-sm text-red-500">Please enter a valid email address</div>
             </div>
-
-            <button
-              type="submit"
-              class="mt-4 max-w-full rounded-lg bg-[#00ee7e] px-6 py-3 font-bold uppercase text-[#001d0f] transition hover:bg-[#f7fbf9cc]"
-            >
-              PAY ₦2,500
+            <button type="submit" id="submit-button" class="h-[40px] max-w-full bg-[#38514e] text-white md:h-[48px]">
+              SEND ME THE FREE GUIDE
             </button>
           </form>
         </div>
@@ -487,7 +484,6 @@
         </div>
       </div>
     </section>
-
     <!-- FAQ Section -->
     <section class="bg-[#f7fbf9cc] py-12 md:py-20">
       <div class="container mx-auto max-w-5xl px-4">
@@ -727,19 +723,101 @@
       faqQuestions.forEach((_, index) => setupFAQToggle(index));
     </script>
     <script>
-      // Payment form handling
-      document.getElementById("payment-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const firstname = this.firstname.value.trim();
-        const lastname = this.lastname.value.trim();
-        const email = this.email.value.trim();
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("lead-form");
+        const submitButton = document.getElementById("submit-button");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const emailInput = document.getElementById("email");
 
-        // Example: log or send data to your payment handler
-        console.log({ firstname, lastname, email });
+        const hostname = window.location.hostname;
+        const funnelSlug = hostname.split(".")[0];
 
-        // TODO: Integrate with payment gateway here
-        // Example: redirect to Paystack or show a message
-        alert(`Proceeding to payment for ${firstname} ${lastname} (${email})`);
+        // Validation functions
+        function validateFirstName() {
+          const errorElement = document.getElementById("first_name-error");
+          if (!firstNameInput.value.trim()) {
+            errorElement.classList.remove("hidden");
+            return false;
+          }
+          errorElement.classList.add("hidden");
+          return true;
+        }
+
+        function validateLastName() {
+          const errorElement = document.getElementById("last_name-error");
+          if (!lastNameInput.value.trim()) {
+            errorElement.classList.remove("hidden");
+            return false;
+          }
+          errorElement.classList.add("hidden");
+          return true;
+        }
+
+        function validateEmail() {
+          const errorElement = document.getElementById("email-error");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailInput.value.trim()) {
+            errorElement.textContent = "Please enter your email address";
+            errorElement.classList.remove("hidden");
+            return false;
+          }
+
+          if (!emailRegex.test(emailInput.value)) {
+            errorElement.textContent = "Please enter a valid email address";
+            errorElement.classList.remove("hidden");
+            return false;
+          }
+
+          errorElement.classList.add("hidden");
+          return true;
+        }
+
+        // Event listeners for real-time validation
+        firstNameInput.addEventListener("blur", validateFirstName);
+        lastNameInput.addEventListener("blur", validateLastName);
+        emailInput.addEventListener("blur", validateEmail);
+
+        // Form submission handler
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFirstNameValid = validateFirstName();
+          const isLastNameValid = validateLastName();
+          const isEmailValid = validateEmail();
+
+          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
+            return;
+          }
+
+          // Disable the submit button to prevent multiple submissions
+          submitButton.disabled = true;
+          submitButton.textContent = "Processing...";
+
+          try {
+            // Store form data in sessionStorage
+            const formData = {
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              email: emailInput.value.trim(),
+              funnel_slug: funnelSlug,
+            };
+
+            sessionStorage.setItem("formData", JSON.stringify(formData));
+
+            // Redirect to part-two page
+            window.location.href = "/page-two.html";
+            // window.location.href = "/public/templates/multi-step-sale/page-2.html";
+          } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred. Please try again.");
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "SEND ME THE FREE GUIDE";
+          }
+        });
       });
     </script>
   </body>

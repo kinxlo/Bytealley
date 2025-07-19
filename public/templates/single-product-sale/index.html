@@ -1167,8 +1167,8 @@
             };
 
             // 1. Always call the carts API endpoint
-            const cartApiUrl = "https://api.trybytealley.com/api/carts/funnel";
-            // const cartApiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            // const cartApiUrl = "https://api.trybytealley.com/api/carts/funnel";
+            const cartApiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
             const cartResponse = await fetch(cartApiUrl, {
               method: "POST",
               headers: {
@@ -1187,7 +1187,8 @@
 
             // 2. Only call the email API endpoint if checkbox is checked
             if (consentCheckbox.checked) {
-              const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/${funnelSlug}/email`;
+              const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/asset`;
+              // const emailApiUrl = `https://api.trybytealley.com/api/funnels/asset`;
               try {
                 const emailResponse = await fetch(emailApiUrl, {
                   method: "POST",
