@@ -1,612 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="/template.css" /> -->
+    <title>Funnel Mastery Toolkit</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer components {
+        .btn-primary {
+          @apply rounded-lg bg-[#00ee7e] px-6 py-3 font-bold text-[#001d0f] transition-colors hover:bg-[#f7fbf9cc];
+        }
+        .btn-outline {
+          @apply border border-[#ffffffb2] bg-transparent text-[#ffffffb2] hover:bg-white hover:text-[#001d0f];
+        }
+        .input-field {
+          @apply w-full rounded-lg !border-none bg-[#f8f8f8] px-4 py-3;
+        }
+      }
+    </style>
   </head>
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+  <body class="bg-white font-['Inter'] text-[#001d0f]">
+    <!-- Navigation -->
+    <header class="bg-[#001d0f] shadow-md">
+      <div class="container mx-auto flex items-center justify-between !py-4 px-4">
+        <div class="flex items-center justify-between">
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+            alt="logo"
+            class="w-[80px] md:w-[100px]"
+          />
+        </div>
+        <div>
+          <button
+            class="hidden w-fit rounded-lg bg-[#00ee7e] !px-6 py-2 font-bold text-[#001d0f] transition hover:bg-[#f7fbf9cc] md:block"
+          >
+            Get Course
+          </button>
+        </div>
+      </div>
+    </header>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style-type: none;
-}
-:root {
-  --primary-color: #001d0f;
-  --secondary-color: #00ee7e;
-  --white-text: #e6e6e6;
-  --faded-white-bg: #f7fbf9cc;
-  --faded-white-bg-ii: #f7fbf9cc;
-  --off-white: #ffffffb2;
-  --faded-green-bg: #eaefff1f;
-  --gray: #595959;
-  --gray-ii: #f8f8f8;
-  --white: #ffffff;
-  --green: #00ee7e;
-}
-
-a {
-  text-decoration: none;
-  color: var(--primary-color);
-  transition: color 0.3s;
-}
-a:hover {
-  color: var(--secondary-color);
-}
-
-body {
-  background-color: var(--white);
-  font-family: "Inter", serif;
-}
-span {
-  font-family: "Playfair Display", serif;
-  line-height: 1rem;
-}
-
-button {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  border-radius: 0.7rem;
-  padding: 0.6rem 1rem;
-  border: 0;
-  font-weight: 700;
-  font-size: medium;
-  width: 100%;
-}
-button:hover {
-  background-color: var(--faded-white-bg);
-}
-
-.spft-hero-sec {
-  background-color: var(--primary-color);
-  padding-bottom: 2rem;
-}
-.nav-bar {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0rem;
-}
-
-nav h2 {
-  color: var(--white-text);
-}
-.heading-txt {
-  font-size: 2rem;
-  text-align: center;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 0rem;
-  align-items: center;
-  position: relative;
-}
-
-.spt-res-w-one {
-  margin: auto;
-  width: 90%;
-  max-width: 1440px;
-}
-
-.spt-res-w {
-  width: 90%;
-  margin: auto;
-  max-width: 1440px;
-}
-
-.sptf-hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 0rem;
-  color: var(--white-text);
-}
-
-.hero-sptf-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.exclusive {
-  width: 100%;
-  background-color: var(--faded-green-bg);
-  padding: 1rem;
-  margin-bottom: 0.6rem;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  margin: 1rem 0rem;
-}
-
-.one-time-offer {
-  background-color: var(--faded-green-bg);
-  color: var(--secondary-color);
-  padding: 1rem;
-  border-radius: 999px;
-  text-align: center;
-  width: 100%;
-  max-width: 320px;
-  margin: auto;
-}
-
-.hero-sptf-text h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-.hero-desc {
-  color: var(--white-text);
-  width: 100%;
-  max-width: 560px;
-  margin: auto;
-  text-align: center;
-  line-height: 1.6rem;
-}
-
-.sptf-hero img {
-  width: 100%;
-}
-
-.spft-sec-two{
-    padding: 2rem 0rem;
-}
-
-.sptf-what-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-.sptf-what-card {
-  background-color: var(--white);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: left;
-  border-radius: 0.6rem;
-}
-.card-variant-two{
-    background-color: transparent;
-    border: 1px solid #E9E9E9B2;
-}
-.card-variant-two h3 {
-    max-width: 190px;
-    text-align: left;
-}
-.sptf-what-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.spft-what-sec {
-  background-color: var(--faded-white-bg);
-  padding: 4rem 0rem;
-}
-
-.what-icons {
-  width: 50px;
-  height: 50px;
-}
-
-.spft-who-sec {
-  background-color: var(--primary-color);
-  color: var(--white-text);
-  padding: 4rem 0rem;
-}
-
-
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 2rem 0rem;
-}
-
-
-.tri-text-cont{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  }
-
-.tri-text-cont h2, p{
-    text-align: center;
-  }
-
-
-.form-container{
-  background-color: white;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  border-radius: 0.8rem;
-}
-.payment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-.payment-form input {
-  padding: 1.2rem;
-  background-color: #F8F8F8;
-  color: gray;
-  outline: none;
-  border: none;
-  border-radius: 0.3rem;
-}
-
-.payment-form button {
-  padding: 1.3rem;
-}
-
-.payment-form label{
-  font-weight: bold;
-  color: black;
-  padding-top: 0.5rem;
-}
-
-
-/* thank you */
-
-.footer-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: center;
-  text-align: center;
-  padding: 2rem 0rem;
-}
-.spt-logo {
-  color: var(--text-color);
-  text-align: center;
-}
-
-.sptf-banner-sec {
-  padding: 2rem 0rem;
-}
-
-.sptf-banner-container {
-  background-color: var(--primary-color);
-  color: var(--white);
-  padding: 2.5rem;
-  width: 90%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  gap: 2rem;
-  border-radius: 0.7rem;
-}
-
-.sptf-banner-container h2 {
-  max-width: 600px;
-}
-.sptf-banner-ctas {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  align-items: center;
-}
-.sptf-banner-container button {
-  max-width: 420px;
-  text-align: center;
-  padding: 0.8rem;
-  margin: auto;
-}
-
-.banner-cta-two{
-    background-color: transparent;
-    color: var(--off-white);
-    border: 1px solid var(--off-white);
-}
-
-.banner-cta-two:hover {
-    color: var(--primary-color);
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-}
-.links li a {
-  color: var(--text-color);
-}
-.links li a:hover {
-  color: var(--secondary-color);
-}
-
-footer {
-  background-color: var(--faded-blue);
-  color: var(--text-color);
-}
-
-@media (width > 768px) {
-  .footer-frag-three {
-    display: flex;
-    justify-content: end;
-  }
-
-  .footer-container {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .footer-container h1 {
-    text-align: left;
-  }
-  .links {
-    flex-direction: row;
-    gap: 0.5rem;
-  }
-}
-
-@media (width > 900px) {
-  a {
-    color: var(--white-text);
-  }
-  h1 {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  .heading-txt {
-    font-size: 2.8rem;
-  }
-
-  .spt-logo {
-    text-align: left;
-  }
-  .accss-cta {
-    margin: 0;
-  }
-
-  .hero-sptf-text button {
-    width: 100%;
-    max-width: 270px;
-    margin: auto;
-    font-weight: 900;
-  }
-  .hero-sptf-text h1 {
-    font-size: 4rem;
-    font-weight: bold;
-  }
-
-  .hero-sptf-img {
-    display: flex;
-    /* justify-content: end; */
-    align-items: end;
-  }
-  .sptf-hero img {
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  .spft-sec-two{
-    padding: 4rem 0rem;
-  }
-
-  .sptf-what-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 3rem;
-  }
-  .cards-variant-two{
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-
-  .sptf-banner-sec {
-    padding: 4rem 0rem;
-  }
-
-  .sptf-banner-container {
-    width: 70%;
-  }
-
-  .sptf-banner-ctas {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
-  .links {
-    gap: 1.5rem;
-  }
-
-  
-   .grid-container {
-    gap: 3.5rem;
-    padding: 4rem 0rem;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .exclusive {
-  width: 100%;
-  background-color: var(--faded-green-bg);
-  padding: 1rem;
-  margin-bottom: 0.6rem;
-  max-width: 100%;
-  text-align: center;
-}
-  .tri-text-cont h2, p {
-    text-align: left;
-    width: 100%;
-    max-width: 580px;
-  }
-}
-
-@media (width > 1440px) {
-  h1 {
-    font-size: 3rem;
-  }
-  .spt-res-w-one {
-    width: 85%;
-  }
-
-  .spt-res-w {
-    width: 85%;
-  }
-
-  .sptf-why-container {
-    width: 75%;
-    margin: auto;
-    padding: 4rem 0rem;
-    gap: 3.5rem;
-  }
-}
-
-  </style>
-  <body>
-    <section class="spft-hero-sec">
-      <div class="nav-bar">
-        <nav class="spt-res-w-one">
-          <h2>LOGO</h2>
-
-            <div>
-                <button>Get Course</button>
-            </div>
-        </nav>
+    <!-- Hero Section -->
+    <section class="bg-[#001d0f] pb-8 text-white">
+      <div class="bg-[#eaefff1f] !py-2 text-center font-bold text-white">
+        ⚡ EXCLUSIVE ONE-TIME OFFER - You'll Never See This Deal Again!
       </div>
 
-      <p class="exclusive">⚡ EXCLUSIVE ONE-TIME OFFER - You'll Never See This Deal Again!</p>
-      <div class="sptf-hero spt-res-w">
-
-     <div class="hero-sptf-text">
-           <div >
-          <div class="one-time-offer">
-            <p>Incredible One Time Offer For You</p>
+      <div class="container mx-auto px-4 pt-8">
+        <div class="mx-auto !mt-3 max-w-4xl text-center">
+          <div class="mb-4 inline-block rounded-full bg-[#eaefff1f] px-6 py-2 text-sm font-semibold text-[#00ee7e]">
+            Incredible One Time Offer For You
           </div>
-          <h1>Supercharge Your Success with the Funnel Mastery Toolkit</h1>
-     </div>
-          <p class="hero-desc"> Stop creating from scratch. Use this proven blueprint to multiply your content output and stay visible without burnout.
+          <h1 class="mb-6 text-3xl font-bold text-white md:text-5xl">
+            Supercharge Your Success with the Funnel Mastery Toolkit
+          </h1>
+          <p class="mx-auto mb-8 max-w-2xl text-center text-lg !text-white md:text-xl">
+            Stop creating from scratch. Use this proven blueprint to multiply your content output and stay visible
+            without burnout.
           </p>
         </div>
-        <div class="hero-sptf-img">
-          <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1752066983/bytealley%20funnel/hero-tem-img.svg" alt="Hero Image" />
-      </div>
-    </section>
 
-    <section class="spft-sec-two">    
-      <div class="sptf-what-container spt-res-w">
-        <h2 class="heading-txt">What You'll Get Inside</h2>
-        <div class="sptf-what-cards cards-variant-two ">
-          <div class="sptf-what-card card-variant-two">
-            
-            <h3>Content-to-Cash Blueprint</h3>
-            <p>A complete step-by-step framework that shows you exactly how to turn any piece of content into a profitable revenue stream.</p>
-          </div>
-          <div class="sptf-what-card card-variant-two">
-           
-            <h3>Client Pitch Deck Template</h3>
-            <p>Professional, ready-to-edit pitch deck that helps you land high-paying brand deals and freelance clients. Just customize and send!</p>
-          </div>
-          <div class="sptf-what-card card-variant-two">
-            <h3>5 Sponsorship Email Scripts</h3>
-            <p>Proven email templates that get responses from brands. These scripts have generated thousands in sponsorship deals for our clients..</p>
-          </div>
-          <div class="sptf-what-card card-variant-two">
-            <h3>Bonus Video Tutorial</h3>
-            <p>Exclusive video walkthrough showing you how to price your offers correctly and package them for maximum profit without second-guessing yourself.</p>
-          </div>
-        </div>
-  
-      </div>
-    </section>
-    <section class="spft-what-sec">    
-      <div class="sptf-what-container spt-res-w">
-        <h2 class="heading-txt">Why This Is a Smart Investment</h2>
-        <div class="sptf-what-cards">
-          <div class="sptf-what-card">
-            <img class="what-icons" src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895243/bytealley%20funnel/lessons_l51yoe.svg" alt="Lessons" />
-            <h3>Monetize Faster</h3>
-            <p>Skip months of trial and error with proven scripts and templates that work immediately.</p>
-          </div>
-          <div class="sptf-what-card">
-            <img class="what-icons" src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plug-in_ffx7yw.svg" alt="Strategies" />
-            <h3>Save Time</h3>
-            <p>No more guesswork or spending hours creating content from scratch. Everything is done-for-you.</p>
-          </div>
-          <div class="sptf-what-card">
-            <img class="what-icons" src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895240/bytealley%20funnel/playbook_zbm1kh.svg" alt="Support" />
-            <h3>Perfect Complement</h3>
-            <p>Works seamlessly with your existing content strategy to maximize your earning potential.</p>
-          </div>
-        </div>
-  
-      </div>
-    </section>
-
-<!-- <section class="sptf-banner-sec ">
-  <div class="sptf-banner-container spt-res-w">
-    <h2 class="heading-txt">
-        Snatch This Deal Now!
-    </h2>
-    <p>This offer will never be available again at this price</p>
-
-   <div class="sptf-banner-ctas">
-     <button>Yes Add This To my Offer</button>
-    <button class="banner-cta-two">No, Thanks I will Skip this Offer</button>
-   </div>
-  </div>
-</section> -->
-
-
-    <section>
-      <div class="grid-container spt-res-w">
-        <div class="tri-text-cont">
-          <h2 class="heading-txt">Snatch This Deal Now!</h2>
-          <p>Enter your name and email to continue to secure checkout. You’ll be redirected to Paystack to complete your purchase and your access will be sent instantly via email.</p>
-        </div>
-          <div class="form-container">
-          <form class="payment-form" action="">
-            <label for="full name">Full Name</label>
-            <input type="text" placeholder="Enter full name">
-            <label for="email">Email Address</label>
-            <input type="text" placeholder="Enter email address">
-            <button>PAY ₦2,500</button>
-          </form>
+        <div class="mx-auto max-w-4xl">
+          <img
+            src="https://res.cloudinary.com/doejcrfso/image/upload/v1752066983/bytealley%20funnel/hero-tem-img.svg"
+            alt="Hero Image"
+            class="w-full rounded-lg"
+          />
         </div>
       </div>
     </section>
-  
 
-    <footer>
-      <div class="footer-container spt-res-w">
-        <h2 class="spt-logo">LOGO</h2>
+    <!-- What You'll Get Section -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">What You'll Get Inside</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <!-- Card 1 -->
+          <div class="rounded-lg border border-[#E9E9E9B2] p-6">
+            <h3 class="mb-3 text-center text-xl font-semibold text-black">Content-to-Cash Blueprint</h3>
+            <p class="text-center">
+              A complete step-by-step framework that shows you exactly how to turn any piece of content into a
+              profitable revenue stream.
+            </p>
+          </div>
 
-        <div class="footer-frag-two">
-          <ul class="links">
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
-          </ul>
+          <!-- Card 2 -->
+          <div class="rounded-lg border border-[#E9E9E9B2] p-6">
+            <h3 class="mb-3 text-center text-xl font-semibold text-black">Client Pitch Deck Template</h3>
+            <p class="text-center">
+              Professional, ready-to-edit pitch deck that helps you land high-paying brand deals and freelance clients.
+              Just customize and send!
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="rounded-lg border border-[#E9E9E9B2] p-6">
+            <h3 class="mb-3 text-center text-xl font-semibold text-black">5 Sponsorship Email Scripts</h3>
+            <p class="text-center">
+              Proven email templates that get responses from brands. These scripts have generated thousands in
+              sponsorship deals for our clients.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="rounded-lg border border-[#E9E9E9B2] p-6">
+            <h3 class="mb-3 text-center text-xl font-semibold text-black">Bonus Video Tutorial</h3>
+            <p class="text-center">
+              Exclusive video walkthrough showing you how to price your offers correctly and package them for maximum
+              profit without second-guessing yourself.
+            </p>
+          </div>
         </div>
-        <div class="footer-frag-three">
-          <ul class="links">
-            <li><a href="#">Nav Item</a></li>
-          </ul>
+      </div>
+    </section>
+
+    <!-- Why Invest Section -->
+    <section class="bg-[#f7fbf9cc] py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">Why This Is a Smart Investment</h2>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <!-- Card 1 -->
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895243/bytealley%20funnel/lessons_l51yoe.svg"
+              alt="Monetize"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Monetize Faster</h3>
+            <p class="text-center">
+              Skip months of trial and error with proven scripts and templates that work immediately.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plug-in_ffx7yw.svg"
+              alt="Save Time"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Save Time</h3>
+            <p class="text-center">
+              No more guesswork or spending hours creating content from scratch. Everything is done-for-you.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895240/bytealley%20funnel/playbook_zbm1kh.svg"
+              alt="Complement"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Perfect Complement</h3>
+            <p class="text-center">
+              Works seamlessly with your existing content strategy to maximize your earning potential.
+            </p>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <div
+          class="mx-auto flex max-w-4xl flex-col items-center justify-center rounded-xl bg-[#001d0f] p-8 text-center text-white md:p-12"
+        >
+          <h2 class="mb-6 text-2xl font-bold md:text-3xl">Snatch This Deal Now!</h2>
+          <p class="mb-8 text-center !text-white">This offer will never be available again at this price.</p>
+
+          <div class="flex flex-col items-center justify-center gap-4 lg:flex-row">
+            <button
+              class="mx-auto max-w-xs flex-1 rounded-lg bg-[#00ee7e] px-6 py-3 text-xs font-bold uppercase text-[#001d0f] transition hover:bg-[#f7fbf9cc]"
+            >
+              Yes Add This To my Offer
+            </button>
+            <button
+              class="mx-auto max-w-fit flex-1 rounded-lg !border !border-white bg-transparent px-6 py-3 text-xs font-bold uppercase text-[#001d0f] text-white transition hover:bg-[#f7fbf9cc]"
+            >
+              No, Skip this Offer
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#f7fbf9cc] py-12">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="text-2xl font-bold text-[#e6e6e6]">
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+            alt="logo"
+            class="w-[80px] md:w-[100px]"
+          />
+        </div>
+        <div class="flex justify-center">
+          <div class="hidden items-center gap-4 lg:flex">
+            <a href="#" class="text-black">Nav Item</a>
+            <a href="#" class="text-black">Nav Item</a>
+            <a href="#" class="text-black">Nav Item</a>
+          </div>
+        </div>
+        <a href="#" class="!w-fit text-[#001d0f] transition hover:text-[#00ee7e]">Nav Item</a>
       </div>
     </footer>
-
-    <script >
-      
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      // Form validation could be added here
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        // Add form validation and submission logic here
+        alert("Form submitted! (This is a demo)");
+      });
     </script>
   </body>
 </html>
+F

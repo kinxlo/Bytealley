@@ -2,876 +2,204 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sales Funnel By Byte-Alley</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style-type: none;
-        scroll-behavior: smooth;
-      }
-      :root {
-        --primary-color: #ffffff;
-        --secondary-color: #00068c;
-        --nav-bg: #f6f7fd;
-        --light-gray: #f7f8ff;
-        --gray: #4f4d4d66;
-        --yellow: #ffbc49;
-        --faded-yellow: #fff8e8;
-        --text-color: #000000c4;
-        --text-color-white: #fffffff5;
-        --black: #111014;
-      }
-
-      .res-w {
-        width: 90%;
-        margin: auto;
-        max-width: 1440px;
-        padding: 1rem;
-      }
-      h1,
-      h2 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-color);
-        /* margin: 1rem 0; */
-        font-family: "Bricolage Grotesque", sans-serif;
-      }
-      a {
-        text-decoration: none;
-        color: var(--text-color);
-        transition: color 0.3s;
-      }
-      a:hover {
-        color: var(--secondary-color);
-      }
-      p {
-        color: var(--text-color);
-      }
-
-      body {
-        background-color: var(--primary-color);
-        font-family: "Open Sans", sans-serif;
-      }
-      span {
-        font-family: "Playfair Display", serif;
-        line-height: 1rem;
-      }
-
-      button {
-        background-color: var(--secondary-color);
-        color: var(--primary-color);
-        border-radius: 1.5rem;
-        padding: 0.8rem 1.5rem;
-        border: 0;
-        font-weight: 500;
-        font-size: medium;
-        width: 100%;
-      }
-      /* button:hover {
-    background-color: var(--faded-orange);
-    color: var(--text-color);
-    border: 1px solid var(--secondary-color);
-  } */
-
-      nav {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem;
-        align-items: center;
-        position: relative;
-      }
-      .navbar {
-        background-color: var(--nav-bg);
-      }
-
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background-color: var(--nav-bg);
-        width: 100%;
-        margin: 0;
-        padding: 1.5rem;
-        list-style: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: 0.7s ease-in-out;
-      }
-
-      nav ul.active {
-        display: flex;
-      }
-
-      nav ul li {
-        width: 100%;
-        text-align: center;
-        padding: 0.5rem 0;
-      }
-      .show-mobile {
-        margin: 0.6rem 0 0.8rem;
-      }
-
-      .hamburger {
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
-        z-index: 100;
-      }
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/css">
       .hamburger span {
-        width: 25px;
-        height: 3px;
-        background-color: #333;
-        margin: 2px 0;
         transition: 0.4s ease-in-out;
       }
-
-      .menu {
-        display: flex;
-        gap: 0.7rem;
-        align-items: center;
-      }
-
-      /* Hamburger animation */
       .hamburger.active span:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px);
       }
-
       .hamburger.active span:nth-child(2) {
         opacity: 0;
       }
-
       .hamburger.active span:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
       }
-
-      .tt-hero-sec {
-        background-color: var(--faded-purple-v-two);
-      }
-
-      .menu button:nth-child(1) {
+      .sp-plus.hideplus {
         display: none;
       }
-
-      /*hero section  */
-
-      .sp-hero-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        gap: 2rem;
-        padding: 4rem 1rem;
+      .sp-minus {
+        display: none;
       }
-
-      .sp-hero-text {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
+      .sp-minus.showminus {
+        display: block;
       }
-
-      .sp-hero-text h1 {
-        max-width: 584px;
+      .sp-para {
+        display: none;
       }
-      .sp-hero-text p {
-        max-width: 430px;
-      }
-
-      .sp-hero-img {
-        display: flex;
-        justify-content: center;
-      }
-      .sp-hero-img img {
-        width: 100%;
-        max-width: 445.07px;
-        margin: auto;
-      }
-
-      .sp-hero-text button {
-        max-width: 230px;
-      }
-      .sp-sec-one {
-        background-color: var(--faded-yellow);
-      }
-      .sp-sec-one-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        gap: 1rem;
-        padding: 2rem 1rem;
-      }
-
-      .sp-sec-one-container div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      h5 {
-        font-weight: 600;
-      }
-
-      .sp-sec-two-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        padding: 3rem 1rem;
-        text-align: center;
-      }
-
-      .sp-sec-two-img img {
-        width: 100%;
-      }
-
-      .sp-sec-three-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 2rem 1rem;
-        align-items: center;
-        /* text-align: center; */
-      }
-
-      .sp-q {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-      }
-      .sp-q h2 {
-        max-width: 550px;
-      }
-      .sp-q p {
-        font-weight: 400;
-        font-size: 1.2rem;
-        max-width: 400px;
-      }
-      .sp-q-img img {
-        border-radius: 16px;
-        width: 100%;
-        margin: auto;
-      }
-      .sp-s3-questions {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .sp-s3-questions div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .sp-sec-four {
-        background-color: var(--light-gray);
-      }
-
-      .sp-sec-four-container {
-        padding: 3rem 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-      }
-
-      .services-text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        text-align: center;
-        width: 100%;
-        max-width: 800px;
-        margin: auto;
-      }
-
-      .sp-services-cards {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        align-items: center;
-      }
-      .sp-services {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        gap: 1rem;
-        background-color: var(--primary-color);
-        text-align: center;
-      }
-      .sp-services img {
-        width: 100%;
-        max-width: 50px;
-      }
-
-      .sp-sec-five-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-        padding: 3rem 1rem;
-      }
-      .sp-sec-five-top h2 {
-        text-align: center;
-      }
-      .sp-sec-five-buttom {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-
-      .sp-sec-five-steps {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-      }
-
-      .sp-steps {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-      }
-
-      .sp-sec-five-img {
-        justify-content: center;
-      }
-
-      .sp-sec-five-img img {
-        width: 100%;
-      }
-
-      .sp-sec-six-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-        padding: 3rem 1rem;
-        text-align: center;
-      }
-
-      .sp-sec-six-top p {
-        max-width: 650px;
-        margin: auto;
-        padding-top: 0.5rem;
-      }
-
-      .sp-sec-six-buttom {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .feature-card {
-        background-color: var(--light-gray);
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-        padding: 1.2rem;
-        border-radius: 10px;
-        border-bottom: 2px solid var(--yellow);
-      }
-
-      .sp-sec-seven-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        gap: 3rem;
-        padding: 3rem 1rem;
-        text-align: center;
-      }
-
-      .sp-sec-seven-text {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        max-width: 600px;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-        gap: 1.5rem;
-        padding: 2.5rem;
-        border-radius: 0.7rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      form input {
-        padding: 0.8rem;
-        border-radius: 8px;
-        outline: none;
-        border: 1px solid var(--gray);
-      }
-      form div {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 1rem;
-      }
-      .sp-checkbox-input {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-        align-items: start;
+      .sp-para.active {
+        display: block;
       }
       #submit-button:disabled {
         background-color: #cccccc;
         cursor: not-allowed;
       }
-      .error {
-        color: red;
-        font-size: 0.8em;
-        margin-top: -10px;
-        margin-bottom: 10px;
-      }
-
-      .sp-sec-eight-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 3rem 1rem;
-      }
-      .sp-sec-eight-top h2 {
-        text-align: center;
-      }
-
-      .sp-sec-eight-buttom {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .sp-sec-eight-card {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem;
-        border-radius: 6px;
-        border: 2px solid var(--light-gray);
-      }
-
-      .sp-card-top {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .sp-sec-nine-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 3rem 1rem;
-        align-items: center;
-      }
-
-      .sp-sec-nine-text {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-      }
-      .sp-sec-nine-text h2 {
-        max-width: 450px;
-      }
-      .sp-sec-nine-img {
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      .sp-sec-nine-img img {
-        width: 100%;
-        max-width: 500px;
-        margin: auto;
-        border-radius: 10px;
-      }
-
-      /* faq */
-
-      .sp-sec-ten-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 3rem 1rem;
-      }
-
-      .sp-sec-ten-container h2 {
-        text-align: center;
-      }
-      .sp-accodium-items {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .sp-plus.hideplus {
-        display: none;
-      }
-
-      .sp-minus {
-        display: none;
-      }
-
-      .sp-minus.showminus {
-        display: block;
-      }
-
-      .sp-para {
-        display: none;
-      }
-
-      .sp-para.active {
-        display: block;
-      }
-
-      .sp-question {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .sp-sec-eleven-container {
-        background-color: var(--secondary-color);
-        padding: 2.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-        margin: auto;
-        border-radius: 1rem;
-        margin: 2rem 0;
-      }
-
-      .sp-sec-eleven-container button {
-        background-color: var(--yellow);
-        color: var(--text-color);
-        padding: 1rem;
-        max-width: 330px;
-        font-weight: bold;
-      }
-
-      .sp-eleven-text {
-        color: var(--primary-color);
-        max-width: 650px;
-        margin: auto;
-        text-align: center;
-      }
-
-      .sp-light-text {
-        color: var(--text-color-white);
-      }
-
-      .footer-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
-        padding: 2rem 1rem;
-      }
-
-      footer {
-        background-color: var(--light-gray);
-      }
-
-      @media (width > 1200px) {
-        h1 {
-          font-size: 3rem;
-          font-weight: bold;
-        }
-        h2 {
-          font-size: 2.5rem;
-          font-weight: bold;
-        }
-        .show-mobile {
-          display: none;
-        }
-        .hamburger {
-          display: none;
-        }
-
-        nav ul {
-          position: static;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 1rem;
-          width: auto;
-          padding: 0;
-          box-shadow: none;
-        }
-
-        nav ul li {
-          width: auto;
-          padding: 0;
-        }
-        .menu button:nth-child(1) {
-          display: block;
-        }
-
-        /* hero-section */
-        .sp-hero-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-        }
-
-        .sp-hero-text {
-          align-items: flex-start;
-          text-align: left;
-          gap: 1rem;
-        }
-
-        .sp-hero-img {
-          display: flex;
-          justify-content: end;
-        }
-
-        .sp-sec-one-container {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-
-        .sp-sec-three-container {
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-        }
-
-        .sp-q-img img {
-          border-radius: 16px;
-          width: 100%;
-          max-width: 531px;
-          margin: auto;
-        }
-
-        .sp-services-cards {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-
-        .sp-sec-five-img img {
-          width: 100%;
-          max-width: 470px;
-          margin: auto;
-        }
-        .sp-sec-five-buttom {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-          align-items: center;
-        }
-        .sp-sec-five-img {
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        .sp-sec-six-buttom {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-          gap: 4rem;
-        }
-
-        .sp-sec-seven-container {
-          grid-template-columns: 1fr 1fr;
-          text-align: left;
-          gap: 3.5rem;
-        }
-        .sp-sec-eight-buttom {
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 4rem;
-        }
-
-        .sp-sec-nine-container {
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-        }
-
-        .sp-sec-nine-text {
-          text-align: left;
-        }
-
-        .sp-sec-eleven-container button {
-          padding: 1rem 2rem;
-          max-width: 330px;
-        }
-
-        .footer-container {
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 1rem;
-        }
-        .links {
-          display: flex;
-          flex-direction: row;
-          gap: 1rem;
-          justify-content: center;
-          align-items: center;
-        }
-        .logo h1 {
-          text-align: left;
-        }
-        .frag-three-links {
-          display: flex;
-          justify-content: flex-end;
-        }
-        .frag-three-link li {
-          text-align: end;
-        }
-      }
     </style>
   </head>
-  <body>
+  <body style="background-color: #ffffff; font-family: 'Open Sans', sans-serif;">
     <!-- nav -->
-    <div class="navbar">
-      <nav class="res-w">
+    <div style="background-color: #f6f7fd;">
+      <nav style="max-width: 1280px; position: relative; margin-left: auto; margin-right: auto; display: flex; align-items: center; justify-content: space-between; padding-left: 1rem; padding-right: 1rem; padding-top: 1rem; padding-bottom: 1rem;">
         <h1>
           <img
             src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1731750172/productize/dk3ikhtl6rmfahp3i0yy.png"
             alt="hero"
+            style="height: auto; width: 8rem;"
           />
         </h1>
 
-        <ul>
-          <li><a href="#">Nav Item</a></li>
-          <li><a href="#">Nav Item</a></li>
-          <li><a href="#">Nav Item</a></li>
-          <a href="#signup-form">
-            <button class="show-mobile">Get package</button>
+        <ul style="display: none; flex-direction: row; align-items: center; gap: 1rem; @media (min-width: 1024px) { display: flex; }">
+          <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+          <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+          <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+          <a href="#signup-form" style="display: none; @media (min-width: 1024px) { display: none; }">
+            <button style="margin-top: 0.5rem; width: 100%; border-radius: 9999px; background-color: #00068c; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem; color: rgba(255, 255, 255, 0.96);">Get package</button>
           </a>
         </ul>
 
-        <div class="menu">
-          <a href="#signup-form">
-            <button>CTA Button</button>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <a href="#signup-form" style="display: none; @media (min-width: 1024px) { display: block; }">
+            <button style="border-radius: 9999px; background-color: #00068c; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem; color: rgba(255, 255, 255, 0.96);">CTA Button</button>
           </a>
-          <button class="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
+          <button class="hamburger" style="display: flex; flex-direction: column; @media (min-width: 1024px) { display: none; }" aria-label="Toggle menu">
+            <span style="margin-top: 0.125rem; margin-bottom: 0.125rem; height: 0.125rem; width: 1.5rem; background-color: #000000;"></span>
+            <span style="margin-top: 0.125rem; margin-bottom: 0.125rem; height: 0.125rem; width: 1.5rem; background-color: #000000;"></span>
+            <span style="margin-top: 0.125rem; margin-bottom: 0.125rem; height: 0.125rem; width: 1.5rem; background-color: #000000;"></span>
           </button>
         </div>
       </nav>
+      <ul class="nav-menu" style="background-color: #f6f7fd; position: absolute; left: 0; right: 0; display: none; width: 100%; flex-direction: column; gap: 1rem; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1.5rem; padding-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+        <li><a href="#" style="display: block; text-align: center; transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+        <li><a href="#" style="display: block; text-align: center; transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+        <li><a href="#" style="display: block; text-align: center; transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+        <a href="#signup-form" style="display: block;">
+          <button style="margin-top: 0.5rem; width: 100%; border-radius: 9999px; background-color: #00068c; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem; color: rgba(255, 255, 255, 0.96);">Get package</button>
+        </a>
+      </ul>
     </div>
+
     <!-- hero -->
-    <section>
-      <div class="sp-hero-container res-w">
-        <div class="sp-hero-text">
-          <h1>Boost Your Productivity & Transform Your Workflow With ProSuite!</h1>
-          <p>
+    <section style="padding-top: 4rem; padding-bottom: 4rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; padding-left: 1rem; padding-right: 1rem; @media (min-width: 1024px) { grid-template-columns: repeat(2, 1fr); }">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; @media (min-width: 1024px) { align-items: flex-start; text-align: left; }">
+          <h1 style="font-family: 'Bricolage Grotesque', sans-serif; color: rgba(0, 0, 0, 0.77); font-size: 1.875rem; font-weight: 700; line-height: 2.25rem; @media (min-width: 1024px) { font-size: 3rem; line-height: 1; }">
+            Boost Your Productivity & Transform Your Workflow With ProSuite!
+          </h1>
+          <p style="color: rgba(0, 0, 0, 0.77); max-width: 28rem;">
             Streamline your tasks, automate your processes, and achieve more in less time with the ultimate productivity
             tool designed for modern professionals.
           </p>
           <a href="#signup-form">
-            <button>Get Package</button>
+            <button style="width: 100%; max-width: 20rem; border-radius: 9999px; background-color: #00068c; padding-left: 2rem; padding-right: 2rem; padding-top: 0.75rem; padding-bottom: 0.75rem; color: rgba(255, 255, 255, 0.96);">Get Package</button>
           </a>
         </div>
-        <div class="sp-hero-img">
+        <div style="display: flex; justify-content: center; @media (min-width: 1024px) { justify-content: flex-end; }">
           <img
             src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989662/byte-alley/fisnolvvuvfiebxskgbs.svg"
             alt="hero"
+            style="width: 100%; max-width: 32rem;"
           />
         </div>
       </div>
     </section>
 
     <!-- section one -->
-    <section class="sp-sec-one">
-      <div class="sp-sec-one-container res-w">
-        <div>
-          <h2>500+</h2>
-          <h5>Great Reviews</h5>
+    <section style="background-color: #fff8e8; padding-top: 2rem; padding-bottom: 2rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding-left: 1rem; padding-right: 1rem; padding-top: 2rem; padding-bottom: 2rem; @media (min-width: 768px) { grid-template-columns: repeat(4, 1fr); }">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <h2 style="font-size: 1.5rem; line-height: 2rem; font-weight: 600;">500+</h2>
+          <h5 style="font-weight: 600;">Great Reviews</h5>
         </div>
-        <div>
-          <h2>500+</h2>
-          <h5>Online Readers</h5>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <h2 style="font-size: 1.5rem; line-height: 2rem; font-weight: 600;">500+</h2>
+          <h5 style="font-weight: 600;">Online Readers</h5>
         </div>
-        <div>
-          <h2>20</h2>
-          <h5>Community Events</h5>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <h2 style="font-size: 1.5rem; line-height: 2rem; font-weight: 600;">20</h2>
+          <h5 style="font-weight: 600;">Community Events</h5>
         </div>
-        <div>
-          <h2>1000</h2>
-          <h5>Books Sold</h5>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <h2 style="font-size: 1.5rem; line-height: 2rem; font-weight: 600;">1000</h2>
+          <h5 style="font-weight: 600;">Books Sold</h5>
         </div>
       </div>
     </section>
 
     <!-- section two -->
-
-    <section>
-      <div class="sp-sec-two-container res-w">
-        <h2>Watch how ProSuite works in just 60 seconds!</h2>
-        <p>See our powerful productivity suite in action and discover how it can transform your workflow.</p>
-        <div class="sp-sec-two-img">
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; padding-left: 1rem; padding-right: 1rem; text-align: center;">
+        <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">Watch how ProSuite works in just 60 seconds!</h2>
+        <p style="max-width: 32rem;">
+          See our powerful productivity suite in action and discover how it can transform your workflow.
+        </p>
+        <div>
           <img
             src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989706/byte-alley/xp2603pbqtl6l8xzkmtg.svg"
             alt=""
+            style="width: 100%;"
           />
         </div>
       </div>
     </section>
 
     <!-- section three -->
-
-    <section>
-      <div class="sp-sec-three-container res-w">
-        <div class="sp-q-img">
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; padding-left: 1rem; padding-right: 1rem; @media (min-width: 1024px) { grid-template-columns: repeat(2, 1fr); }">
+        <div>
           <img
             src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989676/byte-alley/xaadvonhniu8tooin3rf.svg"
             alt=""
+            style="width: 100%; border-radius: 0.75rem;"
           />
         </div>
-        <div>
-          <div class="sp-q">
-            <h2>Are These Challenges Holding You Back?</h2>
-            <div class="sp-s3-questions">
-              <div>
-                <img
-                  src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
-                  alt=""
-                />
-                <p>Overwhelmed by scattered tasks and deadlines?</p>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
-                  alt=""
-                />
-                <p>Wasting hours on repetitive manual processes?</p>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
-                  alt=""
-                />
-                <p>Can't seem to focus or prioritize effectively?</p>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
-                  alt=""
-                />
-                <p>Overwhelmed by scattered tasks and deadlines?</p>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
-                  alt=""
-                />
-                <p>Overwhelmed by scattered tasks and deadlines?</p>
-              </div>
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">Are These Challenges Holding You Back?</h2>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
+                alt=""
+                style="height: 1.5rem; width: 1.5rem;"
+              />
+              <p>Overwhelmed by scattered tasks and deadlines?</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
+                alt=""
+                style="height: 1.5rem; width: 1.5rem;"
+              />
+              <p>Wasting hours on repetitive manual processes?</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
+                alt=""
+                style="height: 1.5rem; width: 1.5rem;"
+              />
+              <p>Can't seem to focus or prioritize effectively?</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
+                alt=""
+                style="height: 1.5rem; width: 1.5rem;"
+              />
+              <p>Overwhelmed by scattered tasks and deadlines?</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ccqmt7cenbil5fepuhtg.svg"
+                alt=""
+                style="height: 1.5rem; width: 1.5rem;"
+              />
+              <p>Overwhelmed by scattered tasks and deadlines?</p>
             </div>
           </div>
         </div>
@@ -879,56 +207,61 @@
     </section>
 
     <!-- section four -->
-
-    <section class="sp-sec-four">
-      <div class="sp-sec-four-container res-w">
-        <div class="services-text">
-          <h2>Introducing ProSuite: Your Complete Productivity Solution</h2>
+    <section style="background-color: #f7f8ff; padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 3rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="margin-left: auto; margin-right: auto; max-width: 48rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center;">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">
+            Introducing ProSuite: Your Complete Productivity Solution
+          </h2>
           <p>
             Lorem ipsum dolor sit amet consectetur. Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci
             pellentesque faucibus praesent id.
           </p>
         </div>
-        <div class="sp-services-cards">
-          <div class="sp-services">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; @media (min-width: 640px) { grid-template-columns: repeat(2, 1fr); } @media (min-width: 1024px) { grid-template-columns: repeat(4, 1fr); }">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; background-color: #ffffff; padding: 1rem; text-align: center;">
             <img
               src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/dnawgffgatffqizni1bg.svg"
               alt=""
+              style="height: 3rem; width: 3rem;"
             />
-            <h3>Service 1</h3>
+            <h3 style="font-weight: 700;">Service 1</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur. Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci
               pellentesque faucibus praesent id.
             </p>
           </div>
-          <div class="sp-services">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; background-color: #ffffff; padding: 1rem; text-align: center;">
             <img
               src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/dnawgffgatffqizni1bg.svg"
               alt=""
+              style="height: 3rem; width: 3rem;"
             />
-            <h3>Service 1</h3>
+            <h3 style="font-weight: 700;">Service 1</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
             </p>
           </div>
-          <div class="sp-services">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; background-color: #ffffff; padding: 1rem; text-align: center;">
             <img
               src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/dnawgffgatffqizni1bg.svg"
               alt=""
+              style="height: 3rem; width: 3rem;"
             />
-            <h3>Service 2</h3>
+            <h3 style="font-weight: 700;">Service 2</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
             </p>
           </div>
-          <div class="sp-services">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; background-color: #ffffff; padding: 1rem; text-align: center;">
             <img
               src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/dnawgffgatffqizni1bg.svg"
               alt=""
+              style="height: 3rem; width: 3rem;"
             />
-            <h3>Service 3</h3>
+            <h3 style="font-weight: 700;">Service 3</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
@@ -939,58 +272,61 @@
     </section>
 
     <!-- section five -->
-
-    <section>
-      <div class="sp-sec-five-container res-w">
-        <div class="sp-sec-five-top">
-          <h2>Get Started With These Easy Steps</h2>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 3rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="text-align: center;">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">Get Started With These Easy Steps</h2>
         </div>
-        <div class="sp-sec-five-buttom">
-          <div class="sp-sec-five-steps">
-            <div class="sp-steps">
+        <div style="display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; @media (min-width: 1024px) { grid-template-columns: repeat(2, 1fr); }">
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/gjvdjlkuwqq6ojy8pvgg.svg"
                 alt=""
+                style="margin-top: 0.25rem; height: 2rem; width: 2rem;"
               />
-              <div class="steps-texts">
-                <h2>Fill in the form</h2>
+              <div>
+                <h2 style="font-size: 1.25rem; line-height: 1.75rem; font-weight: 700;">Fill in the form</h2>
                 <p>
                   Enter your name, email, and phone number to get started. This helps us create your account and grant
                   you access to the product.
                 </p>
               </div>
             </div>
-            <div class="sp-steps">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989619/byte-alley/ekty5jzdhtryj08beou4.svg"
                 alt=""
+                style="margin-top: 0.25rem; height: 2rem; width: 2rem;"
               />
-              <div class="steps-texts">
-                <h2>Fill in the form</h2>
+              <div>
+                <h2 style="font-size: 1.25rem; line-height: 1.75rem; font-weight: 700;">Fill in the form</h2>
                 <p>
                   Click the "Get product" button and complete your purchase via Paystack, ensuring a fast and secure
                   transaction.
                 </p>
               </div>
             </div>
-            <div class="sp-steps">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989618/byte-alley/va2g0lhsiueb7zpsnxyk.svg"
                 alt=""
+                style="margin-top: 0.25rem; height: 2rem; width: 2rem;"
               />
-              <div class="steps-texts">
-                <h2>Fill in the form</h2>
+              <div>
+                <h2 style="font-size: 1.25rem; line-height: 1.75rem; font-weight: 700;">Fill in the form</h2>
                 <p>
-                  Once payment is successful, you’ll receive an email with login details. Simply sign in, go to the
+                  Once payment is successful, you'll receive an email with login details. Simply sign in, go to the
                   Downloads tab in your dashboard, and start using your product right away! 🚀
                 </p>
               </div>
             </div>
           </div>
-          <div class="sp-sec-five-img">
+          <div style="display: flex; justify-content: center; @media (min-width: 1024px) { justify-content: flex-end; }">
             <img
               src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989635/byte-alley/vrpynvu7mu3izx9uah0k.svg"
               alt=""
+              style="width: 100%; max-width: 32rem;"
             />
           </div>
         </div>
@@ -998,40 +334,39 @@
     </section>
 
     <!-- section six -->
-
-    <section>
-      <div class="sp-sec-six-container res-w">
-        <div class="sp-sec-six-top">
-          <h2>Why Choose ProSuite?</h2>
-          <p>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 3rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="margin-left: auto; margin-right: auto; max-width: 42rem; text-align: center;">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">Why Choose ProSuite?</h2>
+          <p style="margin-top: 0.5rem;">
             Lorem ipsum dolor sit amet consectetur. Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci
             pellentesque faucibus praesent id.
           </p>
         </div>
-        <div class="sp-sec-six-buttom">
-          <div class="feature-card">
-            <h3>Feature 1</h3>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; @media (min-width: 640px) { grid-template-columns: repeat(2, 1fr); } @media (min-width: 1024px) { grid-template-columns: repeat(4, 1fr); }">
+          <div style="background-color: #f7f8ff; border-bottom-width: 2px; border-color: #ffbc49; display: flex; flex-direction: column; gap: 1rem; border-radius: 0.5rem; padding: 1rem;">
+            <h3 style="font-weight: 700;">Feature 1</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
             </p>
           </div>
-          <div class="feature-card">
-            <h3>Feature 2</h3>
+          <div style="background-color: #f7f8ff; border-bottom-width: 2px; border-color: #ffbc49; display: flex; flex-direction: column; gap: 1rem; border-radius: 0.5rem; padding: 1rem;">
+            <h3 style="font-weight: 700;">Feature 2</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
             </p>
           </div>
-          <div class="feature-card">
-            <h3>Feature 3</h3>
+          <div style="background-color: #f7f8ff; border-bottom-width: 2px; border-color: #ffbc49; display: flex; flex-direction: column; gap: 1rem; border-radius: 0.5rem; padding: 1rem;">
+            <h3 style="font-weight: 700;">Feature 3</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
             </p>
           </div>
-          <div class="feature-card">
-            <h3>Feature 4</h3>
+          <div style="background-color: #f7f8ff; border-bottom-width: 2px; border-color: #ffbc49; display: flex; flex-direction: column; gap: 1rem; border-radius: 0.5rem; padding: 1rem;">
+            <h3 style="font-weight: 700;">Feature 4</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
               tristique.
@@ -1042,88 +377,88 @@
     </section>
 
     <!-- section seven -->
-    <section>
-      <div class="sp-sec-seven-container res-w">
-        <div class="sp-sec-seven-text">
-          <h2>Get Your Own Product</h2>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; padding-left: 1rem; padding-right: 1rem; @media (min-width: 1024px) { grid-template-columns: repeat(2, 1fr); }">
+        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: center; @media (min-width: 1024px) { text-align: left; }">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">Get Your Own Product</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur. Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci
             pellentesque faucibus praesent id. Lorem ipsum dolor sit amet consectetur.
           </p>
           <p>Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci pellentesque faucibus praesent id.</p>
         </div>
-        <!-- <form action="">
+        <form id="signup-form" style="display: flex; flex-direction: column; gap: 1.5rem; border-radius: 0.5rem; padding: 2rem; text-align: left; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <div>
-            <label for="Full Name">Full Name</label>
-            <input type="text" placeholder="Enter your full name" />
-          </div>
-
-          <div>
-            <label for="Email Address">Email Address</label>
-            <input type="text" placeholder="Enter your email address" />
-          </div>
-
-          <div class="sp-checkbox-input">
-            <input type="checkbox" />
-            <label for="checkbox"
-              >I agree to receive updates, promotional content, or additional
-              resources from the owner of this package via email.</label
-            >
-          </div>
-
-          <button id="submit-button">Get Product</button>
-        </form> -->
-
-        <form id="signup-form">
-          <div>
-            <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required />
-            <div id="first_name-error" class="error"></div>
+            <label for="first_name" style="display: block; margin-bottom: 0.5rem;">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              placeholder="Enter your first name"
+              required
+              style="border-color: rgba(79, 77, 77, 0.4); width: 100%; border-radius: 0.5rem; border-width: 1px; padding: 0.75rem;"
+            />
+            <div id="first_name-error" style="margin-top: 0.25rem; font-size: 0.875rem; line-height: 1.25rem; color: #ef4444;"></div>
           </div>
           <div>
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required />
-            <div id="last_name-error" class="error"></div>
+            <label for="last_name" style="display: block; margin-bottom: 0.5rem;">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              placeholder="Enter your last name"
+              required
+              style="border-color: rgba(79, 77, 77, 0.4); width: 100%; border-radius: 0.5rem; border-width: 1px; padding: 0.75rem;"
+            />
+            <div id="last_name-error" style="margin-top: 0.25rem; font-size: 0.875rem; line-height: 1.25rem; color: #ef4444;"></div>
           </div>
-
           <div>
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required />
-            <div id="email-error" class="error"></div>
+            <label for="email" style="display: block; margin-bottom: 0.5rem;">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email address"
+              required
+              style="border-color: rgba(79, 77, 77, 0.4); width: 100%; border-radius: 0.5rem; border-width: 1px; padding: 0.75rem;"
+            />
+            <div id="email-error" style="margin-top: 0.25rem; font-size: 0.875rem; line-height: 1.25rem; color: #ef4444;"></div>
           </div>
-
-          <div class="sp-checkbox-input">
-            <input type="checkbox" id="updates-consent" name="updates-consent" />
+          <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+            <input type="checkbox" id="updates-consent" name="updates-consent" style="margin-top: 0.25rem;" />
             <label for="updates-consent">
               I agree to receive updates, promotional content, or additional resources from the owner of this package
               via email.
             </label>
           </div>
-
-          <button type="submit" id="submit-button">Get Product</button>
+          <button type="submit" id="submit-button" style="width: 100%; border-radius: 9999px; background-color: #00068c; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem; color: rgba(255, 255, 255, 0.96);">
+            Get Product
+          </button>
         </form>
       </div>
     </section>
 
     <!-- section eight -->
-    <section>
-      <div class="sp-sec-eight-container res-w">
-        <div class="sp-sec-eight-top">
-          <h2>What Our Customers are Saying</h2>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 2rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="text-align: center;">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">What Our Customers are Saying</h2>
         </div>
-        <div class="sp-sec-eight-buttom">
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; @media (min-width: 768px) { grid-template-columns: repeat(2, 1fr); } @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Amaka Benson</h3>
+            <h3 style="font-weight: 700;">Amaka Benson</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1131,18 +466,20 @@
               consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Ronald Richards</h3>
+            <h3 style="font-weight: 700;">Ronald Richards</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1150,18 +487,20 @@
               consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Savannah Nguyen</h3>
+            <h3 style="font-weight: 700;">Savannah Nguyen</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1169,18 +508,20 @@
               consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Amaka Benson</h3>
+            <h3 style="font-weight: 700;">Amaka Benson</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1188,18 +529,20 @@
               consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Ronald Richards</h3>
+            <h3 style="font-weight: 700;">Ronald Richards</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1207,18 +550,20 @@
               consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="sp-sec-eight-card">
-            <div class="sp-card-top">
+          <div style="border-color: #f7f8ff; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.5rem; border-width: 2px; padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;">
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989617/byte-alley/bryfvapj8mxc97qs0dp0.svg"
                 alt=""
+                style="height: 3rem; width: 3rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989616/byte-alley/jjg78yfhgh2fex3c8r8u.svg"
                 alt=""
+                style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-            <h3>Savannah Nguyen</h3>
+            <h3 style="font-weight: 700;">Savannah Nguyen</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
               enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
@@ -1231,11 +576,12 @@
     </section>
 
     <!-- section nine -->
-
-    <section>
-      <div class="sp-sec-nine-container res-w">
-        <div class="sp-sec-nine-text">
-          <h2>Boost the Growth of Your Startup Business</h2>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; padding-left: 1rem; padding-right: 1rem; @media (min-width: 1024px) { grid-template-columns: repeat(2, 1fr); }">
+        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: center; @media (min-width: 1024px) { text-align: left; }">
+          <h2 style="font-family: 'Bricolage Grotesque', sans-serif; margin-left: auto; margin-right: auto; max-width: 24rem; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { margin-left: 0; font-size: 2.25rem; line-height: 2.5rem; }">
+            Boost the Growth of Your Startup Business
+          </h2>
           <p>
             Lorem ipsum dolor sit amet consectetur. Posuere in etiam turpis arcu et neque quis. Eget nisl semper orci
             pellentesque faucibus praesent id
@@ -1245,10 +591,11 @@
             pellentesque faucibus praesent id.
           </p>
         </div>
-        <div class="sp-sec-nine-img">
+        <div style="display: flex; justify-content: center; @media (min-width: 1024px) { justify-content: flex-end; }">
           <img
             src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989624/byte-alley/cqvjw19y7meh4pffuiml.svg"
             alt=""
+            style="width: 100%; max-width: 32rem; border-radius: 0.5rem;"
           />
         </div>
       </div>
@@ -1256,102 +603,97 @@
 
     <!-- section ten -->
     <!-- faq section -->
-    <section>
-      <div class="sp-sec-ten-container res-w">
-        <h2>FAQS</h2>
-        <div class="sp-accodium-items">
-          <div class="sp-faq">
-            <div class="sp-question">
-              <h4>How do I access my product after purchase? </h4>
+    <section style="padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 2rem; padding-left: 1rem; padding-right: 1rem;">
+        <h2 style="font-family: 'Bricolage Grotesque', sans-serif; text-align: center; font-size: 1.5rem; line-height: 2rem; font-weight: 700; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">FAQS</h2>
+        <div style="margin-left: auto; margin-right: auto; max-width: 48rem; display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="sp-faq" style="border-bottom-width: 1px; padding-bottom: 1rem;">
+            <div class="sp-question" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between;">
+              <h4 style="font-weight: 700;">How do I access my product after purchase?</h4>
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
                 alt=""
-                class="sp-plus"
+                class="sp-plus" style="height: 1.5rem; width: 1.5rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
                 alt=""
-                class="sp-minus"
+                class="sp-minus" style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-
-            <p class="sp-para">
+            <p class="sp-para" style="margin-top: 1rem;">
               You can access the registration form by clicking on the Sign-Up/Register Now button on our platforms.
             </p>
           </div>
-          <div class="sp-faq">
-            <div class="sp-question">
-              <h4>How do I access my product after purchase? </h4>
+          <div class="sp-faq" style="border-bottom-width: 1px; padding-bottom: 1rem;">
+            <div class="sp-question" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between;">
+              <h4 style="font-weight: 700;">How do I access my product after purchase?</h4>
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
                 alt=""
-                class="sp-plus"
+                class="sp-plus" style="height: 1.5rem; width: 1.5rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
                 alt=""
-                class="sp-minus"
+                class="sp-minus" style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-
-            <p class="sp-para">
+            <p class="sp-para" style="margin-top: 1rem;">
               You can access the registration form by clicking on the Sign-Up/Register Now button on our platforms.
             </p>
           </div>
-          <div class="sp-faq">
-            <div class="sp-question">
-              <h4>How do I access my product after purchase? </h4>
+          <div class="sp-faq" style="border-bottom-width: 1px; padding-bottom: 1rem;">
+            <div class="sp-question" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between;">
+              <h4 style="font-weight: 700;">How do I access my product after purchase?</h4>
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
                 alt=""
-                class="sp-plus"
+                class="sp-plus" style="height: 1.5rem; width: 1.5rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
                 alt=""
-                class="sp-minus"
+                class="sp-minus" style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-
-            <p class="sp-para">
+            <p class="sp-para" style="margin-top: 1rem;">
               You can access the registration form by clicking on the Sign-Up/Register Now button on our platforms.
             </p>
           </div>
-          <div class="sp-faq">
-            <div class="sp-question">
-              <h4>How do I access my product after purchase? </h4>
+          <div class="sp-faq" style="border-bottom-width: 1px; padding-bottom: 1rem;">
+            <div class="sp-question" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between;">
+              <h4 style="font-weight: 700;">How do I access my product after purchase?</h4>
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
                 alt=""
-                class="sp-plus"
+                class="sp-plus" style="height: 1.5rem; width: 1.5rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
                 alt=""
-                class="sp-minus"
+                class="sp-minus" style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-
-            <p class="sp-para">
+            <p class="sp-para" style="margin-top: 1rem;">
               You can access the registration form by clicking on the Sign-Up/Register Now button on our platforms.
             </p>
           </div>
-          <div class="sp-faq">
-            <div class="sp-question">
-              <h4>How do I access my product after purchase? </h4>
+          <div class="sp-faq" style="border-bottom-width: 1px; padding-bottom: 1rem;">
+            <div class="sp-question" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between;">
+              <h4 style="font-weight: 700;">How do I access my product after purchase?</h4>
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989623/byte-alley/tdqmkewn0ktbx5txyhnv.svg"
                 alt=""
-                class="sp-plus"
+                class="sp-plus" style="height: 1.5rem; width: 1.5rem;"
               />
               <img
                 src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1742989621/byte-alley/ov1nf0i3rmxxilahiekq.svg"
                 alt=""
-                class="sp-minus"
+                class="sp-minus" style="height: 1.5rem; width: 1.5rem;"
               />
             </div>
-
-            <p class="sp-para">
+            <p class="sp-para" style="margin-top: 1rem;">
               You can access the registration form by clicking on the Sign-Up/Register Now button on our platforms.
             </p>
           </div>
@@ -1360,139 +702,93 @@
     </section>
 
     <!-- section eleven -->
-
-    <section class="res-w">
-      <div class="sp-sec-eleven-container">
-        <h2 class="sp-eleven-text">This Is Your Moment! Transform Your Productivity Today</h2>
-        <p class="sp-eleven-text sp-light-text">
+    <section style="max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; padding-top: 3rem; padding-bottom: 3rem;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; border-radius: 0.75rem; background-color: #00068c; padding: 2rem; text-align: center; @media (min-width: 768px) { padding: 2.5rem; }">
+        <h2 style="font-family: 'Bricolage Grotesque', sans-serif; max-width: 42rem; font-size: 1.5rem; line-height: 2rem; font-weight: 700; color: white; @media (min-width: 1024px) { font-size: 2.25rem; line-height: 2.5rem; }">
+          This Is Your Moment! Transform Your Productivity Today
+        </h2>
+        <p style="max-width: 42rem; color: white;">
           Join over 10,000+ professionals who have already revolutionized their workflow with ProSuite.
         </p>
         <a href="#signup-form">
-          <button>Claim Your Package Now</button>
+          <button style="background-color: #ffbc49; width: 100%; max-width: 20rem; border-radius: 9999px; padding-left: 2rem; padding-right: 2rem; padding-top: 0.75rem; padding-bottom: 0.75rem; font-weight: 700; color: black;">
+            Claim Your Package Now
+          </button>
         </a>
       </div>
     </section>
 
-    <!--  -->
     <!-- footer -->
-
-    <footer>
-      <div class="footer-container res-w">
-        <div class="logo">
-          <h1>
-            <img
-              src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1731750172/productize/dk3ikhtl6rmfahp3i0yy.png"
-              alt="hero"
-            />
-          </h1>
+    <footer style="background-color: #f7f8ff; padding-top: 2rem; padding-bottom: 2rem;">
+      <div style="max-width: 1280px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: 1fr; gap: 2rem; padding-left: 1rem; padding-right: 1rem; text-align: center; @media (min-width: 768px) { grid-template-columns: repeat(3, 1fr); text-align: left; }">
+        <div>
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1731750172/productize/dk3ikhtl6rmfahp3i0yy.png"
+            alt="logo"
+            style="margin-left: auto; margin-right: auto; height: auto; width: 8rem; @media (min-width: 768px) { margin-left: 0; }"
+          />
         </div>
-
-        <div class="footer-frag-two">
-          <ul class="links">
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
-            <li><a href="#">Nav Item</a></li>
+        <div style="display: flex; justify-content: center;">
+          <ul style="display: flex; flex-direction: column; align-items: center; gap: 1rem; @media (min-width: 768px) { flex-direction: row; }">
+            <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+            <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
+            <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
           </ul>
         </div>
-        <div class="footer-frag-three">
-          <ul class="frag-three-link">
-            <li><a href="#">Nav Item</a></li>
+        <div style="display: flex; justify-content: center; @media (min-width: 768px) { justify-content: flex-end; }">
+          <ul>
+            <li><a href="#" style="transition: color 0.3s; color: rgba(0, 0, 0, 0.77); &:hover { color: #00068c; }">Nav Item</a></li>
           </ul>
         </div>
       </div>
     </footer>
-    <!-- <script>
-      document.getElementById("form").addEventListener("submit", async function (e) {
-        e.preventDefault();
 
-        // Update button state
-        const submitButton = document.getElementById("submit-button");
-        submitButton.textContent = "Submitting..";
-        submitButton.disabled = true;
-
-        // Get form data
-
-        try {
-          // Extract funnel ID from subdomain
-          const hostname = window.location.hostname;
-          const funnelSlug = hostname.split(".")[0];
-
-          const formData = {
-            first_name: document.getElementById("first_name").value,
-            last_name: document.getElementById("last_name").value,
-            email: document.getElementById("email").value,
-            funnel_slug: funnelSlug,
-            maillist_permission: document.getElementById("maillist_permission").checked,
-          };
-
-          const apiUrl = `https://api-dev.trybytealley.com/api/carts/funnel`;
-
-          const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify(formData),
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            window.location.href = "./Feedback.html";
-            window.location.href = data.data.authorization_url;
-          } else {
-            // Handle error response
-            const errorData = await response.json();
-            alert("Error: " + (errorData.message || "Something went wrong"));
-            submitButton.textContent = "Get Package";
-            submitButton.disabled = false;
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          alert("An error occurred. Please try again.");
-          submitButton.textContent = "Get Package";
-          submitButton.disabled = false;
-        }
-      });
-    </script> -->
     <script>
+      // Mobile menu toggle
       const hamburger = document.querySelector(".hamburger");
-      const navMenu = document.querySelector("nav ul");
+      const navMenu = document.querySelector(".nav-menu");
 
       hamburger.addEventListener("click", () => {
         hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
+        navMenu.classList.toggle("hidden");
       });
 
       document.addEventListener("click", (e) => {
         if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
           hamburger.classList.remove("active");
-          navMenu.classList.remove("active");
+          navMenu.classList.add("hidden");
         }
       });
 
+      // FAQ accordion
       document.addEventListener("DOMContentLoaded", () => {
         const faqs = document.querySelectorAll(".sp-faq");
 
         faqs.forEach((faq) => {
+          const question = faq.querySelector(".sp-question");
           const plus = faq.querySelector(".sp-plus");
           const minus = faq.querySelector(".sp-minus");
           const para = faq.querySelector(".sp-para");
 
-          plus.addEventListener("click", () => {
-            plus.classList.add("hideplus");
-            minus.classList.add("showminus");
-            para.classList.add("active");
-          });
+          question.addEventListener("click", () => {
+            // Close all other FAQs
+            faqs.forEach((otherFaq) => {
+              if (otherFaq !== faq) {
+                otherFaq.querySelector(".sp-plus").classList.remove("hideplus");
+                otherFaq.querySelector(".sp-minus").classList.remove("showminus");
+                otherFaq.querySelector(".sp-para").classList.remove("active");
+              }
+            });
 
-          minus.addEventListener("click", () => {
-            minus.classList.remove("showminus");
-            para.classList.remove("active");
-            plus.classList.remove("hideplus");
+            // Toggle current FAQ
+            plus.classList.toggle("hideplus");
+            minus.classList.toggle("showminus");
+            para.classList.toggle("active");
           });
         });
       });
 
+      // Form validation
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("signup-form");
         const submitButton = document.getElementById("submit-button");
@@ -1606,19 +902,17 @@
 
             if (response.ok) {
               const data = await response.json();
-              // window.location.href = "./Feedback.html";
               window.location.href = data.data.authorization_url;
             } else {
               // Handle error response
               const errorData = await response.json();
               alert("Error: " + (errorData.message || "Something went wrong"));
-              submitButton.textContent = "Get Package";
               submitButton.disabled = false;
+              submitButton.textContent = "Get Product";
             }
           } catch (error) {
             console.error("Submission error:", error);
             alert("An error occurred. Please try again.");
-          } finally {
             submitButton.disabled = false;
             submitButton.textContent = "Get Product";
           }

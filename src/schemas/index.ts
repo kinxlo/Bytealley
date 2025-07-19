@@ -140,6 +140,8 @@ export const funnelSchema = z.object({
   thumbnail: z.any().refine((file) => file !== null, "Thumbnail is required"),
   product_id: z.string().min(1, "At least one product is required"),
   upsell_funnel_id: z.string().optional(),
+  bump_up_products: z.string().optional(),
+  // bump_up_products: z.array(z.any()).optional(),
   // asset: z.any().refine((file) => file !== null, "asset is required"),
   assets: z.array(z.any()).min(1, "Product files are required").max(4, "You can upload up to 4 files"),
 });

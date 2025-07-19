@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Trip Wire Offer</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
@@ -23,14 +23,12 @@
 
       /* Custom styles */
       .tailwind-root {
-        --primary-color: #38514e;
-        --secondary-color: #ebe4d4;
+        --primary-color: #113ec3;
+        --secondary-color: #ffbc49;
         --white-text: #e6e6e6;
         --off-white: #fcfbf8;
-        --faded-green-bg: #eaefff1f;
-        --light-green: #536d6a;
-        --cream-bg: #ebe4d4;
-        --cream-bg-ii: #fcfbf8;
+        --faded-blue-bg: #edf2ff;
+        --dark-blue: #032791;
       }
 
       .list-item {
@@ -44,21 +42,29 @@
       button {
         padding: 0 !important;
       }
+      input {
+        background-color: #fff;
+      }
     </style>
   </head>
-  <body class="bg-white font-['Inter'] text-black">
+  <body class="tailwind-root bg-white font-['Inter'] text-black">
     <!-- Header/Nav -->
-    <nav class="flex w-full max-w-full items-center justify-center py-4 text-center text-white shadow-md md:py-8">
+    <nav
+      class="flex w-full max-w-full items-center justify-center bg-[#38514e] py-4 text-center text-white shadow-md md:py-8"
+    >
       <div class="w-full">
         <div class="flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
-            alt="logo"
-            class="w-[80px] md:w-[100px]"
-          />
+          <a href="/">
+            <img
+              src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+              alt="logo"
+              class="w-[80px] md:w-[100px]"
+            />
+          </a>
         </div>
       </div>
     </nav>
+
     <!-- Hero Section -->
     <section class="py-8 md:py-12">
       <div class="mx-auto max-w-[1240px] px-4 md:px-8">
@@ -71,13 +77,14 @@
               today!
             </p>
             <div class="flex items-center justify-center lg:justify-start">
-              <a href="#lead-form" class="block w-fit">
-                <button
-                  class="h-[48px] w-full max-w-xs rounded-md border border-transparent bg-[#38514e] !px-6 py-3 font-bold text-[#ebe4d4] transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e] md:mx-0"
-                >
-                  I WANT THIS BUNDLE!
-                </button>
-              </a>
+              <!-- <a href="#lead-form" class="block w-fit"> -->
+              <button
+                id="get-bundle-button"
+                class="h-[48px] w-full max-w-xs rounded-md border border-transparent bg-[#38514e] !px-6 py-3 font-bold text-[#ebe4d4] transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e] md:mx-0"
+              >
+                I WANT THIS BUNDLE!
+              </button>
+              <!-- </a> -->
             </div>
           </div>
           <div class="flex justify-center">
@@ -188,6 +195,14 @@
               >
                 PAY ₦2,500
               </button>
+              <a href="/thank-you.html" class="!mt-0">
+                <button
+                  type="button"
+                  class="!mt-0 h-[48px] w-full max-w-full rounded-md border border-transparent bg-[#ebe4d4] px-6 py-3 font-bold text-[#38514e] transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e]"
+                >
+                  Opt-out of this offer
+                </button>
+              </a>
               <p class="text-center text-sm text-[#666]">You'll be redirected to Paystack to complete your payment.</p>
             </form>
           </div>
@@ -197,125 +212,169 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("lead-form");
-        const submitButton = document.getElementById("submit-button");
-        const firstNameInput = document.getElementById("first_name");
-        const lastNameInput = document.getElementById("last_name");
-        const emailInput = document.getElementById("email");
-        const consentCheckbox = document.getElementById("updates-consent");
+      // Wait for everything to load
+      window.addEventListener("load", function () {
+        console.log(`loaded`);
 
-        // Get the funnel slug from the URL or set a default
-        const hostname = window.location.hostname;
-        const funnelSlug = hostname.split(".")[0];
+        // Get form data from sessionStorage
+        const savedFormData = sessionStorage.getItem("formData");
+        console.log("Saved form data:", savedFormData);
 
-        // Validation functions
-        function validateFirstName() {
-          const errorElement = document.getElementById("first_name-error");
-          if (!firstNameInput.value.trim()) {
-            errorElement.classList.remove("hidden");
-            return false;
+        let sessionFormData = null;
+
+        if (savedFormData) {
+          try {
+            const parsedData = JSON.parse(savedFormData);
+            sessionFormData = parsedData.data;
+          } catch (e) {
+            console.error("Error parsing form data:", e);
+            sessionStorage.removeItem("formData");
           }
-          errorElement.classList.add("hidden");
-          return true;
         }
 
-        function validateLastName() {
-          const errorElement = document.getElementById("last_name-error");
-          if (!lastNameInput.value.trim()) {
-            errorElement.classList.remove("hidden");
-            return false;
+        // Get form elements - keeping your original getters
+        const firstNameEl = document.getElementById("first_name-2");
+        const lastNameEl = document.getElementById("last_name-2");
+        const emailEl = document.getElementById("email-2");
+        const consentEl = document.getElementById("updates-consent-2");
+        const form = document.getElementById("lead-form-2");
+        const getBundleButton = document.getElementById("get-bundle-button");
+
+        // Actual form elements we'll use for submission
+        const actualFirstNameEl = document.getElementById("first_name-2");
+        const actualLastNameEl = document.getElementById("last_name-2");
+        const actualEmailEl = document.getElementById("email-2");
+        const actualConsentEl = document.getElementById("updates-consent-2");
+
+        // Function to populate form from session data
+        function populateFormFromSession() {
+          if (sessionFormData) {
+            if (actualFirstNameEl && !actualFirstNameEl.value)
+              actualFirstNameEl.value = sessionFormData.first_name || "";
+            if (actualLastNameEl && !actualLastNameEl.value) actualLastNameEl.value = sessionFormData.last_name || "";
+            if (actualEmailEl && !actualEmailEl.value) actualEmailEl.value = sessionFormData.email || "";
+            if (actualConsentEl) actualConsentEl.checked = sessionFormData.maillist_permission || false;
           }
-          errorElement.classList.add("hidden");
-          return true;
         }
 
-        function validateEmail() {
-          const errorElement = document.getElementById("email-error");
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // Populate form on load if fields are empty
+        populateFormFromSession();
 
-          if (!emailInput.value.trim()) {
-            errorElement.textContent = "Please enter your email address";
-            errorElement.classList.remove("hidden");
-            return false;
-          }
+        // Make Get Bundle button trigger form submission
+        if (getBundleButton && form) {
+          getBundleButton.addEventListener("click", function (e) {
+            e.preventDefault();
 
-          if (!emailRegex.test(emailInput.value)) {
-            errorElement.textContent = "Please enter a valid email address";
-            errorElement.classList.remove("hidden");
-            return false;
-          }
+            // First populate any empty fields from session data
+            populateFormFromSession();
 
-          errorElement.classList.add("hidden");
-          return true;
+            // Trigger form submission
+            const submitEvent = new Event("submit", {
+              bubbles: true,
+              cancelable: true,
+            });
+            form.dispatchEvent(submitEvent);
+          });
         }
-
-        // Event listeners for real-time validation
-        firstNameInput.addEventListener("blur", validateFirstName);
-        lastNameInput.addEventListener("blur", validateLastName);
-        emailInput.addEventListener("blur", validateEmail);
 
         // Form submission handler
-        form.addEventListener("submit", async function (e) {
-          e.preventDefault();
+        if (form) {
+          form.addEventListener("submit", async function (e) {
+            e.preventDefault();
 
-          // Validate all fields
-          const isFirstNameValid = validateFirstName();
-          const isLastNameValid = validateLastName();
-          const isEmailValid = validateEmail();
+            // Validate inputs
+            let isValid = true;
 
-          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
-            return;
-          }
+            if (!actualFirstNameEl || !actualFirstNameEl.value.trim()) {
+              const errorEl = document.getElementById("first_name-error");
+              if (errorEl) errorEl.classList.remove("hidden");
+              isValid = false;
+            }
 
-          // Disable the submit button to prevent multiple submissions
-          submitButton.disabled = true;
-          submitButton.textContent = "Processing...";
+            if (!actualLastNameEl || !actualLastNameEl.value.trim()) {
+              const errorEl = document.getElementById("last_name-error");
+              if (errorEl) errorEl.classList.remove("hidden");
+              isValid = false;
+            }
 
-          try {
-            // Prepare form data
-            const formData = {
-              first_name: firstNameInput.value.trim(),
-              last_name: lastNameInput.value.trim(),
-              funnel_slug: funnelSlug,
-              email: emailInput.value.trim(),
-              maillist_permission: consentCheckbox.checked,
-            };
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!actualEmailEl || !actualEmailEl.value.trim() || !emailRegex.test(actualEmailEl.value)) {
+              const errorEl = document.getElementById("email-error");
+              if (errorEl) {
+                errorEl.textContent = !actualEmailEl.value.trim()
+                  ? "Please enter your email address"
+                  : "Please enter a valid email address";
+                errorEl.classList.remove("hidden");
+              }
+              isValid = false;
+            }
 
-            const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
-            // const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+            if (!isValid) return;
 
-            const response = await fetch(apiUrl, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              body: JSON.stringify(formData),
+            // Disable buttons during submission
+            const submitBtn = document.getElementById("submit-button");
+            const buttons = [submitBtn, getBundleButton];
+            buttons.forEach((btn) => {
+              if (btn) {
+                btn.disabled = true;
+                btn.textContent = "Processing...";
+              }
             });
 
-            if (response.ok) {
+            try {
+              // Get funnel slug from hostname
+              const hostname = window.location.hostname;
+              const funnelSlug = hostname.split(".")[0];
+
+              // Prepare data - using values from the actual form elements
+              const formData = {
+                first_name: actualFirstNameEl ? actualFirstNameEl.value.trim() : "",
+                last_name: actualLastNameEl ? actualLastNameEl.value.trim() : "",
+                email: actualEmailEl ? actualEmailEl.value.trim() : "",
+                maillist_permission: actualConsentEl ? actualConsentEl.checked : false,
+                funnel_slug: funnelSlug,
+              };
+
+              const apiURL = "https://api.trybytealley.com/api/carts/funnel";
+              // const apiURL = "https://api-dev.trybytealley.com/api/carts/funnel";
+
+              // Submit to API
+              const response = await fetch(apiURL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify(formData),
+              });
+
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+
               const data = await response.json();
+
               if (data.data && data.data.authorization_url) {
                 window.location.href = data.data.authorization_url;
               } else {
-                // Handle success without redirect URL
-                alert("Thank you for your submission!");
-                form.reset();
+                alert("Thank you for your purchase!");
               }
-            } else {
-              // Handle error response
-              const errorData = await response.json();
-              alert("Error: " + (errorData.message || "Something went wrong"));
+            } catch (error) {
+              console.error("Error:", error);
+              alert("An error occurred. Please try again.");
+            } finally {
+              // Re-enable buttons
+              const submitBtn = document.getElementById("submit-button");
+              const buttons = [submitBtn, getBundleButton];
+              buttons.forEach((btn) => {
+                if (btn) {
+                  btn.disabled = false;
+                  btn.textContent = btn === submitBtn ? "PAY ₦2,500" : "I WANT THIS BUNDLE!";
+                }
+              });
             }
-          } catch (error) {
-            console.error("Submission error:", error);
-            alert("An error occurred. Please try again.");
-          } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = "PAY ₦2,500";
-          }
-        });
+          });
+        }
       });
     </script>
   </body>

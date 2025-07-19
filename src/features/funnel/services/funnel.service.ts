@@ -8,7 +8,7 @@ export class FunnelService {
     this.http = httpAdapter;
   }
 
-  async saveFunnelToDraft(data: FunnelFormData & { funnel: string; upsell_funnel_id?: string }) {
+  async saveFunnelToDraft(data: FunnelFormData & { funnel: string; bump_up_products?: string }) {
     const headers = { "Content-Type": "multipart/form-data" };
     const formattedData = new FormData();
 
@@ -19,9 +19,18 @@ export class FunnelService {
     formattedData.append("asset", data.assets[0]);
     formattedData.append(`product_id`, data.product_id);
 
-    if (data.upsell_funnel_id) {
-      formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    if (Array.isArray(data.bump_up_products) && data.bump_up_products.length > 0) {
+      let index = 0;
+      for (const productId of data.bump_up_products) {
+        if (productId) {
+          formattedData.append(`bump_up_products[${index}]`, productId);
+          index++;
+        }
+      }
     }
+    // if (data.upsell_funnel_id) {
+    //   formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    // }
 
     const response = await this.http.post("/funnels", formattedData, headers);
     if (response?.status === 201) {
@@ -29,7 +38,7 @@ export class FunnelService {
     }
   }
 
-  async publishFunnel(data: FunnelFormData & { funnel: string; upsell_funnel_id?: string }) {
+  async publishFunnel(data: FunnelFormData & { funnel: string; bump_up_products?: string }) {
     const headers = { "Content-Type": "multipart/form-data" };
     const formattedData = new FormData();
 
@@ -40,9 +49,18 @@ export class FunnelService {
     formattedData.append("asset", data.assets[0]);
     formattedData.append(`product_id`, data.product_id);
 
-    if (data.upsell_funnel_id) {
-      formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    if (Array.isArray(data.bump_up_products) && data.bump_up_products.length > 0) {
+      let index = 0;
+      for (const productId of data.bump_up_products) {
+        if (productId) {
+          formattedData.append(`bump_up_products[${index}]`, productId);
+          index++;
+        }
+      }
     }
+    // if (data.upsell_funnel_id) {
+    //   formattedData.append(`upsell_funnel_id`, data.upsell_funnel_id);
+    // }
 
     const response = await this.http.post("/funnels", formattedData, headers);
     if (response?.status === 201) {

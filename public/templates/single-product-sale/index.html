@@ -245,25 +245,27 @@
           <a href="#about" style="color: white; text-decoration: none; padding: 0.5rem">About</a>
           <a href="#contact" style="color: white; text-decoration: none; padding: 0.5rem">Contact</a>
         </div>
-        <div>
+        <div class="hidden lg:block">
           <a href="#lead-form">
             <button>Get Course</button>
           </a>
         </div>
-        <button
-          id="hamburger"
-          style="
-            display: none;
-            width: fit-content;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-          "
-        >
-          ☰
-        </button>
+        <div class="lg:hidden" style="width: fit-content !important">
+          <button
+            id="hamburger"
+            style="
+              display: none;
+              width: fit-content !important;
+              background: none;
+              border: none;
+              color: white;
+              font-size: 1.5rem;
+              cursor: pointer;
+            "
+          >
+            ☰
+          </button>
+        </div>
       </nav>
     </section>
     <!-- Hero Section -->
@@ -298,7 +300,7 @@
       </div>
       <div style="display: flex; align-items: center; justify-content: center">
         <a href="#lead-form">
-          <button class="spt-hero-cta" style="text-align: center">YES, I WANT TO 10X MY REVENUE</button>
+          <button class="spt-hero-cta !bg-yellow-500 text-black" style="text-align: center">YES, I WANT TO 10X MY REVENUE</button>
         </a>
       </div>
     </div>
@@ -408,7 +410,7 @@
     <section style="background-color: #fffcf7; padding: 4rem 0">
       <div style="width: 90%; margin: 0 auto; max-width: 1440px">
         <div class="learn-header" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 40px">
-          <div>
+          <div class="flex flex-col items-center lg:items-start">
             <p
               style="
                 color: #113ec3;
@@ -473,7 +475,7 @@
               transition: transform 0.3s ease;
             "
           >
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px" class="text-center lg:text-left">
               Unlocking the Psychology of High-Value Sales
             </h3>
             <p style="font-size: 14px">
@@ -492,7 +494,9 @@
               transition: transform 0.3s ease;
             "
           >
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Building Scalable Marketing Systems</h3>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px" class="text-center lg:text-left">
+              Building Scalable Marketing Systems
+            </h3>
             <p style="font-size: 14px">
               Create marketing systems that work 24/7 to generate qualified leads for your business.
             </p>
@@ -509,7 +513,7 @@
               transition: transform 0.3s ease;
             "
           >
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px" class="text-center lg:text-left">
               Creating Offers That Sell Like Hotcakes
             </h3>
             <p style="font-size: 14px">Design irresistible offers that your customers can't refuse.</p>
@@ -526,7 +530,9 @@
               transition: transform 0.3s ease;
             "
           >
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px">Scaling to 7 Figures and Beyond</h3>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px" class="text-center lg:text-left">
+              Scaling to 7 Figures and Beyond
+            </h3>
             <p style="font-size: 14px">
               Learn the advanced strategies to scale your business to multiple seven figures.
             </p>
@@ -556,7 +562,7 @@
             style="width: 100%; border-radius: 1rem"
           />
         </div>
-        <div style="display: flex; flex-direction: column; gap: 1.3rem; width: 100%">
+        <div class="flex flex-col gap-4">
           <div>
             <p
               style="
@@ -575,12 +581,12 @@
             </p>
             <h2 style="font-size: 28px; font-weight: 700; color: #262528">About Farouq Opeyemi</h2>
           </div>
-          <p style="line-height: 1.4">
+          <p class="text-left" style="line-height: 1.4">
             <b>Farouq Opeyemi</b> is a renowned entrepreneur, keynote speaker, and the creator of the highly successful
             10X Revenue Course. With a background in business development and digital marketing, Farouq has helped
             hundreds of entrepreneurs scale their businesses and achieve exponential growth.
           </p>
-          <p style="line-height: 1.4">
+          <p class="text-left" style="line-height: 1.4">
             He is a thought leader in the space of scalable systems and sales optimization, having worked with top-tier
             companies and startups to improve their revenue generation strategies.
           </p>
@@ -712,29 +718,21 @@
 
     <!-- Payment Form Section -->
     <section style="padding: 0 3rem">
-      <div
-        class="payment-container"
-        style="
-          width: 90%;
-          margin: 0 auto;
-          max-width: 1440px;
-          display: flex;
-          gap: 3.5rem;
-          justify-content: space-between;
-          padding: 4rem 0;
-          align-items: center !important;
-        "
-      >
+      <div class="flex flex-col items-center justify-center gap-4 py-5 lg:flex-row">
         <div style="display: flex; flex-direction: column; gap: 1rem">
-          <h2 style="color: black">Snatch This Deal Now!</h2>
+          <h3 class="!font-bold !text-black" style="color: black">Snatch This Deal Now!</h3>
           <p style="text-align: left; width: 100%; max-width: 580px; line-height: 1.5">
             Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete your
             purchase and your access will be sent instantly via email.
           </p>
         </div>
 
-        <div style="background-color: white; padding: 1rem; border-radius: 0.8rem">
-          <form class="opt-in-form" id="lead-form" style="display: flex; flex-direction: column; gap: 1.5rem">
+        <div class="shadow-lg" style="background-color: white; padding: 1rem; border-radius: 0.8rem">
+          <form
+            class="opt-in-form shadow-none"
+            id="lead-form"
+            style="display: flex; flex-direction: column; gap: 1.5rem"
+          >
             <div class="form-group" style="width: 100%">
               <input
                 style="
@@ -856,8 +854,8 @@
           padding: 4rem 0;
         "
       >
-        <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 400px; text-align: left">
-          <div style="width: 100%; max-width: 350px">
+        <div class="flex flex-col items-center lg:items-start">
+          <div style="width: 100%" class="flex flex-col items-center justify-center lg:items-start">
             <div
               style="
                 background-color: #edf2ff;
@@ -1023,7 +1021,7 @@
             <h1 style="color: white; font-size: 2rem">
               Ready to <span style="color: #ffbc49; font-style: italic">10X</span> Your Revenue?
             </h1>
-            <p style="color: white; line-height: 1.5">
+            <p class="text-center" style="color: white !important; line-height: 1.5">
               This is the perfect opportunity to accelerate your growth and unlock new revenue streams. Don't wait! your
               business transformation is just a click away!
             </p>
@@ -1049,7 +1047,6 @@
     </section>
 
     <!-- Footer -->
-
     <div
       style="
         margin-bottom: 3rem;
@@ -1075,8 +1072,159 @@
         <p style="color: black; margin-bottom: 0"><a style="color: black" href="#">Nav Item</a></p>
       </div>
     </div>
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("lead-form");
+        const submitButton = document.getElementById("submit-button");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const emailInput = document.getElementById("email");
+        const consentCheckbox = document.getElementById("updates-consent");
+
+        // Get the funnel slug from the URL or set a default
+        const hostname = window.location.hostname;
+        const funnelSlug = hostname.split(".")[0];
+
+        // Validation functions
+        function validateFirstName() {
+          const errorElement = document.getElementById("first_name-error");
+          if (!firstNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateLastName() {
+          const errorElement = document.getElementById("last_name-error");
+          if (!lastNameInput.value.trim()) {
+            errorElement.style.display = "block";
+            return false;
+          }
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        function validateEmail() {
+          const errorElement = document.getElementById("email-error");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailInput.value.trim()) {
+            errorElement.textContent = "Please enter your email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          if (!emailRegex.test(emailInput.value)) {
+            errorElement.textContent = "Please enter a valid email address";
+            errorElement.style.display = "block";
+            return false;
+          }
+
+          errorElement.style.display = "none";
+          return true;
+        }
+
+        // Event listeners for real-time validation
+        firstNameInput.addEventListener("blur", validateFirstName);
+        lastNameInput.addEventListener("blur", validateLastName);
+        emailInput.addEventListener("blur", validateEmail);
+
+        // Form submission handler
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFirstNameValid = validateFirstName();
+          const isLastNameValid = validateLastName();
+          const isEmailValid = validateEmail();
+
+          if (!isFirstNameValid || !isLastNameValid || !isEmailValid) {
+            return;
+          }
+
+          // Disable the submit button to prevent multiple submissions
+          submitButton.disabled = true;
+          submitButton.textContent = "Processing...";
+
+          try {
+            // Prepare form data for both endpoints
+            const cartFormData = {
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              funnel_slug: funnelSlug,
+              email: emailInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            const emailFormData = {
+              email: emailInput.value.trim(),
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            // 1. Always call the carts API endpoint
+            const cartApiUrl = "https://api.trybytealley.com/api/carts/funnel";
+            // const cartApiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
+            const cartResponse = await fetch(cartApiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(cartFormData),
+            });
+
+            if (!cartResponse.ok) {
+              const errorData = await cartResponse.json();
+              throw new Error(errorData.message || "Cart submission failed");
+            }
+
+            const cartData = await cartResponse.json();
+
+            // 2. Only call the email API endpoint if checkbox is checked
+            if (consentCheckbox.checked) {
+              const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/${funnelSlug}/email`;
+              try {
+                const emailResponse = await fetch(emailApiUrl, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                  },
+                  body: JSON.stringify(emailFormData),
+                });
+
+                if (!emailResponse.ok) {
+                  console.error("Email submission failed, but cart was processed");
+                }
+              } catch (emailError) {
+                console.error("Email submission error:", emailError);
+                // Continue even if email submission fails since cart was successful
+              }
+            }
+
+            // Handle successful cart submission
+            if (cartData.data && cartData.data.authorization_url) {
+              window.location.href = cartData.data.authorization_url;
+            } else {
+              alert("Thank you for your submission!");
+              form.reset();
+            }
+          } catch (error) {
+            console.error("Submission error:", error);
+            alert("Error: " + (error.message || "Something went wrong. Please try again."));
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "GET INSTANT ACCESS NOW";
+          }
+        });
+      });
+    </script>
+    <!-- <script>
       // Mobile Navigation
       const hamburger = document.getElementById("hamburger");
       const navLinks = document.getElementById("navLinks");
@@ -1328,6 +1476,6 @@
           }
         });
       });
-    </script>
+    </script> -->
   </body>
 </html>

@@ -1,88 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Launch & Scale Your Digital Product</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-
-      :root {
-        --primary-color: #001d0f;
-        --secondary-color: #00ee7e;
-        --white-text: #e6e6e6;
-        --faded-white-bg: #f7fbf9cc;
-        --faded-white-bg-ii: #f7fbf9cc;
-        --off-white: #ffffffb2;
-        --faded-green-bg: #eaefff1f;
-        --gray: #595959;
-        --gray-ii: #f8f8f8;
-        --white: #ffffff;
-        --green: #00ee7e;
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style-type: none;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: var(--white);
-        color: var(--primary-color);
-        line-height: 1.6;
-      }
-
-      button {
-        background-color: var(--secondary-color);
-        color: var(--primary-color);
-        border-radius: 0.7rem;
-        padding: 0.8rem 1.5rem;
-        border: none;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-      }
-
-      button:hover {
-        opacity: 0.9;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 1440px;
-        margin: 0 auto;
-      }
-
-      /* Mobile menu styles */
       .mobile-menu {
-        display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background-color: var(--white);
-        padding: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 999;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
       }
 
       .mobile-menu.active {
-        display: block;
+        max-height: 500px;
       }
 
-      .mobile-menu a {
-        display: block;
-        padding: 0.5rem 0;
-        color: var(--primary-color);
-      }
-
-      .hamburger.active span:nth-child(1) {
+      /* .hamburger.active span:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px);
       }
 
@@ -92,89 +39,160 @@
 
       .hamburger.active span:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
+      } */
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .plus.hideplus {
+        display: none;
+      }
+
+      .minus {
+        display: none;
+      }
+
+      .minus.showminus {
+        display: block;
+      }
+
+      .minus-variant-two.showminus {
+        transform: rotate(180deg);
       }
     </style>
   </head>
-  <body>
+  <body class="bg-[#ffffff] font-['Inter'] text-[#001d0f]">
     <!-- Navigation -->
-    <nav style="background-color: var(--primary-color); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-      <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="color: var(--white-text); font-size: 1.5rem; font-weight: bold;">LOGO</div>
-
-        <ul style="display: flex; gap: 2rem; align-items: center; list-style: none;">
-          <li><a href="#" style="color: var(--white-text);">Home</a></li>
-          <li><a href="#features" style="color: var(--white-text);">Features</a></li>
-          <li><a href="#testimonials" style="color: var(--white-text);">Testimonials</a></li>
-          <li><a href="#faq" style="color: var(--white-text);">FAQ</a></li>
-          <li><button>Get Course</button></li>
-        </ul>
-
-        <button class="hamburger" style="display: none; background: none; border: none; cursor: pointer;">
-          <span style="display: block; width: 25px; height: 3px; background-color: var(--secondary-color); margin: 5px 0; transition: 0.4s;"></span>
-          <span style="display: block; width: 25px; height: 3px; background-color: var(--secondary-color); margin: 5px 0; transition: 0.4s;"></span>
-          <span style="display: block; width: 25px; height: 3px; background-color: var(--secondary-color); margin: 5px 0; transition: 0.4s;"></span>
-        </button>
+    <section class="bg-[#001d0f]">
+      <div class="py-2 shadow-md">
+        <nav class="container relative mx-auto flex items-center justify-between !bg-transparent px-4">
+          <div class="text-2xl font-bold text-[#e6e6e6]">
+            <img
+              src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+              alt="logo"
+              class="w-[80px] md:w-[100px]"
+            />
+          </div>
+          <div class="hidden items-center gap-4 lg:flex">
+            <a href="#" class="">Nav Item</a>
+            <a href="#" class="">Nav Item</a>
+            <a href="#" class="">Nav Item</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              class="hidden rounded-lg bg-[#00ee7e] !px-6 py-2 font-bold text-[#001d0f] transition hover:bg-[#f7fbf9cc] md:block"
+            >
+              Get Course
+            </button>
+            <div class="lg:hidden">
+              <button class="menu flex h-8 w-8 flex-col !bg-white items-center justify-center">☰</button>
+            </div>
+          </div>
+        </nav>
       </div>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#" style="color: var(--primary-color);">Home</a>
-      <a href="#features" style="color: var(--primary-color);">Features</a>
-      <a href="#testimonials" style="color: var(--primary-color);">Testimonials</a>
-      <a href="#faq" style="color: var(--primary-color);">FAQ</a>
-      <button style="width: 100%; margin-top: 1rem;">Get Course</button>
-    </div>
+      <!-- Mobile Menu -->
+      <div class="mobile-menu absolute left-0 right-0 top-16 z-40 bg-white shadow-lg md:hidden">
+        <div class="container mx-auto flex flex-col px-4 py-2">
+          <a href="#" class="py-2 text-[#001d0f] transition hover:text-[#00ee7e]">Nav Item</a>
+          <a href="#" class="py-2 text-[#001d0f] transition hover:text-[#00ee7e]">Nav Item</a>
+          <a href="#" class="py-2 text-[#001d0f] transition hover:text-[#00ee7e]">Nav Item</a>
+          <button
+            class="my-2 w-full rounded-lg bg-[#00ee7e] px-6 py-2 font-bold text-[#001d0f] transition hover:bg-[#f7fbf9cc]"
+          >
+            Get Course
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- Hero Section -->
-    <section style="background-color: var(--primary-color); color: var(--white-text); padding: 8rem 0 4rem;">
-      <div class="container" style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;">
-        <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
-          <div style="background-color: var(--faded-green-bg); color: var(--secondary-color); padding: 0.5rem 1.5rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600; width: fit-content; margin: 0 auto;">
+    <section class="bg-[#001d0f] pb-16 pt-32 text-[#e6e6e6] md:pb-20 md:pt-40">
+      <div class="container mx-auto flex flex-col items-center gap-8 px-4 md:flex-row md:gap-12">
+        <div class="flex w-full flex-col items-center gap-6 text-center md:w-1/2 md:items-start md:text-left">
+          <div class="w-full max-w-[270px] rounded-full bg-[#eaefff1f] px-6 py-2 text-sm font-semibold text-[#00ee7e]">
             🚀 Exclusive Offer for Creators
           </div>
-          <h1 style="font-size: 2.5rem; line-height: 1.2; font-weight: 800;">Launch & Scale Your Digital Product with Confidence</h1>
-          <p style="max-width: 500px; margin: 0 auto;">
-            Stop creating from scratch. Use this proven blueprint to multiply
-            your content output and stay visible without burnout.
+          <h1 class="text-4xl font-extrabold leading-tight text-white md:text-5xl">
+            Launch & Scale Your Digital Product with Confidence
+          </h1>
+          <p class="max-w-[370px] text-lg !text-white md:text-xl">
+            Stop creating from scratch. Use this proven blueprint to multiply your content output and stay visible
+            without burnout.
           </p>
-          <button style="width: fit-content; margin: 0 auto;">GET INSTANT ACCESS</button>
+          <button
+            class="font-bolder h-[48px] w-full max-w-xs rounded-md border border-transparent bg-[#00ee7e] !px-6 py-3 text-[#ebe4d4] text-black transition-colors duration-300 hover:border-[#38514e] hover:bg-[#ebe4d4] hover:text-[#38514e] md:mx-0"
+          >
+            GET INSTANT ACCESS
+          </button>
         </div>
-        <div>
-          <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894403/bytealley%20funnel/hero-img_i7sf3l.svg" alt="Hero Image" style="width: 100%; max-width: 600px; border-radius: 0.6rem; margin: 0 auto; display: block;" />
+        <div class="w-full md:w-1/2">
+          <img
+            src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894403/bytealley%20funnel/hero-img_i7sf3l.svg"
+            alt="Hero Image"
+            class="mx-auto w-full max-w-[593px] rounded-lg"
+          />
         </div>
       </div>
     </section>
 
     <!-- Why Choose Section -->
-    <section style="padding: 5rem 0; background-color: var(--white);">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">Who Needs This</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+    <section class="bg-white py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">Who Needs This</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           <!-- Card 1 -->
-          <div style="background: var(--faded-white-bg); border-radius: 0.6rem; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895251/bytealley%20funnel/coach_qqvin5.svg" alt="Coaches" style="width: 100%; height: 200px; object-fit: cover;" />
-            <div style="padding: 1.5rem;">
-              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Coaches & Digital Creators</h3>
+          <div class="overflow-hidden rounded-lg bg-[#f7fbf9cc] shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895251/bytealley%20funnel/coach_qqvin5.svg"
+              alt="Coaches"
+              class="h-48 w-full object-cover"
+            />
+            <div class="p-6">
+              <h3 class="mb-3 text-center text-xl font-semibold text-black">Coaches & Digital Creators</h3>
               <p>Transform your knowledge into profitable digital products</p>
             </div>
           </div>
 
           <!-- Card 2 -->
-          <div style="background: var(--faded-white-bg); border-radius: 0.6rem; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894398/bytealley%20funnel/online-course_acyux9.svg" alt="Online Course" style="width: 100%; height: 200px; object-fit: cover;" />
-            <div style="padding: 1.5rem;">
-              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Online Course Sellers</h3>
+          <div class="overflow-hidden rounded-lg bg-[#f7fbf9cc] shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751894398/bytealley%20funnel/online-course_acyux9.svg"
+              alt="Online Course"
+              class="h-48 w-full object-cover"
+            />
+            <div class="p-6">
+              <h3 class="mb-3 text-center text-xl font-semibold text-black">Online Course Sellers</h3>
               <p>Scale your course business with proven strategies and great ideas</p>
             </div>
           </div>
 
           <!-- Card 3 -->
-          <div style="background: var(--faded-white-bg); border-radius: 0.6rem; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895253/bytealley%20funnel/ebooks_jv42tk.svg" alt="Ebooks" style="width: 100%; height: 200px; object-fit: cover;" />
-            <div style="padding: 1.5rem;">
-              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Ebook Authors</h3>
+          <div class="overflow-hidden rounded-lg bg-[#f7fbf9cc] shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895253/bytealley%20funnel/ebooks_jv42tk.svg"
+              alt="Ebooks"
+              class="h-48 w-full object-cover"
+            />
+            <div class="p-6">
+              <h3 class="mb-3 text-center text-xl font-semibold text-black">Ebook Authors</h3>
               <p>Turn your writing into a sustainable income stream</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="overflow-hidden rounded-lg bg-[#f7fbf9cc] shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895264/bytealley%20funnel/service-based_zhunwd.svg"
+              alt="Service Based"
+              class="h-48 w-full object-cover"
+            />
+            <div class="p-6">
+              <h3 class="mb-3 text-center text-xl font-semibold text-black">Service-Based Businesses</h3>
+              <p>Create passive income alongside your services</p>
             </div>
           </div>
         </div>
@@ -182,344 +200,547 @@
     </section>
 
     <!-- What You Get Section -->
-    <section style="padding: 5rem 0; background-color: var(--faded-white-bg);">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">What You Get</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+    <section class="bg-[#f7fbf9cc] py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">What You Get</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
           <!-- Card 1 -->
-          <div style="background: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 1rem;">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895243/bytealley%20funnel/lessons_l51yoe.svg" alt="Lessons" style="width: 50px; height: 50px;" />
-            <h3 style="font-size: 1.2rem;">Step-by-Step Lessons</h3>
-            <p>Bite-sized, actionable video modules that break down complex concepts into easy-to-follow steps.</p>
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895243/bytealley%20funnel/lessons_l51yoe.svg"
+              alt="Lessons"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Step-by-Step Lessons</h3>
+            <p class="text-center">
+              Bite-sized, actionable video modules that break down complex concepts into easy-to-follow steps.
+            </p>
           </div>
 
           <!-- Card 2 -->
-          <div style="background: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 1rem;">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plug-in_ffx7yw.svg" alt="Templates" style="width: 50px; height: 50px;" />
-            <h3 style="font-size: 1.2rem;">Plug-and-Play Templates</h3>
-            <p>Downloadable checklists & frameworks you can customize and implement immediately.</p>
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plug-in_ffx7yw.svg"
+              alt="Templates"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Plug-and-Play Templates</h3>
+            <p class="text-center">Downloadable checklists & frameworks you can customize and implement immediately.</p>
           </div>
 
           <!-- Card 3 -->
-          <div style="background: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 1rem;">
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895240/bytealley%20funnel/playbook_zbm1kh.svg" alt="Playbook" style="width: 50px; height: 50px;" />
-            <h3 style="font-size: 1.2rem;">Growth Playbook</h3>
-            <p>Proven strategies for increasing revenue and scaling your digital product business to the top.</p>
+          <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-white p-8 shadow-lg">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895240/bytealley%20funnel/playbook_zbm1kh.svg"
+              alt="Playbook"
+              class="h-12 w-12"
+            />
+            <h3 class="text-xl font-semibold">Growth Playbook</h3>
+            <p class="text-center">
+              Proven strategies for increasing revenue and scaling your digital product business to the top.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Who Is This For Section -->
-    <section style="padding: 5rem 0; background-color: var(--primary-color); color: var(--white-text);">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">Who is This Blueprint For</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+    <section class="bg-[#001d0f] py-12 text-[#e6e6e6] md:py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold md:text-4xl">Who is This Blueprint For</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <!-- Card 1 -->
-          <div style="border: 1px solid var(--off-white); border-radius: 0.6rem; padding: 1.5rem;">
-            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Clear Messaging Strategy</h3>
-            <p style="color: var(--off-white);">Learn how to communicate your value proposition effectively</p>
+          <div class="rounded-lg border border-[#ffffffb2] p-6">
+            <h3 class="mb-2 text-center text-xl font-semibold">Clear Messaging Strategy</h3>
+            <p class="text-center !text-[#ffffff]">Learn how to communicate your value proposition effectively</p>
           </div>
 
           <!-- Card 2 -->
-          <div style="border: 1px solid var(--off-white); border-radius: 0.6rem; padding: 1.5rem;">
-            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Lean Setup</h3>
-            <p style="color: var(--off-white);">No tech overwhelm - start with what you have</p>
+          <div class="rounded-lg border border-[#ffffffb2] p-6">
+            <h3 class="mb-2 text-center text-xl font-semibold">Lean Setup</h3>
+            <p class="text-center !text-[#ffffff]">No tech overwhelm - start with what you have</p>
           </div>
 
           <!-- Card 3 -->
-          <div style="border: 1px solid var(--off-white); border-radius: 0.6rem; padding: 1.5rem;">
-            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Built for Fast Action</h3>
-            <p style="color: var(--off-white);">Turn your writing into a sustainable income stream</p>
+          <div class="rounded-lg border border-[#ffffffb2] p-6">
+            <h3 class="mb-2 text-center text-xl font-semibold">Built for Fast Action</h3>
+            <p class="text-center !text-[#ffffff]">Turn your writing into a sustainable income stream</p>
           </div>
 
           <!-- Card 4 -->
-          <div style="border: 1px solid var(--off-white); border-radius: 0.6rem; padding: 1.5rem;">
-            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Service-Based Businesses</h3>
-            <p style="color: var(--off-white);">Create passive income alongside your services</p>
+          <div class="rounded-lg border border-[#ffffffb2] p-6">
+            <h3 class="mb-2 text-center text-xl font-semibold">Service-Based Businesses</h3>
+            <p class="text-center !text-[#ffffff]">Create passive income alongside your services</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Accordion Section -->
-    <section style="padding: 5rem 0;">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">What's You'll Find Inside</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
-          <!-- Accordion Item 1 -->
-          <div style="background-color: var(--gray-ii); border-radius: 0.6rem; margin-bottom: 1rem; overflow: hidden;">
-            <div class="accordion-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-              <h4>Module 1: The Foundation</h4>
-              <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg" alt="Toggle" style="width: 20px; height: 20px;" class="accordion-icon" />
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold !text-black md:text-4xl">What's You'll Find Inside</h2>
+        <div class="flex flex-col gap-12 md:flex-row">
+          <div class="flex w-full flex-col justify-between md:w-1/2">
+            <!-- Accordion Item 1 -->
+            <div class="mb-4 overflow-hidden rounded-lg bg-[#f8f8f8] py-5">
+              <div class="accordion-header flex cursor-pointer items-center justify-between p-4">
+                <h4 class="font-semibold">Module 1: The Foundation</h4>
+                <img
+                  src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
+                  alt="Toggle"
+                  class="accordion-icon h-5 w-5 transition-transform"
+                />
+              </div>
+              <div class="accordion-content">
+                <p class="px-4 pb-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+                  reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+                  animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+                </p>
+              </div>
             </div>
-            <div class="accordion-content" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-              <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?</p>
+
+            <!-- Accordion Item 2 -->
+            <div class="mb-4 overflow-hidden rounded-lg bg-[#f8f8f8] py-5">
+              <div class="accordion-header flex cursor-pointer items-center justify-between p-4">
+                <h4 class="font-semibold">Module 2: Messaging & Offer Clarity</h4>
+                <img
+                  src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
+                  alt="Toggle"
+                  class="accordion-icon h-5 w-5 transition-transform"
+                />
+              </div>
+              <div class="accordion-content">
+                <p class="px-4 pb-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+                  reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+                  animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+                </p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="mb-4 overflow-hidden rounded-lg bg-[#f8f8f8] py-5">
+              <div class="accordion-header flex cursor-pointer items-center justify-between p-4">
+                <h4 class="font-semibold">Module 3: Funnel Setup Made Simple</h4>
+                <img
+                  src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
+                  alt="Toggle"
+                  class="accordion-icon h-5 w-5 transition-transform"
+                />
+              </div>
+              <div class="accordion-content">
+                <p class="px-4 pb-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+                  reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+                  animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+                </p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 4 -->
+            <div class="mb-4 overflow-hidden rounded-lg bg-[#f8f8f8] py-5">
+              <div class="accordion-header flex cursor-pointer items-center justify-between p-4">
+                <h4 class="font-semibold">Module 4: Launch & Scale</h4>
+                <img
+                  src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg"
+                  alt="Toggle"
+                  class="accordion-icon h-5 w-5 transition-transform"
+                />
+              </div>
+              <div class="accordion-content">
+                <p class="px-4 pb-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+                  reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+                  animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+                </p>
+              </div>
             </div>
           </div>
 
-          <!-- Accordion Item 2 -->
-          <div style="background-color: var(--gray-ii); border-radius: 0.6rem; margin-bottom: 1rem; overflow: hidden;">
-            <div class="accordion-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-              <h4>Module 2: Messaging & Offer Clarity</h4>
-              <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg" alt="Toggle" style="width: 20px; height: 20px;" class="accordion-icon" />
-            </div>
-            <div class="accordion-content" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-              <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?</p>
-            </div>
+          <div class="flex w-full items-start justify-center md:w-1/2">
+            <img
+              src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895253/bytealley%20funnel/img-sec--_dwqgge.svg"
+              alt="Accordion Image"
+              class="w-full max-w-[600px]"
+            />
           </div>
-
-          <!-- Accordion Item 3 -->
-          <div style="background-color: var(--gray-ii); border-radius: 0.6rem; margin-bottom: 1rem; overflow: hidden;">
-            <div class="accordion-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-              <h4>Module 3: Funnel Setup Made Simple</h4>
-              <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/arrow_fpadwn.svg" alt="Toggle" style="width: 20px; height: 20px;" class="accordion-icon" />
-            </div>
-            <div class="accordion-content" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-              <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 3rem;">
-          <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895253/bytealley%20funnel/img-sec--_dwqgge.svg" alt="Accordion Image" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;" />
         </div>
       </div>
     </section>
 
     <!-- About Author Section -->
-    <section style="padding: 5rem 0;">
-      <div class="container" style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
-        <div>
-          <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895263/bytealley%20funnel/author_shonzl.svg" alt="Author Image" style="width: 100%; max-width: 400px; margin: 0 auto; display: block;" />
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto flex flex-col items-center gap-12 px-4 md:flex-row">
+        <div class="flex w-full justify-center md:w-1/2">
+          <img
+            src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895263/bytealley%20funnel/author_shonzl.svg"
+            alt="Author Image"
+            class="w-full max-w-[400px]"
+          />
         </div>
-        <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
-          <h2 style="font-size: 2.2rem; font-weight: 700;">About The Author</h2>
-          <p><b>Farouq Opeyemi</b> is a renowned entrepreneur, keynote speaker, and the creator of the highly successful 10X Revenue Course. With a background in business development and digital marketing, Farouq has helped hundreds of entrepreneurs scale their businesses and achieve exponential growth.</p>
-          <p>He is a thought leader in the space of scalable systems and sales optimization, having worked with top-tier companies and startups to improve their revenue generation strategies.</p>
+        <div class="flex w-full flex-col gap-6 text-center md:w-1/2 md:text-left">
+          <h2 class="text-3xl font-bold text-black md:text-4xl">About The Author</h2>
+          <p>
+            <b>Farouq Opeyemi</b> is a renowned entrepreneur, keynote speaker, and the creator of the highly successful
+            10X Revenue Course. With a background in business development and digital marketing, Farouq has helped
+            hundreds of entrepreneurs scale their businesses and achieve exponential growth.
+          </p>
+          <p>
+            He is a thought leader in the space of scalable systems and sales optimization, having worked with top-tier
+            companies and startups to improve their revenue generation strategies.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section style="padding: 5rem 0;">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">What Our Students Say</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">What Our Students Say</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
           <!-- Testimonial 1 -->
-          <div style="background-color: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <p>"This completely changed my business. I went from struggling to sell to having a consistent income stream!"</p>
-            <h3 style="color: var(--primary-color); font-weight: bold; margin-top: 1rem;">Amaka Benson, Course Creator</h3>
+          <div class="flex flex-col items-center rounded-lg bg-white p-8 shadow-lg lg:items-start">
+            <p>
+              "This completely changed my business. I went from struggling to sell to having a consistent income
+              stream!"
+            </p>
+            <h3 class="mt-4 font-bold text-[#001d0f]">Amaka Benson, Course Creator</h3>
           </div>
 
           <!-- Testimonial 2 -->
-          <div style="background-color: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <p>"This completely changed my business. I went from struggling to sell to having a consistent income stream!"</p>
-            <h3 style="color: var(--primary-color); font-weight: bold; margin-top: 1rem;">Amaka Benson, Course Creator</h3>
+          <div class="flex flex-col items-center rounded-lg bg-white p-8 shadow-lg lg:items-start">
+            <p>
+              "This completely changed my business. I went from struggling to sell to having a consistent income
+              stream!"
+            </p>
+            <h3 class="mt-4 font-bold text-[#001d0f]">Amaka Benson, Course Creator</h3>
           </div>
 
           <!-- Testimonial 3 -->
-          <div style="background-color: var(--white); border-radius: 0.6rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-            <p>"This completely changed my business. I went from struggling to sell to having a consistent income stream!"</p>
-            <h3 style="color: var(--primary-color); font-weight: bold; margin-top: 1rem;">Amaka Benson, Course Creator</h3>
+          <div class="flex flex-col items-center rounded-lg bg-white p-8 shadow-lg lg:items-start">
+            <p>
+              "This completely changed my business. I went from struggling to sell to having a consistent income
+              stream!"
+            </p>
+            <h3 class="mt-4 font-bold text-[#001d0f]">Amaka Benson, Course Creator</h3>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Payment Form Section -->
-    <section style="padding: 5rem 0;">
-      <div class="container" style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <h2 style="font-size: 2.2rem; font-weight: 700;">Buy Now and Get Your Product In Front of Buyers</h2>
-          <p>Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete your purchase and your access will be sent instantly via email.</p>
-        </div>
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto flex flex-col items-center gap-12 px-4 md:flex-row">
+        <div class="w-full rounded-xl bg-white shadow-xl md:w-1/2">
+          <form id="payment-form" class="flex flex-col gap-4 shadow-none">
+            <div>
+              <!-- <label class="mb-2 block font-bold">First Name</label> -->
+              <input
+                type="text"
+                name="firstname"
+                placeholder="Enter first name"
+                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                required
+              />
+            </div>
 
-        <div style="background-color: var(--white); box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1); padding: 2rem; border-radius: 0.8rem;">
-          <form style="display: flex; flex-direction: column; gap: 1rem;">
-            <label style="font-weight: bold;">Full Name</label>
-            <input type="text" placeholder="Enter full name" style="padding: 1rem; background-color: var(--gray-ii); border: none; border-radius: 0.3rem;" />
+            <div>
+              <!-- <label class="mb-2 block font-bold">Last Name</label> -->
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Enter last name"
+                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                required
+              />
+            </div>
 
-            <label style="font-weight: bold;">Email Address</label>
-            <input type="email" placeholder="Enter email address" style="padding: 1rem; background-color: var(--gray-ii); border: none; border-radius: 0.3rem;" />
+            <div>
+              <!-- <label class="mb-2 block font-bold">Email Address</label> -->
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter email address"
+                class="w-full rounded-lg border-none bg-[#f8f8f8] px-4 py-3"
+                required
+              />
+            </div>
 
-            <button type="submit" style="padding: 1rem; margin-top: 1rem;">PAY ₦2,500</button>
+            <button
+              type="submit"
+              class="mt-4 max-w-full rounded-lg bg-[#00ee7e] px-6 py-3 font-bold uppercase text-[#001d0f] transition hover:bg-[#f7fbf9cc]"
+            >
+              PAY ₦2,500
+            </button>
           </form>
+        </div>
+        <div class="flex w-full flex-col gap-6 md:w-1/2">
+          <h2 class="text-center text-3xl font-bold text-black md:text-4xl lg:text-start">
+            Buy Now and Get Your Product In Front of Buyers
+          </h2>
+          <p>
+            Enter your name and email to continue to secure checkout. You'll be redirected to Paystack to complete your
+            purchase and your access will be sent instantly via email.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- FAQ Section -->
-    <section style="padding: 5rem 0; background-color: var(--faded-white-bg-ii);">
-      <div class="container">
-        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.2rem; font-weight: 700;">Frequently Asked Questions</h2>
+    <section class="bg-[#f7fbf9cc] py-12 md:py-20">
+      <div class="container mx-auto max-w-5xl px-4">
+        <h2 class="mb-12 text-center text-3xl font-bold text-black md:text-4xl">Frequently Asked Questions</h2>
 
         <!-- FAQ Item 1 -->
-        <div style="margin-bottom: 1rem;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; cursor: pointer;">
-            <h3>What happens after I enroll?</h3>
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg" alt="Toggle" style="width: 20px; height: 20px;" class="faq-icon" />
+        <div class="mb-4">
+          <div class="faq-question flex cursor-pointer items-center justify-between p-4">
+            <h3 class="font-semibold">What happens after I enroll?</h3>
+            <div class="flex gap-2">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg"
+                alt="Toggle"
+                class="plus h-5 w-5"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/minus_do47zw.svg"
+                alt="Toggle"
+                class="minus minus-variant-two h-5 w-5"
+              />
+            </div>
           </div>
-          <div class="faq-answer" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-            <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?</p>
+          <div class="faq-answer">
+            <p class="px-4 pb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repudiandae eaque voluptas saepe ab
+              reiciendis explicabo dignissimos doloremque excepturi error corrupti aperiam sequi, voluptates fugit
+              animi, dicta debitis ipsam ipsum, iusto quis? Accusantium, explicabo ducimus?
+            </p>
           </div>
         </div>
 
         <!-- FAQ Item 2 -->
-        <div style="margin-bottom: 1rem;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; cursor: pointer;">
-            <h3>Is there a refund policy?</h3>
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg" alt="Toggle" style="width: 20px; height: 20px;" class="faq-icon" />
+        <div class="mb-4">
+          <div class="faq-question flex cursor-pointer items-center justify-between p-4">
+            <h3 class="font-semibold">Is there a refund policy?</h3>
+            <div class="flex gap-2">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg"
+                alt="Toggle"
+                class="plus h-5 w-5"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/minus_do47zw.svg"
+                alt="Toggle"
+                class="minus minus-variant-two h-5 w-5"
+              />
+            </div>
           </div>
-          <div class="faq-answer" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-            <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate delectus nobis voluptas labore. Tempora quidem cumque molestiae est culpa nobis modi, facere maxime cupiditate sapiente quis officiis aspernatur commodi eaque incidunt, laboriosam id possimus. Sapiente.</p>
+          <div class="faq-answer">
+            <p class="px-4 pb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate delectus nobis voluptas labore. Tempora
+              quidem cumque molestiae est culpa nobis modi, facere maxime cupiditate sapiente quis officiis aspernatur
+              commodi eaque incidunt, laboriosam id possimus. Sapiente.
+            </p>
           </div>
         </div>
 
         <!-- FAQ Item 3 -->
-        <div style="margin-bottom: 1rem;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; cursor: pointer;">
-            <h3>How long do i have access to the course?</h3>
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg" alt="Toggle" style="width: 20px; height: 20px;" class="faq-icon" />
+        <div class="mb-4">
+          <div class="faq-question flex cursor-pointer items-center justify-between p-4">
+            <h3 class="font-semibold">How long do i have access to the course?</h3>
+            <div class="flex gap-2">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg"
+                alt="Toggle"
+                class="plus h-5 w-5"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/minus_do47zw.svg"
+                alt="Toggle"
+                class="minus minus-variant-two h-5 w-5"
+              />
+            </div>
           </div>
-          <div class="faq-answer" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-            <p style="padding-bottom: 1rem;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae, assumenda doloribus quis, fugit placeat, error ipsa adipisci non aut vero commodi tenetur a aperiam cum veniam ea provident pariatur voluptates deserunt neque. Ut, praesentium blanditiis?</p>
+          <div class="faq-answer">
+            <p class="px-4 pb-4">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae, assumenda doloribus quis, fugit placeat,
+              error ipsa adipisci non aut vero commodi tenetur a aperiam cum veniam ea provident pariatur voluptates
+              deserunt neque. Ut, praesentium blanditiis?
+            </p>
           </div>
         </div>
 
         <!-- FAQ Item 4 -->
-        <div style="margin-bottom: 1rem;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; cursor: pointer;">
-            <h3>How soon will i see result?</h3>
-            <img src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg" alt="Toggle" style="width: 20px; height: 20px;" class="faq-icon" />
+        <div class="mb-4">
+          <div class="faq-question flex cursor-pointer items-center justify-between p-4">
+            <h3 class="font-semibold">How soon will i see result?</h3>
+            <div class="flex gap-2">
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg"
+                alt="Toggle"
+                class="plus h-5 w-5"
+              />
+              <img
+                src="https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/minus_do47zw.svg"
+                alt="Toggle"
+                class="minus minus-variant-two h-5 w-5"
+              />
+            </div>
           </div>
-          <div class="faq-answer" style="padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-            <p style="padding-bottom: 1rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ex corrupti labore voluptatibus, nulla odio hic obcaecati veniam cupiditate alias ad deleniti doloremque delectus blanditiis fuga! Obcaecati doloribus maiores et unde, illum aliquid modi voluptatum.</p>
+          <div class="faq-answer">
+            <p class="px-4 pb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ex corrupti labore voluptatibus, nulla
+              odio hic obcaecati veniam cupiditate alias ad deleniti doloremque delectus blanditiis fuga! Obcaecati
+              doloribus maiores et unde, illum aliquid modi voluptatum.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Banner Section -->
-    <section style="padding: 5rem 0;">
-      <div class="container">
-        <div style="background-color: var(--primary-color); color: var(--white-text); padding: 3rem; border-radius: 0.7rem; text-align: center;">
-          <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Let's Get Your Product In Front of Buyers</h2>
-          <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Join thousands of successful creators who've transformed their expertise into profit.</p>
-          <button style="max-width: 220px; margin: 0 auto;">BUY NOW FOR ₦5000</button>
+    <section class="py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <div
+          class="mx-auto flex max-w-4xl flex-col items-center justify-center rounded-xl bg-[#001d0f] p-8 text-center text-white md:p-12"
+        >
+          <h2 class="mb-6 text-2xl font-bold md:text-3xl">Let's Get Your Product In Front of Buyers</h2>
+          <p class="mb-8 text-center !text-white">
+            Join thousands of successful creators who've transformed their expertise into profit.
+          </p>
+          <button
+            class="mx-auto max-w-xs rounded-lg bg-[#00ee7e] px-8 py-3 font-bold uppercase text-[#001d0f] transition hover:bg-[#f7fbf9cc]"
+          >
+            BUY NOW FOR ₦5000
+          </button>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer style="background-color: var(--faded-white-bg); padding: 3rem 0;">
-      <div class="container" style="display: grid; grid-template-columns: 1fr; gap: 2rem; text-align: center;">
-        <div>
-          <h2 style="color: var(--primary-color); font-size: 1.5rem; font-weight: bold;">LOGO</h2>
+    <footer class="bg-[#f7fbf9cc] py-12">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="text-2xl font-bold text-[#e6e6e6]">
+          <img
+            src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+            alt="logo"
+            class="w-[80px] md:w-[100px]"
+          />
         </div>
-
-        <div>
-          <ul style="display: flex; flex-direction: column; gap: 1rem; list-style: none;">
-            <li><a href="#" style="color: var(--primary-color);">Nav Item</a></li>
-            <li><a href="#" style="color: var(--primary-color);">Nav Item</a></li>
-            <li><a href="#" style="color: var(--primary-color);">Nav Item</a></li>
-          </ul>
+        <div class="flex justify-center">
+          <div class="hidden items-center gap-4 lg:flex">
+            <a href="#" class="text-black">Nav Item</a>
+            <a href="#" class="text-black">Nav Item</a>
+            <a href="#" class="text-black">Nav Item</a>
+          </div>
         </div>
-
-        <div>
-          <ul style="display: flex; flex-direction: column; gap: 1rem; list-style: none;">
-            <li><a href="#" style="color: var(--primary-color);">Nav Item</a></li>
-          </ul>
-        </div>
+        <!-- <div class=""> -->
+        <a href="#" class="!w-fit text-[#001d0f] transition hover:text-[#00ee7e]">Nav Item</a>
+        <!-- </div> -->
       </div>
     </footer>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script>
       // Mobile Navigation
-      const hamburger = document.querySelector('.hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const navLinks = document.querySelectorAll('.nav-links a');
+      const hamburger = document.querySelector(".menu");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const navLinks = document.querySelectorAll(".mobile-menu a");
 
-      hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        mobileMenu.classList.toggle("active");
       });
 
       // Close mobile menu when clicking on a link
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('active');
-          hamburger.classList.remove('active');
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+          hamburger.classList.remove("active");
         });
       });
 
       // Accordion functionality
-      const accordionHeaders = document.querySelectorAll('.accordion-header');
-      accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
+      const accordionHeaders = document.querySelectorAll(".accordion-header");
+      accordionHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
           const accordionItem = header.parentElement;
           const accordionContent = header.nextElementSibling;
-          const accordionIcon = header.querySelector('.accordion-icon');
+          const accordionIcon = header.querySelector(".accordion-icon");
 
           // Close all other accordion items
-          document.querySelectorAll('.accordion-content').forEach(content => {
+          document.querySelectorAll(".accordion-content").forEach((content) => {
             if (content !== accordionContent) {
-              content.style.maxHeight = '0';
-              content.previousElementSibling.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+              content.style.maxHeight = "0";
+              content.previousElementSibling.querySelector(".accordion-icon").style.transform = "rotate(0deg)";
             }
           });
 
           // Toggle current accordion item
-          if (accordionContent.style.maxHeight === '0px' || !accordionContent.style.maxHeight) {
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-            accordionIcon.style.transform = 'rotate(180deg)';
+          if (accordionContent.style.maxHeight === "0px" || !accordionContent.style.maxHeight) {
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+            accordionIcon.style.transform = "rotate(180deg)";
           } else {
-            accordionContent.style.maxHeight = '0';
-            accordionIcon.style.transform = 'rotate(0deg)';
+            accordionContent.style.maxHeight = "0";
+            accordionIcon.style.transform = "rotate(0deg)";
           }
         });
       });
 
       // FAQ functionality
-      const faqQuestions = document.querySelectorAll('.faq-question');
-      faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-          const faqItem = question.parentElement;
-          const faqAnswer = question.nextElementSibling;
-          const faqIcon = question.querySelector('.faq-icon');
+      const faqQuestions = document.querySelectorAll(".faq-question");
+      const faqAnswers = document.querySelectorAll(".faq-answer");
+      const plusIcons = document.querySelectorAll(".plus");
+      const minusIcons = document.querySelectorAll(".minus");
 
-          // Close all other FAQ items
-          document.querySelectorAll('.faq-answer').forEach(answer => {
-            if (answer !== faqAnswer) {
-              answer.style.maxHeight = '0';
-              answer.previousElementSibling.querySelector('.faq-icon').src = 'https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg';
+      // Make first FAQ active by default
+      minusIcons[0].classList.add("showminus");
+      faqAnswers[0].style.maxHeight = faqAnswers[0].scrollHeight + "px";
+      plusIcons[0].classList.add("hideplus");
+
+      function setupFAQToggle(index) {
+        faqQuestions[index].addEventListener("click", () => {
+          // Hide all other active FAQs first (optional - if you want only one open at a time)
+          plusIcons.forEach((icon, i) => {
+            if (i !== index) {
+              icon.classList.remove("hideplus");
+              minusIcons[i].classList.remove("showminus");
+              faqAnswers[i].style.maxHeight = "0";
             }
           });
 
-          // Toggle current FAQ item
-          if (faqAnswer.style.maxHeight === '0px' || !faqAnswer.style.maxHeight) {
-            faqAnswer.style.maxHeight = faqAnswer.scrollHeight + 'px';
-            faqIcon.src = 'https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/minus_do47zw.svg';
+          // Toggle clicked FAQ
+          if (faqAnswers[index].style.maxHeight === "0px" || !faqAnswers[index].style.maxHeight) {
+            plusIcons[index].classList.add("hideplus");
+            minusIcons[index].classList.add("showminus");
+            faqAnswers[index].style.maxHeight = faqAnswers[index].scrollHeight + "px";
           } else {
-            faqAnswer.style.maxHeight = '0';
-            faqIcon.src = 'https://res.cloudinary.com/doejcrfso/image/upload/v1751895241/bytealley%20funnel/plus_pto23s.svg';
+            plusIcons[index].classList.remove("hideplus");
+            minusIcons[index].classList.remove("showminus");
+            faqAnswers[index].style.maxHeight = "0";
           }
         });
-      });
-
-      // Responsive navigation
-      function handleResize() {
-        if (window.innerWidth > 768) {
-          mobileMenu.style.display = 'none';
-          hamburger.style.display = 'none';
-        } else {
-          hamburger.style.display = 'block';
-          document.querySelector('nav ul').style.display = 'none';
-        }
       }
 
-      window.addEventListener('resize', handleResize);
-      handleResize();
+      // Set up event listeners for all FAQ items
+      faqQuestions.forEach((_, index) => setupFAQToggle(index));
+    </script>
+    <script>
+      // Payment form handling
+      document.getElementById("payment-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const firstname = this.firstname.value.trim();
+        const lastname = this.lastname.value.trim();
+        const email = this.email.value.trim();
+
+        // Example: log or send data to your payment handler
+        console.log({ firstname, lastname, email });
+
+        // TODO: Integrate with payment gateway here
+        // Example: redirect to Paystack or show a message
+        alert(`Proceeding to payment for ${firstname} ${lastname} (${email})`);
+      });
     </script>
   </body>
 </html>

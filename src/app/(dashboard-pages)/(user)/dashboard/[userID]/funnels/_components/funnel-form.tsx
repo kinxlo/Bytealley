@@ -23,12 +23,10 @@ const BaseFunnelForm = ({
   funnelService,
   productService,
   editor,
-  // onCloseFormModal, // Add this prop to close the form modal
 }: {
   funnelService: FunnelService;
   productService: ProductService;
   editor: any;
-  onCloseFormModal?: () => void; // Function to close the form modal
 }) => {
   const router = useRouter();
   const { user } = useSession();
@@ -38,7 +36,15 @@ const BaseFunnelForm = ({
   const [funnel, setFunnel] = useState<any>();
   const [formatedData, setFormattedData] = useState<any>();
   const [products, setProducts] = useState<{ value: string; label: string; thumbnail: string | File | null }[]>([]);
-  const [funnels, setFunnels] = useState<{ value: string; label: string }[]>([]);
+  const [isSingleProductTemplate, setIsSingleProductTemplate] = useState(false);
+
+  // Check template ID from URL params
+  useEffect(() => {
+    const searchParameters = new URLSearchParams(window.location.search);
+    const templateID = searchParameters.get("templateID");
+    setIsSingleProductTemplate(templateID === "single-product-sale");
+  }, []);
+
   const methods = useForm<FunnelFormData>({
     resolver: zodResolver(funnelSchema),
     mode: "onChange",
@@ -48,6 +54,7 @@ const BaseFunnelForm = ({
       thumbnail: null,
       assets: [],
       upsell_funnel_id: "",
+      bump_up_products: "",
     },
   });
 
@@ -98,31 +105,10 @@ const BaseFunnelForm = ({
     doProductExist();
   }, [productService]);
 
-  useEffect(() => {
-    const fetchFunnels = async () => {
-      const response = await funnelService.getAllFunnels();
-      if (response) {
-        const formattedFunnels = response.data.map((funnel) => ({
-          value: funnel.id,
-          label: funnel.title,
-        }));
-        setFunnels(formattedFunnels);
-      }
-    };
-    fetchFunnels();
-  }, [funnelService]);
-
-  // const handleSubmitForm = async (data: FunnelFormData) => {
-  //   const formatedData = {
-  //     ...data,
-  //     funnel,
-  //   };
-  //   setFormattedData(formatedData);
-  //   setIsDialogOpen(true);
-  // };
   const handleSubmitForm = async (data: FunnelFormData & { upsell_funnel_id?: string }) => {
     const formatedData = {
       ...data,
+      bump_up_products: isSingleProductTemplate ? [] : [data.bump_up_products], // Empty array if single product template
       funnel,
     };
     setFormattedData(formatedData);
@@ -195,10 +181,11 @@ const BaseFunnelForm = ({
             <FormField
               type={`select`}
               className={`h-12 bg-low-grey-III`}
-              label="Upsell Funnel"
-              name="upsell_funnel_id"
-              options={funnels}
-              placeholder="Choose a funnel (optional)"
+              label="Order Bump"
+              name="bump_up_products"
+              options={products}
+              placeholder="Choose a product (optional)"
+              disabled={isSingleProductTemplate} // Disabled when single product template
             />
 
             <FileUpload

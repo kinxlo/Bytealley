@@ -54,11 +54,13 @@
       <nav class="flex w-full max-w-full items-center justify-center py-4 text-center text-white shadow-md md:py-8">
         <div class="w-full">
           <div class="flex items-center justify-center">
-            <img
-              src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
-              alt="logo"
-              class="w-[80px] md:w-[100px]"
-            />
+            <a href="/">
+              <img
+                src="https://res.cloudinary.com/kingsleysolomon/image/upload/v1752492045/byte-alley/puikbvsb9i75vt11hnjo.svg"
+                alt="logo"
+                class="w-[80px] md:w-[100px]"
+              />
+            </a>
           </div>
         </div>
       </nav>
@@ -87,7 +89,7 @@
     </section>
 
     <section class="w-full py-6 md:py-8 lg:py-16">
-      <div class="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-8 px-4 lg:flex-row md:px-8">
+      <div class="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-8 px-4 md:px-8 lg:flex-row">
         <div class="w-full max-w-[560px]">
           <div>
             <img
@@ -180,7 +182,7 @@
               id="submit-button"
               class="h-[40px] max-w-full bg-[var(--primary-color)] text-white md:h-[48px]"
             >
-              send
+              SEND ME THE FREE GUIDE
             </button>
           </form>
         </div>
@@ -265,41 +267,63 @@
           submitButton.textContent = "Processing...";
 
           try {
-            // Prepare form data
+            // Prepare form data for email endpoint
+            const emailFormData = {
+              email: emailInput.value.trim(),
+              first_name: firstNameInput.value.trim(),
+              last_name: lastNameInput.value.trim(),
+              maillist_permission: consentCheckbox.checked,
+            };
+
+            // Call the email API endpoint if checkbox is checked
+            if (consentCheckbox.checked) {
+              const emailApiUrl = `https://api.trybytealley.com/api/funnels/${funnelSlug}/email`;
+              // const emailApiUrl = `https://api-dev.trybytealley.com/api/funnels/${funnelSlug}/email`;
+              try {
+                const emailResponse = await fetch(emailApiUrl, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                  },
+                  body: JSON.stringify(emailFormData),
+                });
+
+                if (emailResponse.ok) {
+                  alert("Thank you! Your package has been sent.");
+                } else {
+                  const errorData = await emailResponse.json();
+                  alert(`Error: ${errorData.message || "An error occurred while submitting your email."}`);
+                }
+
+                if (!emailResponse.ok) {
+                  console.error("Email submission failed");
+                }
+              } catch (emailError) {
+                console.error("Email submission error:", emailError);
+              }
+            }
+
+            // Store form data in sessionStorage
             const formData = {
               first_name: firstNameInput.value.trim(),
               last_name: lastNameInput.value.trim(),
-              funnel_slug: funnelSlug,
               email: emailInput.value.trim(),
               maillist_permission: consentCheckbox.checked,
             };
 
-            const apiUrl = "https://api-dev.trybytealley.com/api/carts/funnel";
-            // const apiUrl = "https://api.trybytealley.com/api/carts/funnel";
+            // Save to sessionStorage with a timestamp
+            const storageData = {
+              data: formData,
+              timestamp: new Date().getTime(),
+            };
 
-            const response = await fetch(apiUrl, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              body: JSON.stringify(formData),
-            });
+            sessionStorage.setItem("formData", JSON.stringify(storageData));
 
-            if (response.ok) {
-              const data = await response.json();
-              if (data.data && data.data.authorization_url) {
-                window.location.href = data.data.authorization_url;
-              } else {
-                // Handle success without redirect URL
-                alert("Thank you for your submission!");
-                form.reset();
-              }
-            } else {
-              // Handle error response
-              const errorData = await response.json();
-              alert("Error: " + (errorData.message || "Something went wrong"));
-            }
+            // Redirect to trip-wire page
+            // window.location.href = "/trip-wire.html";
+            // window.location.href = "/public/templates/lead-sale/trip-wire.html";
+            window.location.href = "/trip-wire.html";
           } catch (error) {
             console.error("Submission error:", error);
             alert("An error occurred. Please try again.");
